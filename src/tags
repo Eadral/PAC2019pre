@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CXX	Makefile	/^CXX=icpc -g -O3$/;"	m
+F	main.cpp	6;"	d	file:
+FYSPACE	FYStorage.cpp	/^namespace FYSPACE$/;"	n	file:
+INCLUDE	Makefile	/^INCLUDE=..\/include$/;"	m
+OBJ	Makefile	/^OBJ=FYStorage.o main.o$/;"	m
+ONE_D	main.cpp	/^const int ONE_D   = 1;$/;"	v
+RDouble	main.cpp	/^typedef double RDouble;$/;"	t	file:
+RDouble3D	main.cpp	/^typedef FYArray<RDouble ,3> RDouble3D;$/;"	t	file:
+RDouble4D	main.cpp	/^typedef FYArray<RDouble ,4> RDouble4D;$/;"	t	file:
+TARGET	Makefile	/^TARGET=FYArray.exe$/;"	m
+THREE_D	main.cpp	/^const int THREE_D = 3;$/;"	v
+TWO_D	main.cpp	/^const int TWO_D   = 2;$/;"	v
+Time	main.cpp	7;"	d	file:
+fortranArray	FYStorage.cpp	/^fortranTag fortranArray;$/;"	m	namespace:FYSPACE	file:
+main	main.cpp	/^int main()$/;"	f
+ni	main.cpp	/^const int ni      = 500;$/;"	v
+nj	main.cpp	/^const int nj      = 400;$/;"	v
+nk	main.cpp	/^const int nk      = 300;$/;"	v
+preccheck	main.cpp	/^int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d)$/;"	f
+rdtsc	main.cpp	/^inline unsigned long long rdtsc(void)$/;"	f
