@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cmath>
 #include "DataStruct_Array.h"
+#include <omp.h>
+
 #define F 2.2E3
 #define Time 1E6
 using namespace std;
@@ -122,7 +124,7 @@ int main()
 	// 希望参赛队伍在理解该算法的基础上，实现更高效的界面梯度求解，提升程序执行效率
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
-
+	# pragma omp parallel for num_threads(THREE_D)
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
