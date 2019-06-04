@@ -1,6 +1,6 @@
 TARGET=FYArray.exe
 
-CXX=icpc
+CXX=icpc -g -O3
 
 INCLUDE=../include
 
