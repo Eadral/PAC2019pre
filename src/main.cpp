@@ -5,9 +5,9 @@
 #include "DataStruct_Array.h"
 #include <omp.h>
 #include <time.h>
+#include <pthread.h>
 
-#define F 2.2E3
-#define Time 1E6
+
 using namespace std;
 using namespace FYSPACE;
 
@@ -18,6 +18,9 @@ const int THREE_D = 3;
 const int ni      = 500;
 const int nj      = 400;
 const int nk      = 300;
+
+#define F 2.2E3
+#define Time 1E6
 #else
 const int scale = 10;
 const int ONE_D = 1;
@@ -26,6 +29,9 @@ const int THREE_D = 3;
 const int ni = 500 / scale;
 const int nj = 400 / scale;
 const int nk = 300;
+
+#define F 1
+#define Time 1
 #endif
 
 typedef double RDouble;
@@ -43,9 +49,8 @@ inline unsigned long long rdtsc(void)
 
 	return (((unsigned long long)lo))|(((unsigned long long)hi)<<32);
 #else
-	time_t time_now;
-	time(&time_now);
-	return (unsigned long long)time_now;
+	
+	return (unsigned long long)time(nullptr);;
 #endif
 }
 
@@ -142,7 +147,7 @@ int main()
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
 
-	// # pragma omp parallel for num_threads(THREE_D) 
+	# pragma omp parallel for 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
@@ -273,9 +278,6 @@ int main()
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 	
 	}
-#ifdef _WIN32
-	return 0;
-#endif
 
 	//----------------------------------------------------
 	//以下为正确性对比部分，不可修改！
@@ -283,6 +285,9 @@ int main()
 	end=rdtsc();
 	elapsed= (end - start)/(F*Time);
 	cout<<"The programe elapsed "<<elapsed<<setprecision(8)<<" s"<<endl;
+#ifdef _WIN32
+	return 0;
+#endif
 	if(!preccheck(dqdx_4d,dqdy_4d,dqdz_4d))
 		cout<<"Result check passed!"<<endl;
 	return 0;
