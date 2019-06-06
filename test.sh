@@ -7,13 +7,13 @@ fi
 make clean
 rm FYArray.exe.hpcstruct
 make
-hpcrun -t -e CPUTIME@5000 -e CYCLES -e INSTRUCTIONS@4000000 -e CACHE-MISSES ./FYArray.exe >> result
 
 stamp=`date +%s`
 echo TITLE: $1 >> result
 echo STAMP: $stamp >> result
 date >> result
 
+hpcrun -t -e CPUTIME@5000 -e CYCLES -e INSTRUCTIONS@4000000 -e CACHE-MISSES ./FYArray.exe >> result
 hpcstruct ./FYArray.exe
 hpcprof -S FYArray.exe.hpcstruct -I ./+ hpctoolkit-FYArray.exe-measurements -o "./database-$stamp"
 

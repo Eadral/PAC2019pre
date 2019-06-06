@@ -1,0 +1,6 @@
+MEMORY: segment size: 4.0 meg, num segments: 3, total allocation: 12.0 meg, reclaims: 0
+MEMORY: total freeable: 0.0 meg, total non-freeable: 4.6 meg, malloc failures: 0
+SAMPLE ANOMALIES: blocks: 370 (async: 370, dlopen: 0), errors: 0 (segv: 0, soft: 0)
+SUMMARY: samples: 111457 (recorded: 111087, blocked: 370, errant: 0, trolled: 0, yielded: 0),
+         frames: 401728 (trolled: 0)
+         intervals: 517 (suspicious: 0)
