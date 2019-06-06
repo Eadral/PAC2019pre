@@ -1,0 +1,14 @@
+-r
+/home/zyc/PAC2019/r-1559821389-test_auto_tool
+--stack-stitching
+--data-limit-mb=500
+--disk-space-limit=0
+--mrte-type=java,python
+--itt-config=frame
+--stackwalk=offline
+--mrte-mode=auto
+--type=cpu:counters:nostack
+--type=cpu:stack
+--interval=10
+--
+./FYArray.exe

@@ -4,18 +4,24 @@ if [ ! -n "$1"  ] ;then
     exit
 fi
 
+# clean HERE
 make clean
-rm FYArray.exe.hpcstruct
+# clean END
+
 make
 
 stamp=`date +%s`
+echo " " >> result
 echo TITLE: $1 >> result
 echo STAMP: $stamp >> result
 date >> result
 
-hpcrun -t -e CPUTIME@5000 -e CYCLES -e INSTRUCTIONS@4000000 -e CACHE-MISSES ./FYArray.exe >> result
-hpcstruct ./FYArray.exe
-hpcprof -S FYArray.exe.hpcstruct -I ./+ hpctoolkit-FYArray.exe-measurements -o "./database-$stamp"
+# test HERE
+#hpcrun -t -e CPUTIME@5000 -e CYCLES -e INSTRUCTIONS@4000000 -e CACHE-MISSES ./FYArray.exe >> result
+#hpcstruct ./FYArray.exe
+#hpcprof -S FYArray.exe.hpcstruct -I ./+ hpctoolkit-FYArray.exe-measurements -o "./database-$stamp"
+amplxe-cl -collect hotspots -r "r-$stamp-$1" ./FYArray.exe >> result
+# test END
 
 git add --all
 git commit -m "AUTO:$1"
