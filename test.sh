@@ -20,7 +20,7 @@ date >> result
 #hpcrun -t -e CPUTIME@5000 -e CYCLES -e INSTRUCTIONS@4000000 -e CACHE-MISSES ./FYArray.exe >> result
 #hpcstruct ./FYArray.exe
 #hpcprof -S FYArray.exe.hpcstruct -I ./+ hpctoolkit-FYArray.exe-measurements -o "./database-$stamp"
-amplxe-cl -collect hotspots -r "r-$stamp-$1" ./FYArray.exe >> result
+amplxe-cl -collect hotspots -r "r-$stamp-$1" -search-dir . ./FYArray.exe >> result
 # test END
 
 git add --all
