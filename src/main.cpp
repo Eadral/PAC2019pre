@@ -4,18 +4,29 @@
 #include <cmath>
 #include "DataStruct_Array.h"
 #include <omp.h>
+#include <time.h>
 
 #define F 2.2E3
 #define Time 1E6
 using namespace std;
 using namespace FYSPACE;
 
+#ifndef _WIN32
 const int ONE_D   = 1;
 const int TWO_D   = 2;
 const int THREE_D = 3;
 const int ni      = 500;
 const int nj      = 400;
 const int nk      = 300;
+#else
+const int scale = 10;
+const int ONE_D = 1;
+const int TWO_D = 2;
+const int THREE_D = 3;
+const int ni = 500 / scale;
+const int nj = 400 / scale;
+const int nk = 300;
+#endif
 
 typedef double RDouble;
 typedef FYArray<RDouble ,3> RDouble3D;
@@ -27,9 +38,15 @@ inline unsigned long long rdtsc(void)
 {
 	unsigned long hi = 0, lo = 0;
 
+#ifndef _WIN32
 	__asm__ __volatile__ ("lfence;rdtsc" : "=a"(lo), "=d"(hi));
 
 	return (((unsigned long long)lo))|(((unsigned long long)hi)<<32);
+#else
+	time_t time_now;
+	time(&time_now);
+	return (unsigned long long)time_now;
+#endif
 }
 
 int main()
@@ -256,6 +273,10 @@ int main()
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 	
 	}
+#ifdef _WIN32
+	return 0;
+#endif
+
 	//----------------------------------------------------
 	//以下为正确性对比部分，不可修改！
 	//----------------------------------------------------
