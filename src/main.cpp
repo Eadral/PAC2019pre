@@ -64,16 +64,16 @@ int main()
 	// 申请变量空间
 	I = Range(-1,ni+1);
 	J = Range(-1,nj+1);
-        K = Range(-1,nk+1);
-        Range D(1,3);
+    K = Range(-1,nk+1);
+    Range D(1,3);
 	RDouble4D xfn (I,J,K,D,fortranArray);  // 网格单元↙左下面法向，D为方向
 	RDouble4D yfn (I,J,K,D,fortranArray);
 	RDouble4D zfn (I,J,K,D,fortranArray);
 	RDouble4D area(I,J,K,D,fortranArray);  // 网格单元↙左下面面积
 	RDouble3D vol (I,J,K,  fortranArray);  // 网格单元体积
 
-        Range M(0,3); // 4个变量：速度u、v、w，温度T
-        RDouble4D q_4d(I,J,K,M,fortranArray); // 存储流场量，位置在单元中心
+    Range M(0,3); // 4个变量：速度u、v、w，温度T
+    RDouble4D q_4d(I,J,K,M,fortranArray); // 存储流场量，位置在单元中心
 	RDouble4D dqdx_4d(I,J,K,M,fortranArray); // 存储流场量计算得到的梯度偏x
 	RDouble4D dqdy_4d(I,J,K,M,fortranArray); // 存储流场量计算得到的梯度偏y
 	RDouble4D dqdz_4d(I,J,K,M,fortranArray); // 存储流场量计算得到的梯度偏z
@@ -124,7 +124,8 @@ int main()
 	// 希望参赛队伍在理解该算法的基础上，实现更高效的界面梯度求解，提升程序执行效率
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
-	# pragma omp parallel for num_threads(THREE_D)
+
+	// # pragma omp parallel for num_threads(THREE_D) 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
