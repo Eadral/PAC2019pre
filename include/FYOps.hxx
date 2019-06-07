@@ -26,6 +26,8 @@
 // PURPOSE:    具体说明本模块的功能                                            +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+#include "LoopObject.hxx"
+
 namespace FYSPACE
 {
 //! Operator() functions:
@@ -538,7 +540,8 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
          * one loop.
          */
 
-        if ( canCollapse(outerLoopRank,innerLoopRank) && expr.canCollapse(outerLoopRank,innerLoopRank))
+        if ( canCollapse(outerLoopRank,innerLoopRank) &&
+			expr.canCollapse(outerLoopRank,innerLoopRank))
         {
             lastLength *= length(outerLoopRank);
             firstNoncollapsedLoop = i+1;
@@ -593,10 +596,21 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
              */
             if ( commonStride == 1 )
             {
-                for ( int i = 0; i < ubound; ++ i )
-				{
-                    T_update::update(*data++, expr.fastRead(i));
-				}
+				parallel_for(blocked_range<size_t>(0, ubound),
+					[&](const blocked_range<size_t>& r) {
+						for (size_t i = r.begin(); i != r.end(); ++i)
+						{
+							T_update::update(data[i], expr.fastRead(i));
+						}
+					}
+				);
+				// [&]() {
+				// 	for (int i = 0; i < ubound; ++i)
+				// 	{
+				// 		T_update::update(*data++, expr.fastRead(i));
+				// 	}
+				// }();
+                
             }
             else 
 			{

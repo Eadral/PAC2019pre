@@ -206,8 +206,6 @@ int main()
 		RDouble3D worksz(IW,JW,KW,fortranArray);
 		RDouble3D workqm(IW,JW,KW,fortranArray);
 
-		worksx(I, J, K) = worksx(I, J, K) + worksx(I, J, K);
-
 		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
 		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
 		worksz(I,J,K) = zfn(I,J,K,ns1) * area(I,J,K,ns1) + zfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);

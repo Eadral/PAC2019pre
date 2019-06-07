@@ -71,6 +71,7 @@ inline void MemoryBlock<P_type>::allocate(size_t length)
         // Patches by Petter Urkedal to support types with nontrivial
         // constructors.
 
+		// TODO: check cache align here
         const int cacheBlockSize = 128;    // Will work for 32, 16 also
 
         dataBlockAddress_ = reinterpret_cast<T_type*>( new char[numBytes + cacheBlockSize - 1] );
