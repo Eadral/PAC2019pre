@@ -155,8 +155,6 @@ int main()
 	Range JW(-1,nj+1);
 	Range KW(-1,nk+1);
 
-
-
 	RDouble3D worksx(IW,JW,KW,fortranArray);
 	RDouble3D worksy(IW,JW,KW,fortranArray);
 	RDouble3D worksz(IW,JW,KW,fortranArray);
@@ -166,10 +164,9 @@ int main()
 	J = Range(1, nj + 1);
 	K = Range(1, nk + 1);
 
-
-	RDouble3D work_temp1(I,J,K,fortranArray);
-	RDouble3D work_temp2(I,J,K,fortranArray);
-	RDouble3D work_temp3(I,J,K,fortranArray);
+	// RDouble3D work_temp1(I,J,K,fortranArray);
+	// RDouble3D work_temp2(I,J,K,fortranArray);
+	// RDouble3D work_temp3(I,J,K,fortranArray);
 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
@@ -267,26 +264,26 @@ int main()
 			{
 				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
 
-				// dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
-				// dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
-				// dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
-				//
-				// dqdx_4d(I - il3, J - jl3, K - kl3, m) += worksx(I, J, K) * workqm(I, J, K);
-				// dqdy_4d(I - il3, J - jl3, K - kl3, m) += worksy(I, J, K) * workqm(I, J, K);
-				// dqdz_4d(I - il3, J - jl3, K - kl3, m) += worksz(I, J, K) * workqm(I, J, K);
-
-				work_temp1 = worksx(I,J,K) * workqm(I,J,K);
-				work_temp2 = worksy(I,J,K) * workqm(I,J,K);
-				work_temp3 = worksz(I,J,K) * workqm(I,J,K);
+				dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
+				dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
+				dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
 				
-				dqdx_4d(I,J,K,m) -= work_temp1;
-				dqdx_4d(I-il3,J-jl3,K-kl3,m) += work_temp1;
+				dqdx_4d(I - il3, J - jl3, K - kl3, m) += worksx(I, J, K) * workqm(I, J, K);
+				dqdy_4d(I - il3, J - jl3, K - kl3, m) += worksy(I, J, K) * workqm(I, J, K);
+				dqdz_4d(I - il3, J - jl3, K - kl3, m) += worksz(I, J, K) * workqm(I, J, K);
 
-				dqdy_4d(I,J,K,m) -= work_temp2;
-				dqdy_4d(I-il3,J-jl3,K-kl3,m) += work_temp2;
-
-				dqdz_4d(I,J,K,m) -= work_temp3;
-				dqdz_4d(I-il3,J-jl3,K-kl3,m) += work_temp3;
+				// work_temp1 = worksx(I,J,K) * workqm(I,J,K);
+				// work_temp2 = worksy(I,J,K) * workqm(I,J,K);
+				// work_temp3 = worksz(I,J,K) * workqm(I,J,K);
+				//
+				// dqdx_4d(I,J,K,m) -= work_temp1;
+				// dqdx_4d(I-il3,J-jl3,K-kl3,m) += work_temp1;
+				//
+				// dqdy_4d(I,J,K,m) -= work_temp2;
+				// dqdy_4d(I-il3,J-jl3,K-kl3,m) += work_temp2;
+				//
+				// dqdz_4d(I,J,K,m) -= work_temp3;
+				// dqdz_4d(I-il3,J-jl3,K-kl3,m) += work_temp3;
 			}
 		}
 
