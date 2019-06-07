@@ -4,4 +4,4 @@ See "https://software.intel.com/en-us/intel-advisor-xe" for details.
 
 Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.5.274 Build 20180823
 
-Compiler options: -I../include -g -O3 -qopenmp -qopt-report=4 -qopt-report-phase=vec -c -o FYStorage.o
+Compiler options: -I../include -g -O3 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec -c -o FYStorage.o
