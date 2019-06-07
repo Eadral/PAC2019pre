@@ -596,20 +596,19 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
              */
             if ( commonStride == 1 )
             {
-				parallel_for(blocked_range<size_t>(0, ubound),
-					[&](const blocked_range<size_t>& r) {
-						for (size_t i = r.begin(); i != r.end(); ++i)
-						{
-							T_update::update(data[i], expr.fastRead(i));
-						}
-					}
-				);
-				// [&]() {
-				// 	for (int i = 0; i < ubound; ++i)
-				// 	{
-				// 		T_update::update(*data++, expr.fastRead(i));
+				// parallel_for(blocked_range<size_t>(0, ubound),
+				// 	[&](const blocked_range<size_t>& r) {
+				// 		for (size_t i = r.begin(); i != r.end(); ++i)
+				// 		{
+				// 			T_update::update(data[i], expr.fastRead(i));
+				// 		}
 				// 	}
-				// }();
+				// );
+
+				for (int i = 0; i < ubound; ++i)
+				{
+					T_update::update(*data++, expr.fastRead(i));
+				}
                 
             }
             else 

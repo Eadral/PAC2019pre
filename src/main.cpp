@@ -6,6 +6,7 @@
 #include <omp.h>
 #include <time.h>
 #include <pthread.h>
+#include <thread>
 #include <mkl.h>
 #include <complex>
 
@@ -55,6 +56,15 @@ inline unsigned long long rdtsc(void)
 
 	return (unsigned long long)time(nullptr);;
 #endif
+}
+
+#define start3(a, b, c) { \
+	thread t1([&]() {a});	\
+	thread t2([&]() {b});	\
+	thread t3([&]() {c});	\
+	t1.join();	\
+	t2.join();	\
+	t3.join();	\
 }
 
 int main()
@@ -206,61 +216,83 @@ int main()
 		RDouble3D worksz(IW,JW,KW,fortranArray);
 		RDouble3D workqm(IW,JW,KW,fortranArray);
 
-		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
-		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
-		worksz(I,J,K) = zfn(I,J,K,ns1) * area(I,J,K,ns1) + zfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
+		start3(
+				worksx(I, J, K) = xfn(I, J, K, ns1) * area(I, J, K, ns1) + xfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+			,
+
+				worksy(I, J, K) = yfn(I, J, K, ns1) * area(I, J, K, ns1) + yfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+			,
+
+				worksz(I, J, K) = zfn(I, J, K, ns1) * area(I, J, K, ns1) + zfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+			);
 
 		for ( int m = mst; m <= med; ++ m )
 		{
-			dqdx_4d(I,J,K,m) = - worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdy_4d(I,J,K,m) = - worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdz_4d(I,J,K,m) = - worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			start3(
+			dqdx_4d(I,J,K,m) = - worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+			dqdy_4d(I,J,K,m) = - worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+			dqdz_4d(I,J,K,m) = - worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+			)
 		}
 
 		for ( int m = mst; m <= med; ++ m )
 		{
-			dqdx_4d(I-il1,J-jl1,K-kl1,m) += worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdy_4d(I-il1,J-jl1,K-kl1,m) += worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdz_4d(I-il1,J-jl1,K-kl1,m) += worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			start3(
+			dqdx_4d(I-il1,J-jl1,K-kl1,m) += worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+			dqdy_4d(I-il1,J-jl1,K-kl1,m) += worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+			dqdz_4d(I-il1,J-jl1,K-kl1,m) += worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);,
+				)
 		}
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
 		{
-			worksx(I,J,K) = xfn(I,J,K,ns2) * area(I,J,K,ns2) + xfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
-			worksy(I,J,K) = yfn(I,J,K,ns2) * area(I,J,K,ns2) + yfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
-			worksz(I,J,K) = zfn(I,J,K,ns2) * area(I,J,K,ns2) + zfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
+			start3(
+			worksx(I,J,K) = xfn(I,J,K,ns2) * area(I,J,K,ns2) + xfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);,
+			worksy(I,J,K) = yfn(I,J,K,ns2) * area(I,J,K,ns2) + yfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);,
+			worksz(I,J,K) = zfn(I,J,K,ns2) * area(I,J,K,ns2) + zfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);,
+				)
 
 			for ( int m = mst; m <= med; ++ m )
 			{
 				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il2,J-jl2,K-kl2,m) + q_4d(I-il1-il2,J-jl1-jl2,K-kl1-kl2,m) );
 
-				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
+				start3(
+				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);,
+				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);,
+				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);,
+					)
 
-				dqdx_4d(I-il2,J-jl2,K-kl2,m) += worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I-il2,J-jl2,K-kl2,m) += worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I-il2,J-jl2,K-kl2,m) += worksz(I,J,K) * workqm(I,J,K);
+					start3(
+				dqdx_4d(I-il2,J-jl2,K-kl2,m) += worksx(I,J,K) * workqm(I,J,K);,
+				dqdy_4d(I-il2,J-jl2,K-kl2,m) += worksy(I,J,K) * workqm(I,J,K);,
+				dqdz_4d(I-il2,J-jl2,K-kl2,m) += worksz(I,J,K) * workqm(I,J,K);,
+						)
 			}
 		}
 
 		if ( ( nsurf != 1 ) || ( nDim != TWO_D ) )
 		{
-			worksx(I,J,K) = xfn(I,J,K,ns3) * area(I,J,K,ns3) + xfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
-			worksy(I,J,K) = yfn(I,J,K,ns3) * area(I,J,K,ns3) + yfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
-			worksz(I,J,K) = zfn(I,J,K,ns3) * area(I,J,K,ns3) + zfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
+			start3(
+			worksx(I,J,K) = xfn(I,J,K,ns3) * area(I,J,K,ns3) + xfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);,
+			worksy(I,J,K) = yfn(I,J,K,ns3) * area(I,J,K,ns3) + yfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);,
+			worksz(I,J,K) = zfn(I,J,K,ns3) * area(I,J,K,ns3) + zfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);,
+				)
 
 			for ( int m = mst; m <= med; ++ m )
 			{
 				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
 
-				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
+				start3(
+				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);,
+				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);,
+				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);,
+					)
 
-				dqdx_4d(I-il3,J-jl3,K-kl3,m) += worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I-il3,J-jl3,K-kl3,m) += worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I-il3,J-jl3,K-kl3,m) += worksz(I,J,K) * workqm(I,J,K);
+					start3(
+				dqdx_4d(I-il3,J-jl3,K-kl3,m) += worksx(I,J,K) * workqm(I,J,K);,
+				dqdy_4d(I-il3,J-jl3,K-kl3,m) += worksy(I,J,K) * workqm(I,J,K);,
+				dqdz_4d(I-il3,J-jl3,K-kl3,m) += worksz(I,J,K) * workqm(I,J,K);,
+						)
 			}
 		}
 
@@ -272,9 +304,11 @@ int main()
 
 		for ( int m = mst; m <= med; ++ m )
 		{
-			dqdx_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdy_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdz_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
+			start3(
+			dqdx_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);,
+			dqdy_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);,
+			dqdz_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);,
+				)
 		}
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
