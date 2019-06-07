@@ -6,6 +6,8 @@
 #include <omp.h>
 #include <time.h>
 #include <pthread.h>
+#include <mkl.h>
+#include <complex>
 
 
 using namespace std;
@@ -39,6 +41,7 @@ typedef FYArray<RDouble ,3> RDouble3D;
 typedef FYArray<RDouble ,4> RDouble4D;
 
 int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d);
+int preccheck_small(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d);
 
 inline unsigned long long rdtsc(void)
 {
@@ -147,7 +150,7 @@ int main()
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
 
-	# pragma omp parallel for 
+	// # pragma omp parallel for 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
@@ -203,6 +206,8 @@ int main()
 		RDouble3D worksy(IW,JW,KW,fortranArray);
 		RDouble3D worksz(IW,JW,KW,fortranArray);
 		RDouble3D workqm(IW,JW,KW,fortranArray);
+
+		worksx(I, J, K) = worksx(I, J, K) + worksx(I, J, K);
 
 		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
 		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
@@ -286,11 +291,16 @@ int main()
 	elapsed= (end - start)/(F*Time);
 	cout<<"The programe elapsed "<<elapsed<<setprecision(8)<<" s"<<endl;
 #ifdef _WIN32
+	if (!preccheck_small(dqdx_4d, dqdy_4d, dqdz_4d))
+		cout << "Result check passed!" << endl;
 	return 0;
-#endif
+
+#else
+	
 	if(!preccheck(dqdx_4d,dqdy_4d,dqdz_4d))
 		cout<<"Result check passed!"<<endl;
 	return 0;
+#endif
 }
 
 int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d)
@@ -343,6 +353,67 @@ int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d)
 						cout<<"The Standard result is "<<setprecision(15)<<tmp<<endl;
 						cout<<"The wrong position is "<<endl;
 						cout<<"i="<<i<<",j="<<j<<",k="<<k<<",m="<<m<<endl;
+						exit(1);
+					}
+				}
+			}
+		}
+	}
+	file.close();
+	return 0;
+}
+
+
+int preccheck_small(RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d)
+{
+	double tmp, real;
+	ifstream file("check_small.txt", std::ofstream::binary);
+	if (!file)
+	{
+		cout << "Error opening check file! ";
+		exit(1);
+	}
+	for (int i = 0; i < ni; ++i)
+	{
+		for (int j = 0; j < nj; ++j)
+		{
+			for (int k = 0; k < nk; ++k)
+			{
+				for (int m = 0; m < 3; ++m)
+				{
+					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
+					if (fabs(dqdx_4d(i, j, k, m) - tmp) > 1e-6)
+					{
+						real = dqdx_4d(i, j, k, m);
+						cout << "Precision check failed !" << endl;
+						cout << "Your result is " << setprecision(15) << real << endl;
+						cout << "The Standard result is " << setprecision(15) << tmp << endl;
+						cout << "The wrong position is " << endl;
+						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
+						exit(1);
+					}
+
+					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
+					if (fabs(dqdy_4d(i, j, k, m) - tmp) > 1e-6)
+					{
+						real = dqdy_4d(i, j, k, m);
+						cout << "Precision check failed !" << endl;
+						cout << "Your result is " << setprecision(15) << real << endl;
+						cout << "The Standard result is " << setprecision(15) << tmp << endl;
+						cout << "The wrong position is " << endl;
+						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
+						exit(1);
+					}
+
+					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
+					if (fabs(dqdz_4d(i, j, k, m) - tmp) > 1e-6)
+					{
+						real = dqdz_4d(i, j, k, m);
+						cout << "Precision check failed !" << endl;
+						cout << "Your result is " << setprecision(15) << real << endl;
+						cout << "The Standard result is " << setprecision(15) << tmp << endl;
+						cout << "The wrong position is " << endl;
+						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
 						exit(1);
 					}
 				}
