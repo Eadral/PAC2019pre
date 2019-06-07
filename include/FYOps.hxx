@@ -26,7 +26,7 @@
 // PURPOSE:    具体说明本模块的功能                                            +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#include "LoopObject.hxx"
+#include "ThreadPool.hxx"
 
 namespace FYSPACE
 {
@@ -736,7 +736,10 @@ template < typename T, int N > template < typename T_expr >
 FYArray<T, N>& 
 FYArray<T, N>::operator = (const FYETBase<T_expr> &expr)
 {
-	evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
+	g_pool.commit([&]() {
+		evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
+	});
+
 
     return *this;
 }
