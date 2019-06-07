@@ -9,10 +9,12 @@
 #include <thread>
 #include <mkl.h>
 #include <complex>
+#include <tbb/tbb.h>
 
 
 using namespace std;
 using namespace FYSPACE;
+using namespace tbb::flow;
 
 #ifndef _WIN32
 const int ONE_D   = 1;
@@ -158,7 +160,10 @@ int main()
 	RDouble3D worksx(IW,JW,KW,fortranArray);
 	RDouble3D worksy(IW,JW,KW,fortranArray);
 	RDouble3D worksz(IW,JW,KW,fortranArray);
-	RDouble3D workqm(IW,JW,KW,fortranArray);
+
+	Range MW(mst, med);
+
+	RDouble4D workqm(IW,JW,KW, MW, fortranArray);
 
 	I = Range(1, ni + 1);
 	J = Range(1, nj + 1);
@@ -167,6 +172,11 @@ int main()
 	// RDouble3D work_temp1(I,J,K,fortranArray);
 	// RDouble3D work_temp2(I,J,K,fortranArray);
 	// RDouble3D work_temp3(I,J,K,fortranArray);
+
+
+	using Node = continue_node<continue_msg>;
+	using Msg = const continue_msg&;
+	// tbb::flow::graph_node
 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
@@ -216,61 +226,161 @@ int main()
 		dqdy_4d(I,J,K,M) = 0.0;
 		dqdz_4d(I,J,K,M) = 0.0;
 
-		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
-		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
-		worksz(I,J,K) = zfn(I,J,K,ns1) * area(I,J,K,ns1) + zfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
+		// graph g;
+		// vector<thread> threadPool;
+		g_pool.commit([=]() {
+			worksx(I, J, K) = xfn(I, J, K, ns1) * area(I, J, K, ns1) + xfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+			});
+		
+
+		g_pool.commit([=]() {
+			worksy(I, J, K) = yfn(I, J, K, ns1) * area(I, J, K, ns1) + yfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+
+			});
+
+		g_pool.commit([=]() {
+			worksz(I, J, K) = zfn(I, J, K, ns1) * area(I, J, K, ns1) + zfn(I - il1, J - jl1, K - kl1, ns1) * area(I - il1, J - jl1, K - kl1, ns1);
+			});
+
+		g_pool.joinAll();
+
+		
+		for ( int m = mst; m <= med; ++ m )
+		{
+			g_pool.commit([=]() {
+				dqdx_4d(I, J, K, m) -= worksx(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+			g_pool.commit([=]() {
+				dqdy_4d(I, J, K, m) -= worksy(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+			g_pool.commit([=]() {
+				dqdz_4d(I, J, K, m) -= worksz(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+		}
+
+		g_pool.joinAll();
+
 
 		for ( int m = mst; m <= med; ++ m )
 		{
-			dqdx_4d(I,J,K,m) = - worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdy_4d(I,J,K,m) = - worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdz_4d(I,J,K,m) = - worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+
+			g_pool.commit([=]() {
+				dqdx_4d(I - il1, J - jl1, K - kl1, m) += worksx(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+			g_pool.commit([=]() {
+				dqdy_4d(I - il1, J - jl1, K - kl1, m) += worksy(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+			g_pool.commit([=]() {
+				dqdz_4d(I - il1, J - jl1, K - kl1, m) += worksz(I, J, K) * q_4d(I - il1, J - jl1, K - kl1, m);
+
+				});
+			g_pool.joinAll();
 		}
 
-		for ( int m = mst; m <= med; ++ m )
-		{
-			dqdx_4d(I-il1,J-jl1,K-kl1,m) += worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdy_4d(I-il1,J-jl1,K-kl1,m) += worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-			dqdz_4d(I-il1,J-jl1,K-kl1,m) += worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
-		}
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
 		{
-			worksx(I,J,K) = xfn(I,J,K,ns2) * area(I,J,K,ns2) + xfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
-			worksy(I,J,K) = yfn(I,J,K,ns2) * area(I,J,K,ns2) + yfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
-			worksz(I,J,K) = zfn(I,J,K,ns2) * area(I,J,K,ns2) + zfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
+			g_pool.commit([=]() {
+				worksx(I, J, K) = xfn(I, J, K, ns2) * area(I, J, K, ns2) + xfn(I - il1, J - jl1, K - kl1, ns2) * area(I - il1, J - jl1, K - kl1, ns2);
+
+				});
+			g_pool.commit([=]() {
+				worksy(I, J, K) = yfn(I, J, K, ns2) * area(I, J, K, ns2) + yfn(I - il1, J - jl1, K - kl1, ns2) * area(I - il1, J - jl1, K - kl1, ns2);
+
+				});
+			g_pool.commit([=]() {
+				worksz(I, J, K) = zfn(I, J, K, ns2) * area(I, J, K, ns2) + zfn(I - il1, J - jl1, K - kl1, ns2) * area(I - il1, J - jl1, K - kl1, ns2);
+
+				});
+			g_pool.joinAll();
 
 			for ( int m = mst; m <= med; ++ m )
 			{
-				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il2,J-jl2,K-kl2,m) + q_4d(I-il1-il2,J-jl1-jl2,K-kl1-kl2,m) );
+				workqm(I,J,K, m) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il2,J-jl2,K-kl2,m) + q_4d(I-il1-il2,J-jl1-jl2,K-kl1-kl2,m) );
 
-				dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
-				dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
-				dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
+				g_pool.commit([&]() {
+					dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K, m);
 
-				dqdx_4d(I - il2, J - jl2, K - kl2, m) += worksx(I, J, K) * workqm(I, J, K);
-				dqdy_4d(I - il2, J - jl2, K - kl2, m) += worksy(I, J, K) * workqm(I, J, K);
-				dqdz_4d(I - il2, J - jl2, K - kl2, m) += worksz(I, J, K) * workqm(I, J, K);
+					});
+				g_pool.commit([&]() {
+					dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.joinAll();
+
+				g_pool.commit([&]() {
+					dqdx_4d(I - il2, J - jl2, K - kl2, m) += worksx(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdy_4d(I - il2, J - jl2, K - kl2, m) += worksy(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdz_4d(I - il2, J - jl2, K - kl2, m) += worksz(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.joinAll();
 			}
 		}
 
 		if ( ( nsurf != 1 ) || ( nDim != TWO_D ) )
 		{
-			worksx(I,J,K) = xfn(I,J,K,ns3) * area(I,J,K,ns3) + xfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
-			worksy(I,J,K) = yfn(I,J,K,ns3) * area(I,J,K,ns3) + yfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
-			worksz(I,J,K) = zfn(I,J,K,ns3) * area(I,J,K,ns3) + zfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
+			g_pool.commit([=]() {
+				worksx(I, J, K) = xfn(I, J, K, ns3) * area(I, J, K, ns3) + xfn(I - il1, J - jl1, K - kl1, ns3) * area(I - il1, J - jl1, K - kl1, ns3);
+
+				});
+			g_pool.commit([=]() {
+				worksy(I, J, K) = yfn(I, J, K, ns3) * area(I, J, K, ns3) + yfn(I - il1, J - jl1, K - kl1, ns3) * area(I - il1, J - jl1, K - kl1, ns3);
+
+				});
+			g_pool.commit([=]() {
+				worksz(I, J, K) = zfn(I, J, K, ns3) * area(I, J, K, ns3) + zfn(I - il1, J - jl1, K - kl1, ns3) * area(I - il1, J - jl1, K - kl1, ns3);
+
+				});
+			g_pool.joinAll();
 
 			for ( int m = mst; m <= med; ++ m )
 			{
-				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
+				workqm(I,J,K,m) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
 
-				dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
-				dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
-				dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
+				g_pool.commit([&]() {
+					dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.joinAll();
+
+				g_pool.commit([&]() {
+					dqdx_4d(I - il3, J - jl3, K - kl3, m) += worksx(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdy_4d(I - il3, J - jl3, K - kl3, m) += worksy(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.commit([&]() {
+					dqdz_4d(I - il3, J - jl3, K - kl3, m) += worksz(I, J, K) * workqm(I, J, K, m);
+
+					});
+				g_pool.joinAll();
 				
-				dqdx_4d(I - il3, J - jl3, K - kl3, m) += worksx(I, J, K) * workqm(I, J, K);
-				dqdy_4d(I - il3, J - jl3, K - kl3, m) += worksy(I, J, K) * workqm(I, J, K);
-				dqdz_4d(I - il3, J - jl3, K - kl3, m) += worksz(I, J, K) * workqm(I, J, K);
 
 				// work_temp1 = worksx(I,J,K) * workqm(I,J,K);
 				// work_temp2 = worksy(I,J,K) * workqm(I,J,K);
@@ -291,14 +401,24 @@ int main()
 		Range J0(1,nj);
 		Range K0(1,nk);
 
-		workqm(I0,J0,K0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
+		workqm(I0,J0,K0,0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
 
 		for ( int m = mst; m <= med; ++ m )
 		{
-			dqdx_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdy_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdz_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
+			g_pool.commit([=]() {
+				dqdx_4d(I0, J0, K0, m) *= workqm(I0, J0, K0,0);
+
+				});
+			g_pool.commit([=]() {
+				dqdy_4d(I0, J0, K0, m) *= workqm(I0, J0, K0,0);
+
+				});
+			g_pool.commit([=]() {
+				dqdz_4d(I0, J0, K0, m) *= workqm(I0, J0, K0,0);
+
+				});
 		}
+		g_pool.joinAll();
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 

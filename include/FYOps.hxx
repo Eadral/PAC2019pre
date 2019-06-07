@@ -27,6 +27,9 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include "ThreadPool.hxx"
+#include <tbb/tbb.h>
+
+using namespace tbb;
 
 namespace FYSPACE
 {
@@ -605,11 +608,32 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
 				// 	}
 				// );
 
+				// threadpool pool;
+				// int number = 1;
+				// int size = ubound / number;
+
+				// for (int i = 0; i <= number; i++) {
+				// 	if (i != number)
+				// 	pool.commit([&, i]() {
+				// 		for (int j = i*size; j < (i+1)*size; j++) {
+				// 			T_update::update(data[j], expr.fastRead(j));
+				// 		}
+				// 	});
+				// 	// else
+				// 	// pool.commit([&]() {
+				// 	// 	for (int j = number * size; j < ubound; j++) {
+				// 	// 			T_update::update(data[j], expr.fastRead(j));
+				// 	// 	}
+				// 	// });
+				// }
+
+
 				for (int i = 0; i < ubound; ++i)
 				{
 					T_update::update(*data++, expr.fastRead(i));
 				}
-                
+				// pool.joinAll();
+
             }
             else 
 			{
