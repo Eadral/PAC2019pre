@@ -52,7 +52,7 @@ inline unsigned long long rdtsc(void)
 
 	return (((unsigned long long)lo))|(((unsigned long long)hi)<<32);
 #else
-	
+
 	return (unsigned long long)time(nullptr);;
 #endif
 }
@@ -84,7 +84,7 @@ int main()
 			}
 		}
 	}
-	
+
 
 	// 申请变量空间
 	I = Range(-1,ni+1);
@@ -150,8 +150,7 @@ int main()
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
 
-	// # pragma omp parallel for 
-	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
+	# pragma omp parallel for 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
 		Range J(1,nj+1);
@@ -281,7 +280,7 @@ int main()
 		}
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
-	
+
 	}
 
 	//----------------------------------------------------
