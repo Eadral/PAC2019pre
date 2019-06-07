@@ -736,10 +736,11 @@ template < typename T, int N > template < typename T_expr >
 FYArray<T, N>& 
 FYArray<T, N>::operator = (const FYETBase<T_expr> &expr)
 {
-	g_pool.commit([&]() {
-		evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
-	});
+	// auto p = g_pool.commit([&]() {
+	// 	evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
+	// });
 
+	evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
 
     return *this;
 }

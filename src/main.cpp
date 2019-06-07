@@ -151,11 +151,32 @@ int main()
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
 
+	Range IW(-1,ni+1);
+	Range JW(-1,nj+1);
+	Range KW(-1,nk+1);
+
+
+
+	RDouble3D worksx(IW,JW,KW,fortranArray);
+	RDouble3D worksy(IW,JW,KW,fortranArray);
+	RDouble3D worksz(IW,JW,KW,fortranArray);
+	RDouble3D workqm(IW,JW,KW,fortranArray);
+
+	I = Range(1, ni + 1);
+	J = Range(1, nj + 1);
+	K = Range(1, nk + 1);
+
+
+	RDouble3D work_temp1(I,J,K,fortranArray);
+	RDouble3D work_temp2(I,J,K,fortranArray);
+	RDouble3D work_temp3(I,J,K,fortranArray);
+
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
-		Range I(1,ni+1);
-		Range J(1,nj+1);
-		Range K(1,nk+1);
+		
+		// Range I(1, ni + 1);
+		// Range J(1, nj + 1);
+		// Range K(1, nk + 1);
 
 		int index[] = {1,2,3,1,2};
 
@@ -198,15 +219,6 @@ int main()
 		dqdy_4d(I,J,K,M) = 0.0;
 		dqdz_4d(I,J,K,M) = 0.0;
 
-		Range IW(-1,ni+1);
-		Range JW(-1,nj+1);
-		Range KW(-1,nk+1);
-
-		RDouble3D worksx(IW,JW,KW,fortranArray);
-		RDouble3D worksy(IW,JW,KW,fortranArray);
-		RDouble3D worksz(IW,JW,KW,fortranArray);
-		RDouble3D workqm(IW,JW,KW,fortranArray);
-
 		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
 		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
 		worksz(I,J,K) = zfn(I,J,K,ns1) * area(I,J,K,ns1) + zfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
@@ -235,13 +247,13 @@ int main()
 			{
 				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il2,J-jl2,K-kl2,m) + q_4d(I-il1-il2,J-jl1-jl2,K-kl1-kl2,m) );
 
-				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
+				dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
+				dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
+				dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
 
-				dqdx_4d(I-il2,J-jl2,K-kl2,m) += worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I-il2,J-jl2,K-kl2,m) += worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I-il2,J-jl2,K-kl2,m) += worksz(I,J,K) * workqm(I,J,K);
+				dqdx_4d(I - il2, J - jl2, K - kl2, m) += worksx(I, J, K) * workqm(I, J, K);
+				dqdy_4d(I - il2, J - jl2, K - kl2, m) += worksy(I, J, K) * workqm(I, J, K);
+				dqdz_4d(I - il2, J - jl2, K - kl2, m) += worksz(I, J, K) * workqm(I, J, K);
 			}
 		}
 
@@ -255,13 +267,26 @@ int main()
 			{
 				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
 
-				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
+				// dqdx_4d(I, J, K, m) -= worksx(I, J, K) * workqm(I, J, K);
+				// dqdy_4d(I, J, K, m) -= worksy(I, J, K) * workqm(I, J, K);
+				// dqdz_4d(I, J, K, m) -= worksz(I, J, K) * workqm(I, J, K);
+				//
+				// dqdx_4d(I - il3, J - jl3, K - kl3, m) += worksx(I, J, K) * workqm(I, J, K);
+				// dqdy_4d(I - il3, J - jl3, K - kl3, m) += worksy(I, J, K) * workqm(I, J, K);
+				// dqdz_4d(I - il3, J - jl3, K - kl3, m) += worksz(I, J, K) * workqm(I, J, K);
 
-				dqdx_4d(I-il3,J-jl3,K-kl3,m) += worksx(I,J,K) * workqm(I,J,K);
-				dqdy_4d(I-il3,J-jl3,K-kl3,m) += worksy(I,J,K) * workqm(I,J,K);
-				dqdz_4d(I-il3,J-jl3,K-kl3,m) += worksz(I,J,K) * workqm(I,J,K);
+				work_temp1 = worksx(I,J,K) * workqm(I,J,K);
+				work_temp2 = worksy(I,J,K) * workqm(I,J,K);
+				work_temp3 = worksz(I,J,K) * workqm(I,J,K);
+				
+				dqdx_4d(I,J,K,m) -= work_temp1;
+				dqdx_4d(I-il3,J-jl3,K-kl3,m) += work_temp1;
+
+				dqdy_4d(I,J,K,m) -= work_temp2;
+				dqdy_4d(I-il3,J-jl3,K-kl3,m) += work_temp2;
+
+				dqdz_4d(I,J,K,m) -= work_temp3;
+				dqdz_4d(I-il3,J-jl3,K-kl3,m) += work_temp3;
 			}
 		}
 

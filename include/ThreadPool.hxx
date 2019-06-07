@@ -14,22 +14,22 @@
 namespace std
 {
 
-	//Ïß³Ì³Ø,¿ÉÒÔÌá½»±ä²Îº¯Êı»òÀ­Ä·´ï±í´ïÊ½µÄÄäÃûº¯ÊıÖ´ĞĞ,¿ÉÒÔ»ñÈ¡Ö´ĞĞ·µ»ØÖµ
-	//²»Ö§³ÖÀà³ÉÔ±º¯Êı, Ö§³ÖÀà¾²Ì¬³ÉÔ±º¯Êı»òÈ«¾Öº¯Êı,Opteron()º¯ÊıµÈ
+	//çº¿ç¨‹æ± ,å¯ä»¥æäº¤å˜å‚å‡½æ•°æˆ–æ‹‰å§†è¾¾è¡¨è¾¾å¼çš„åŒ¿åå‡½æ•°æ‰§è¡Œ,å¯ä»¥è·å–æ‰§è¡Œè¿”å›å€¼
+	//ä¸æ”¯æŒç±»æˆå‘˜å‡½æ•°, æ”¯æŒç±»é™æ€æˆå‘˜å‡½æ•°æˆ–å…¨å±€å‡½æ•°,Opteron()å‡½æ•°ç­‰
 	class threadpool
 	{
 		using Task = std::function<void()>;
-		// Ïß³Ì³Ø
+		// çº¿ç¨‹æ± 
 		std::vector<std::thread> pool;
-		// ÈÎÎñ¶ÓÁĞ
+		// ä»»åŠ¡é˜Ÿåˆ—
 		std::queue<Task> tasks;
-		// Í¬²½
+		// åŒæ­¥
 		std::mutex m_lock;
-		// Ìõ¼ş×èÈû
+		// æ¡ä»¶é˜»å¡
 		std::condition_variable cv_task;
-		// ÊÇ·ñ¹Ø±ÕÌá½»
+		// æ˜¯å¦å…³é—­æäº¤
 		std::atomic<bool> stoped;
-		//¿ÕÏĞÏß³ÌÊıÁ¿
+		//ç©ºé—²çº¿ç¨‹æ•°é‡
 		std::atomic<int>  idlThrNum;
 
 	public:
@@ -37,23 +37,23 @@ namespace std
 		{
 			idlThrNum = size < 1 ? 1 : size;
 			for (size = 0; size < idlThrNum; ++size)
-			{   //³õÊ¼»¯Ïß³ÌÊıÁ¿
+			{   //åˆå§‹åŒ–çº¿ç¨‹æ•°é‡
 				pool.emplace_back(
 					[this]
-					{ // ¹¤×÷Ïß³Ìº¯Êı
+					{ // å·¥ä½œçº¿ç¨‹å‡½æ•°
 						while (!this->stoped)
 						{
 							std::function<void()> task;
-							{   // »ñÈ¡Ò»¸ö´ıÖ´ĞĞµÄ task
-								std::unique_lock<std::mutex> lock{ this->m_lock };// unique_lock Ïà±È lock_guard µÄºÃ´¦ÊÇ£º¿ÉÒÔËæÊ± unlock() ºÍ lock()
+							{   // è·å–ä¸€ä¸ªå¾…æ‰§è¡Œçš„ task
+								std::unique_lock<std::mutex> lock{ this->m_lock };// unique_lock ç›¸æ¯” lock_guard çš„å¥½å¤„æ˜¯ï¼šå¯ä»¥éšæ—¶ unlock() å’Œ lock()
 								this->cv_task.wait(lock,
 									[this] {
 										return this->stoped.load() || !this->tasks.empty();
 									}
-								); // wait Ö±µ½ÓĞ task
+								); // wait ç›´åˆ°æœ‰ task
 								if (this->stoped && this->tasks.empty())
 									return;
-								task = std::move(this->tasks.front()); // È¡Ò»¸ö task
+								task = std::move(this->tasks.front()); // å–ä¸€ä¸ª task
 								this->tasks.pop();
 							}
 							idlThrNum--;
@@ -67,33 +67,37 @@ namespace std
 		inline ~threadpool()
 		{
 			stoped.store(true);
-			cv_task.notify_all(); // »½ĞÑËùÓĞÏß³ÌÖ´ĞĞ
+			cv_task.notify_all(); // å”¤é†’æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œ
 			for (std::thread& thread : pool) {
-				//thread.detach(); // ÈÃÏß³Ì¡°×ÔÉú×ÔÃğ¡±
+				//thread.detach(); // è®©çº¿ç¨‹â€œè‡ªç”Ÿè‡ªç­â€
 				if (thread.joinable())
-					thread.join(); // µÈ´ıÈÎÎñ½áÊø£¬ Ç°Ìá£ºÏß³ÌÒ»¶¨»áÖ´ĞĞÍê
+					thread.join(); // ç­‰å¾…ä»»åŠ¡ç»“æŸï¼Œ å‰æï¼šçº¿ç¨‹ä¸€å®šä¼šæ‰§è¡Œå®Œ
 			}
 		}
 
+		void joinAll() {
+			
+		}
+
 	public:
-		// Ìá½»Ò»¸öÈÎÎñ
-		// µ÷ÓÃ.get()»ñÈ¡·µ»ØÖµ»áµÈ´ıÈÎÎñÖ´ĞĞÍê,»ñÈ¡·µ»ØÖµ
-		// ÓĞÁ½ÖÖ·½·¨¿ÉÒÔÊµÏÖµ÷ÓÃÀà³ÉÔ±£¬
-		// Ò»ÖÖÊÇÊ¹ÓÃ   bind£º .commit(std::bind(&Dog::sayHello, &dog));
-		// Ò»ÖÖÊÇÓÃ mem_fn£º .commit(std::mem_fn(&Dog::sayHello), &dog)
+		// æäº¤ä¸€ä¸ªä»»åŠ¡
+		// è°ƒç”¨.get()è·å–è¿”å›å€¼ä¼šç­‰å¾…ä»»åŠ¡æ‰§è¡Œå®Œ,è·å–è¿”å›å€¼
+		// æœ‰ä¸¤ç§æ–¹æ³•å¯ä»¥å®ç°è°ƒç”¨ç±»æˆå‘˜ï¼Œ
+		// ä¸€ç§æ˜¯ä½¿ç”¨   bindï¼š .commit(std::bind(&Dog::sayHello, &dog));
+		// ä¸€ç§æ˜¯ç”¨ mem_fnï¼š .commit(std::mem_fn(&Dog::sayHello), &dog)
 		template<class F, class... Args>
 		auto commit(F&& f, Args&&... args) ->std::future<decltype(f(args...))>
 		{
 			if (stoped.load())    // stop == true ??
 				throw std::runtime_error("commit on ThreadPool is stopped.");
 
-			using RetType = decltype(f(args...)); // typename std::result_of<F(Args...)>::type, º¯Êı f µÄ·µ»ØÖµÀàĞÍ
+			using RetType = decltype(f(args...)); // typename std::result_of<F(Args...)>::type, å‡½æ•° f çš„è¿”å›å€¼ç±»å‹
 			auto task = std::make_shared<std::packaged_task<RetType()> >(
 				std::bind(std::forward<F>(f), std::forward<Args>(args)...)
 				);    // wtf !
 			std::future<RetType> future = task->get_future();
-			{    // Ìí¼ÓÈÎÎñµ½¶ÓÁĞ
-				std::lock_guard<std::mutex> lock{ m_lock };//¶Ôµ±Ç°¿éµÄÓï¾ä¼ÓËø  lock_guard ÊÇ mutex µÄ stack ·â×°Àà£¬¹¹ÔìµÄÊ±ºò lock()£¬Îö¹¹µÄÊ±ºò unlock()
+			{    // æ·»åŠ ä»»åŠ¡åˆ°é˜Ÿåˆ—
+				std::lock_guard<std::mutex> lock{ m_lock };//å¯¹å½“å‰å—çš„è¯­å¥åŠ é”  lock_guard æ˜¯ mutex çš„ stack å°è£…ç±»ï¼Œæ„é€ çš„æ—¶å€™ lock()ï¼Œææ„çš„æ—¶å€™ unlock()
 				tasks.emplace(
 					[task]()
 					{ // push(Task{...})
@@ -101,18 +105,18 @@ namespace std
 					}
 				);
 			}
-			cv_task.notify_one(); // »½ĞÑÒ»¸öÏß³ÌÖ´ĞĞ
+			cv_task.notify_one(); // å”¤é†’ä¸€ä¸ªçº¿ç¨‹æ‰§è¡Œ
 
 			return future;
 		}
 
-		//¿ÕÏĞÏß³ÌÊıÁ¿
+		//ç©ºé—²çº¿ç¨‹æ•°é‡
 		int idlCount() { return idlThrNum; }
 
 	};
 
 }
 
-std::threadpool g_pool(3);
+std::threadpool g_pool(1);
 
 #endif
