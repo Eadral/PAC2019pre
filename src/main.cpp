@@ -150,7 +150,7 @@ int main()
 	// --------------------------------------------------------------------
 	// 此处开始统计计算部分代码运行时间
 
-	# pragma omp parallel for 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
+	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
 		Range I(1,ni+1);
 		Range J(1,nj+1);
@@ -295,7 +295,7 @@ int main()
 	return 0;
 
 #else
-	
+
 	if(!preccheck(dqdx_4d,dqdy_4d,dqdz_4d))
 		cout<<"Result check passed!"<<endl;
 	return 0;

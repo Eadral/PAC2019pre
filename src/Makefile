@@ -1,6 +1,6 @@
 TARGET=FYArray.exe
 
-CXX=icpc -g -O3 -qopenmp
+CXX=icpc -g -O3 -qopenmp -qopt-report=4 -qopt-report-phase=vec
 
 INCLUDE=../include
 
