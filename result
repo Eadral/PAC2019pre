@@ -98,3 +98,51 @@ Average CPU Utilization:  1.000
 TITLE: baseline_O3
 STAMP: 1559880467
 Fri Jun  7 12:07:47 CST 2019
+ 
+TITLE: baseline_O3
+STAMP: 1559981690
+Sat Jun  8 16:14:50 CST 2019
+The programe elapsed 46.2449 s
+Result check passed!
+
+Collection and Platform Info
+----------------------------
+Parameter                 r-1559981690-baseline_O3-hotspots                                                                                                                                                                                                                                                                                                                                                                                             
+------------------------  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Application Command Line  ./FYArray.exe                                                                                                                                                                                                                                                                                                                                                                                                                 
+Operating System          3.10.0-957.el7.x86_64 NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="7"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:centos:centos:7"
+HOME_URL="https://www.centos.org/"
+BUG_REPORT_URL="https://bugs.centos.org/"
+
+CENTOS_MANTISBT_PROJECT="CentOS-7"
+CENTOS_MANTISBT_PROJECT_VERSION="7"
+REDHAT_SUPPORT_PRODUCT="centos"
+REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+Computer Name             gpu4                                                                                                                                                                                                                                                                                                                                                                                                                          
+Result Size               5119285                                                                                                                                                                                                                                                                                                                                                                                                                       
+Collection start time     08:14:51 08/06/2019 UTC                                                                                                                                                                                                                                                                                                                                                                                                       
+Collection stop time      08:16:14 08/06/2019 UTC                                                                                                                                                                                                                                                                                                                                                                                                       
+Collector Type            User-mode sampling and tracing                                                                                                                                                                                                                                                                                                                                                                                                
+
+CPU
+---
+Parameter          r-1559981690-baseline_O3-hotspots              
+-----------------  -----------------------------------------------
+Name               Intel(R) Xeon(R) Processor code named Broadwell
+Frequency          2394457382                                     
+Logical CPU Count  28                                             
+
+Summary
+-------
+Elapsed Time:             82.286
+Paused Time:              0.0   
+CPU Time:                 82.240
+Average CPU Utilization:  1.000 

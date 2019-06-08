@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
  <rdmgr>
-  <timestamp type="u64_t">1559880468</timestamp>
+  <timestamp type="u64_t">1559981691</timestamp>
   <hostname type="string">gpu4</hostname>
   <os type="string">linux</os>
   <product type="string">Intel® VTune™ Amplifier 2018 Update 4</product>
@@ -13,7 +13,8 @@
   <CPUStepping type="s32_t">1</CPUStepping>
   <CPUBrandName type="string">Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz</CPUBrandName>
   <isa type="string">avx2</isa>
-  <collectionTimeBegin type="u64_t">1559880468</collectionTimeBegin>
+  <collectionTimeBegin type="u64_t">1559981691</collectionTimeBegin>
+  <collectionTimeEnd type="u64_t">1559981774</collectionTimeEnd>
   <variables>
    <at type="string">hs</at>
   </variables>
