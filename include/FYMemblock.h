@@ -16,7 +16,6 @@
 #pragma once
 
 #include <stddef.h>     // ptrdiff_t
-#include <mutex>
 
 namespace FYSPACE
 {
@@ -86,9 +85,7 @@ protected:
 
     void addReference()
     { 
-		lock.lock();
         ++ references_;
-		lock.unlock();
     }
 
     T_type * data() 
@@ -113,18 +110,13 @@ protected:
 
     int           removeReference()
     {
-		lock.lock();
         int refcount = -- references_;
-		lock.unlock();
         return refcount;
     }
 
-    int references() 
-	// const
+    int references() const
     {
-		lock.lock();
         int refcount = references_;
-		lock.unlock();
         return refcount;
     }
 
@@ -145,7 +137,6 @@ private:   // Data members
 
     volatile int references_;
     size_t  length_;
-	std::mutex lock;
 };
 
 template<typename P_type>

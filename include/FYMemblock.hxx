@@ -1,8 +1,8 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                                                             +
 //       Hybrid Platform for Engineering and Research of Flows (HyperFlow)     +
-//                        é¢å‘æµä½“å·¥ç¨‹ä¸ç ”ç©¶çš„æ··åˆCFDå¹³å°                      +
-//                        ï¼ˆCï¼‰Zhang Laiping and He Xin                        +
+//                        ÃæÏòÁ÷Ìå¹¤³ÌÓëÑĞ¾¿µÄ»ìºÏCFDÆ½Ì¨                      +
+//                        £¨C£©Zhang Laiping and He Xin                        +
 //                    State Key Laboratory of Aerodynamics                     +
 //                    Computational Aerodynamics Institute                     +
 //            China Aerodynamics Research and Development Center               +
@@ -11,7 +11,7 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// æ–‡ä»¶å¤´éƒ¨è¯´æ˜ï¼š                                                              +
+// ÎÄ¼şÍ·²¿ËµÃ÷£º                                                              +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // FILE:       XXX.cpp (XXX.h)                                                 +
 // AUTHOR(S):  He Xin                                                          +
@@ -19,11 +19,11 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// å‡½æ•°å¤´éƒ¨è¯´æ˜ï¼š                                                              +
+// º¯ÊıÍ·²¿ËµÃ÷£º                                                              +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Function:   ä¾‹å¦‚ï¼šSimulation::Simulation()                                  +
+// Function:   ÀıÈç£ºSimulation::Simulation()                                  +
 // AUTHOR(S):  He Xin                                                          +
-// PURPOSE:    å…·ä½“è¯´æ˜æœ¬æ¨¡å—çš„åŠŸèƒ½                                            +
+// PURPOSE:    ¾ßÌåËµÃ÷±¾Ä£¿éµÄ¹¦ÄÜ                                            +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //#include "FYMemblock.h"
@@ -71,7 +71,6 @@ inline void MemoryBlock<P_type>::allocate(size_t length)
         // Patches by Petter Urkedal to support types with nontrivial
         // constructors.
 
-		// TODO: check cache align here
         const int cacheBlockSize = 128;    // Will work for 32, 16 also
 
         dataBlockAddress_ = reinterpret_cast<T_type*>( new char[numBytes + cacheBlockSize - 1] );

@@ -1,8 +1,8 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //                                                                             +
 //       Hybrid Platform for Engineering and Research of Flows (HyperFlow)     +
-//                        é¢å‘æµä½“å·¥ç¨‹ä¸ç ”ç©¶çš„æ··åˆCFDå¹³å°                      +
-//                        ï¼ˆCï¼‰Zhang Laiping and He Xin                        +
+//                        ÃæÏòÁ÷Ìå¹¤³ÌÓëÑĞ¾¿µÄ»ìºÏCFDÆ½Ì¨                      +
+//                        £¨C£©Zhang Laiping and He Xin                        +
 //                    State Key Laboratory of Aerodynamics                     +
 //                    Computational Aerodynamics Institute                     +
 //            China Aerodynamics Research and Development Center               +
@@ -11,7 +11,7 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// æ–‡ä»¶å¤´éƒ¨è¯´æ˜ï¼š                                                              +
+// ÎÄ¼şÍ·²¿ËµÃ÷£º                                                              +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // FILE:       XXX.cpp (XXX.h)                                                 +
 // AUTHOR(S):  He Xin                                                          +
@@ -19,14 +19,12 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// å‡½æ•°å¤´éƒ¨è¯´æ˜ï¼š                                                              +
+// º¯ÊıÍ·²¿ËµÃ÷£º                                                              +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Function:   ä¾‹å¦‚ï¼šSimulation::Simulation()                                  +
+// Function:   ÀıÈç£ºSimulation::Simulation()                                  +
 // AUTHOR(S):  He Xin                                                          +
-// PURPOSE:    å…·ä½“è¯´æ˜æœ¬æ¨¡å—çš„åŠŸèƒ½                                            +
+// PURPOSE:    ¾ßÌåËµÃ÷±¾Ä£¿éµÄ¹¦ÄÜ                                            +
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-#include "ThreadPool.hxx"
 
 namespace FYSPACE
 {
@@ -540,8 +538,7 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
          * one loop.
          */
 
-        if ( canCollapse(outerLoopRank,innerLoopRank) &&
-			expr.canCollapse(outerLoopRank,innerLoopRank))
+        if ( canCollapse(outerLoopRank,innerLoopRank) && expr.canCollapse(outerLoopRank,innerLoopRank))
         {
             lastLength *= length(outerLoopRank);
             firstNoncollapsedLoop = i+1;
@@ -596,20 +593,10 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
              */
             if ( commonStride == 1 )
             {
-				// parallel_for(blocked_range<size_t>(0, ubound),
-				// 	[&](const blocked_range<size_t>& r) {
-				// 		for (size_t i = r.begin(); i != r.end(); ++i)
-				// 		{
-				// 			T_update::update(data[i], expr.fastRead(i));
-				// 		}
-				// 	}
-				// );
-
-				for (int i = 0; i < ubound; ++i)
+                for ( int i = 0; i < ubound; ++ i )
 				{
-					T_update::update(*data++, expr.fastRead(i));
+                    T_update::update(*data++, expr.fastRead(i));
 				}
-                
             }
             else 
 			{
@@ -736,10 +723,6 @@ template < typename T, int N > template < typename T_expr >
 FYArray<T, N>& 
 FYArray<T, N>::operator = (const FYETBase<T_expr> &expr)
 {
-	// auto p = g_pool.commit([&]() {
-	// 	evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
-	// });
-
 	evaluate(expr.unwrap(), FYUpdate<T_numtype, typename T_expr::T_numtype>());
 
     return *this;

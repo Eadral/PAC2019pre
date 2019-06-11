@@ -3,20 +3,11 @@
 #include <fstream>
 #include <cmath>
 #include "DataStruct_Array.h"
-#include <omp.h>
-#include <time.h>
-#include <pthread.h>
-#include <thread>
-#include <mkl.h>
-#include <complex>
-#include <tbb/tbb.h>
-
-
+#define F 2.2E3
+#define Time 1E6
 using namespace std;
 using namespace FYSPACE;
-using namespace tbb;
 
-#ifndef _WIN32
 const int ONE_D   = 1;
 const int TWO_D   = 2;
 const int THREE_D = 3;
@@ -24,40 +15,19 @@ const int ni      = 500;
 const int nj      = 400;
 const int nk      = 300;
 
-#define F 2.2E3
-#define Time 1E6
-#else
-const int scale = 10;
-const int ONE_D = 1;
-const int TWO_D = 2;
-const int THREE_D = 3;
-const int ni = 500 / scale;
-const int nj = 400 / scale;
-const int nk = 300;
-
-#define F 1
-#define Time 1
-#endif
-
 typedef double RDouble;
 typedef FYArray<RDouble ,3> RDouble3D;
 typedef FYArray<RDouble ,4> RDouble4D;
 
 int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d);
-int preccheck_small(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d);
 
 inline unsigned long long rdtsc(void)
 {
 	unsigned long hi = 0, lo = 0;
 
-#ifndef _WIN32
 	__asm__ __volatile__ ("lfence;rdtsc" : "=a"(lo), "=d"(hi));
 
 	return (((unsigned long long)lo))|(((unsigned long long)hi)<<32);
-#else
-
-	return (unsigned long long)time(nullptr);;
-#endif
 }
 
 int main()
@@ -87,28 +57,28 @@ int main()
 			}
 		}
 	}
+	
 
-
-	// ç”³è¯·å˜é‡ç©ºé—´
+	// ÉêÇë±äÁ¿¿Õ¼ä
 	I = Range(-1,ni+1);
 	J = Range(-1,nj+1);
-    K = Range(-1,nk+1);
-    Range D(1,3);
-	RDouble4D xfn (I,J,K,D,fortranArray);  // ç½‘æ ¼å•å…ƒâ†™å·¦ä¸‹é¢æ³•å‘ï¼ŒDä¸ºæ–¹å‘
+        K = Range(-1,nk+1);
+        Range D(1,3);
+	RDouble4D xfn (I,J,K,D,fortranArray);  // Íø¸ñµ¥Ôª¨L×óÏÂÃæ·¨Ïò£¬DÎª·½Ïò
 	RDouble4D yfn (I,J,K,D,fortranArray);
 	RDouble4D zfn (I,J,K,D,fortranArray);
-	RDouble4D area(I,J,K,D,fortranArray);  // ç½‘æ ¼å•å…ƒâ†™å·¦ä¸‹é¢é¢ç§¯
-	RDouble3D vol (I,J,K,  fortranArray);  // ç½‘æ ¼å•å…ƒä½“ç§¯
+	RDouble4D area(I,J,K,D,fortranArray);  // Íø¸ñµ¥Ôª¨L×óÏÂÃæÃæ»ý
+	RDouble3D vol (I,J,K,  fortranArray);  // Íø¸ñµ¥ÔªÌå»ý
 
-    Range M(0,3); // 4ä¸ªå˜é‡ï¼šé€Ÿåº¦uã€vã€wï¼Œæ¸©åº¦T
-    RDouble4D q_4d(I,J,K,M,fortranArray); // å­˜å‚¨æµåœºé‡ï¼Œä½ç½®åœ¨å•å…ƒä¸­å¿ƒ
-	RDouble4D dqdx_4d(I,J,K,M,fortranArray); // å­˜å‚¨æµåœºé‡è®¡ç®—å¾—åˆ°çš„æ¢¯åº¦åx
-	RDouble4D dqdy_4d(I,J,K,M,fortranArray); // å­˜å‚¨æµåœºé‡è®¡ç®—å¾—åˆ°çš„æ¢¯åº¦åy
-	RDouble4D dqdz_4d(I,J,K,M,fortranArray); // å­˜å‚¨æµåœºé‡è®¡ç®—å¾—åˆ°çš„æ¢¯åº¦åz
+        Range M(0,3); // 4¸ö±äÁ¿£ºËÙ¶Èu¡¢v¡¢w£¬ÎÂ¶ÈT
+        RDouble4D q_4d(I,J,K,M,fortranArray); // ´æ´¢Á÷³¡Á¿£¬Î»ÖÃÔÚµ¥ÔªÖÐÐÄ
+	RDouble4D dqdx_4d(I,J,K,M,fortranArray); // ´æ´¢Á÷³¡Á¿¼ÆËãµÃµ½µÄÌÝ¶ÈÆ«x
+	RDouble4D dqdy_4d(I,J,K,M,fortranArray); // ´æ´¢Á÷³¡Á¿¼ÆËãµÃµ½µÄÌÝ¶ÈÆ«y
+	RDouble4D dqdz_4d(I,J,K,M,fortranArray); // ´æ´¢Á÷³¡Á¿¼ÆËãµÃµ½µÄÌÝ¶ÈÆ«z
 
-	// è®¡ç®—ç½‘æ ¼å•å…ƒå‡ ä½•æ•°æ® xfnã€fnã€zfnã€areaã€vol
-	// é€Ÿåº¦uã€vã€wï¼Œæ¸©åº¦T æµåœºå˜é‡èµ‹å€¼ï¼Œå­˜å‚¨åœ¨q_4dä¸­ï¼Œä¾¿äºŽåŽé¢é€Ÿåº¦ã€æ¸©åº¦ç•Œé¢æ¢¯åº¦è®¡ç®—
-	// ç¨‹åºæ¯æ‰§è¡Œä¸€ä¸ªè¿­ä»£æ­¥ï¼Œæµåœºå˜é‡è¢«æ›´æ–°ã€‚æ­¤å¤„ç»™åˆåœºå€¼u=1.0ï¼Œv=0.0ï¼Œw=0.0ï¼ŒT=1.0
+	// ¼ÆËãÍø¸ñµ¥Ôª¼¸ºÎÊý¾Ý xfn¡¢fn¡¢zfn¡¢area¡¢vol
+	// ËÙ¶Èu¡¢v¡¢w£¬ÎÂ¶ÈT Á÷³¡±äÁ¿¸³Öµ£¬´æ´¢ÔÚq_4dÖÐ£¬±ãÓÚºóÃæËÙ¶È¡¢ÎÂ¶È½çÃæÌÝ¶È¼ÆËã
+	// ³ÌÐòÃ¿Ö´ÐÐÒ»¸öµü´ú²½£¬Á÷³¡±äÁ¿±»¸üÐÂ¡£´Ë´¦¸ø³õ³¡Öµu=1.0£¬v=0.0£¬w=0.0£¬T=1.0
 	for ( int k = -1; k <= nk+1; ++ k )
 	{
 		for ( int j = -1; j <= nj+1; ++ j )
@@ -145,40 +115,19 @@ int main()
 		}
 	}
 	start=rdtsc();
-	//ä»¥ä¸Šä¸ºæ•°æ®åˆå§‹åŒ–éƒ¨åˆ†ï¼Œä¸å¯ä¿®æ”¹ï¼
+	//ÒÔÉÏÎªÊý¾Ý³õÊ¼»¯²¿·Ö£¬²»¿ÉÐÞ¸Ä£¡
 	// --------------------------------------------------------------------
-	// æ±‚è§£é€Ÿåº¦ã€æ¸©åº¦åœ¨â€œå•å…ƒç•Œé¢â€ä¸Šçš„æ¢¯åº¦ï¼Œiã€jã€kä¸‰ä¸ªæ–¹å‘ä¾æ¬¡æ±‚è§£
-	// åœ¨ç¨‹åºä¸­æ˜¯â€œè€—æ—¶éƒ¨åˆ†â€ï¼Œæ¯ä¸€ä¸ªè¿­ä»£æ­¥éƒ½ä¼šæ±‚è§£ï¼Œä»¥ä¸‹ä¸ºæœªä¼˜åŒ–ä»£ç 
-	// å¸Œæœ›å‚èµ›é˜Ÿä¼åœ¨ç†è§£è¯¥ç®—æ³•çš„åŸºç¡€ä¸Šï¼Œå®žçŽ°æ›´é«˜æ•ˆçš„ç•Œé¢æ¢¯åº¦æ±‚è§£ï¼Œæå‡ç¨‹åºæ‰§è¡Œæ•ˆçŽ‡
+	// Çó½âËÙ¶È¡¢ÎÂ¶ÈÔÚ¡°µ¥Ôª½çÃæ¡±ÉÏµÄÌÝ¶È£¬i¡¢j¡¢kÈý¸ö·½ÏòÒÀ´ÎÇó½â
+	// ÔÚ³ÌÐòÖÐÊÇ¡°ºÄÊ±²¿·Ö¡±£¬Ã¿Ò»¸öµü´ú²½¶¼»áÇó½â£¬ÒÔÏÂÎªÎ´ÓÅ»¯´úÂë
+	// Ï£Íû²ÎÈü¶ÓÎéÔÚÀí½â¸ÃËã·¨µÄ»ù´¡ÉÏ£¬ÊµÏÖ¸ü¸ßÐ§µÄ½çÃæÌÝ¶ÈÇó½â£¬ÌáÉý³ÌÐòÖ´ÐÐÐ§ÂÊ
 	// --------------------------------------------------------------------
-	// æ­¤å¤„å¼€å§‹ç»Ÿè®¡è®¡ç®—éƒ¨åˆ†ä»£ç è¿è¡Œæ—¶é—´
-
-
-
-	Range IW(-1,ni+1);
-	Range JW(-1,nj+1);
-	Range KW(-1,nk+1);
-
-	RDouble3D worksx(IW,JW,KW,fortranArray);
-	RDouble3D worksy(IW,JW,KW,fortranArray);
-	RDouble3D worksz(IW,JW,KW,fortranArray);
-	RDouble3D workqm(IW,JW,KW,fortranArray);
-
-	I = Range(1, ni + 1);
-	J = Range(1, nj + 1);
-	K = Range(1, nk + 1);
-
-	// RDouble3D work_temp1(I,J,K,fortranArray);
-	// RDouble3D work_temp2(I,J,K,fortranArray);
-	// RDouble3D work_temp3(I,J,K,fortranArray);
-
+	// ´Ë´¦¿ªÊ¼Í³¼Æ¼ÆËã²¿·Ö´úÂëÔËÐÐÊ±¼ä
 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
-		
-		// Range I(1, ni + 1);
-		// Range J(1, nj + 1);
-		// Range K(1, nk + 1);
+		Range I(1,ni+1);
+		Range J(1,nj+1);
+		Range K(1,nk+1);
 
 		int index[] = {1,2,3,1,2};
 
@@ -217,130 +166,75 @@ int main()
 
 		Range M(mst,med);
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-				for (int k = r.begin(); k != r.end(); k++) {
-					dqdx_4d(I, J, k, M) = 0.0;
-					dqdy_4d(I, J, k, M) = 0.0;
-					dqdz_4d(I, J, k, M) = 0.0;
-				}
-			}
-		);
+		dqdx_4d(I,J,K,M) = 0.0;
+		dqdy_4d(I,J,K,M) = 0.0;
+		dqdz_4d(I,J,K,M) = 0.0;
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-			for (int k = r.begin(); k != r.end(); k++) {
-				worksx(I, J, k) = xfn(I, J, k, ns1) * area(I, J, k, ns1) + xfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-				worksy(I, J, k) = yfn(I, J, k, ns1) * area(I, J, k, ns1) + yfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-				worksz(I, J, k) = zfn(I, J, k, ns1) * area(I, J, k, ns1) + zfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-			}
+		Range IW(-1,ni+1);
+		Range JW(-1,nj+1);
+		Range KW(-1,nk+1);
+
+		RDouble3D worksx(IW,JW,KW,fortranArray);
+		RDouble3D worksy(IW,JW,KW,fortranArray);
+		RDouble3D worksz(IW,JW,KW,fortranArray);
+		RDouble3D workqm(IW,JW,KW,fortranArray);
+
+		worksx(I,J,K) = xfn(I,J,K,ns1) * area(I,J,K,ns1) + xfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
+		worksy(I,J,K) = yfn(I,J,K,ns1) * area(I,J,K,ns1) + yfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
+		worksz(I,J,K) = zfn(I,J,K,ns1) * area(I,J,K,ns1) + zfn(I-il1,J-jl1,K-kl1,ns1) * area(I-il1,J-jl1,K-kl1,ns1);
+
+		for ( int m = mst; m <= med; ++ m )
+		{
+			dqdx_4d(I,J,K,m) = - worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			dqdy_4d(I,J,K,m) = - worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			dqdz_4d(I,J,K,m) = - worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
 		}
-		);
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-				for (int k = r.begin(); k != r.end(); k++) {
-					for (int m = mst; m <= med; ++m)
-					{
-						dqdx_4d(I, J, k, m) -= worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I, J, k, m) -= worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I, J, k, m) -= worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-
-						dqdx_4d(I - il1, J - jl1, k - kl1, m) += worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I - il1, J - jl1, k - kl1, m) += worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I - il1, J - jl1, k - kl1, m) += worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-					}
-				}
-			}
-		);
-		
-		// parallel_for(blocked_range<int>(1, nk + 1),
-		// 	[=](const blocked_range<int>& r) {
-		// 		for (int k = r.begin(); k != r.end(); k++) {
-		// 			for (int m = mst; m <= med; ++m)
-		// 			{
-		// 				
-		// 			}
-		// 		}
-		// 	}
-		// );
-		
+		for ( int m = mst; m <= med; ++ m )
+		{
+			dqdx_4d(I-il1,J-jl1,K-kl1,m) += worksx(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			dqdy_4d(I-il1,J-jl1,K-kl1,m) += worksy(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+			dqdz_4d(I-il1,J-jl1,K-kl1,m) += worksz(I,J,K) * q_4d(I-il1,J-jl1,K-kl1,m);
+		}
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
 		{
-			parallel_for(blocked_range<int>(1, nk + 1),
-				[=](const blocked_range<int>& r) {
-					for (int k = r.begin(); k != r.end(); k++) {
-						worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-						worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-						worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-					}
-				}
-			);
+			worksx(I,J,K) = xfn(I,J,K,ns2) * area(I,J,K,ns2) + xfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
+			worksy(I,J,K) = yfn(I,J,K,ns2) * area(I,J,K,ns2) + yfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
+			worksz(I,J,K) = zfn(I,J,K,ns2) * area(I,J,K,ns2) + zfn(I-il1,J-jl1,K-kl1,ns2) * area(I-il1,J-jl1,K-kl1,ns2);
 
-			// parallel_for(blocked_range<int>(mst, med),
-			// 	[=](const blocked_range<int>& r) {
-			// 		for (int m = r.begin(); m != r.end(); m++) {
-			// 			
-			// 		}
-			// 	}
-			// );
-			
-				parallel_for(blocked_range<int>(1, nk + 1),
-					[=](const blocked_range<int>& r) {
-						for (int m = mst; m <= med; ++m)
-						{
-						for (int k = r.begin(); k != r.end(); k++) {
-							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il2, J - jl2, k - kl2, m) + q_4d(I - il1 - il2, J - jl1 - jl2, k - kl1 - kl2, m));
+			for ( int m = mst; m <= med; ++ m )
+			{
+				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il2,J-jl2,K-kl2,m) + q_4d(I-il1-il2,J-jl1-jl2,K-kl1-kl2,m) );
 
-							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
+				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
+				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
+				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
 
-							dqdx_4d(I - il2, J - jl2, k - kl2, m) += worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I - il2, J - jl2, k - kl2, m) += worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I - il2, J - jl2, k - kl2, m) += worksz(I, J, k) * workqm(I, J, k);
-						}
-						}
-
-					}
-				);
-				
+				dqdx_4d(I-il2,J-jl2,K-kl2,m) += worksx(I,J,K) * workqm(I,J,K);
+				dqdy_4d(I-il2,J-jl2,K-kl2,m) += worksy(I,J,K) * workqm(I,J,K);
+				dqdz_4d(I-il2,J-jl2,K-kl2,m) += worksz(I,J,K) * workqm(I,J,K);
+			}
 		}
 
 		if ( ( nsurf != 1 ) || ( nDim != TWO_D ) )
 		{
-			parallel_for(blocked_range<int>(1, nk + 1),
-				[=](const blocked_range<int>& r) {
-					for (int k = r.begin(); k != r.end(); k++) {
-						worksx(I, J, k) = xfn(I, J, k, ns3) * area(I, J, k, ns3) + xfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-						worksy(I, J, k) = yfn(I, J, k, ns3) * area(I, J, k, ns3) + yfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-						worksz(I, J, k) = zfn(I, J, k, ns3) * area(I, J, k, ns3) + zfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-					}
-				}
-			);
+			worksx(I,J,K) = xfn(I,J,K,ns3) * area(I,J,K,ns3) + xfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
+			worksy(I,J,K) = yfn(I,J,K,ns3) * area(I,J,K,ns3) + yfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
+			worksz(I,J,K) = zfn(I,J,K,ns3) * area(I,J,K,ns3) + zfn(I-il1,J-jl1,K-kl1,ns3) * area(I-il1,J-jl1,K-kl1,ns3);
 
+			for ( int m = mst; m <= med; ++ m )
+			{
+				workqm(I,J,K) = fourth * ( q_4d(I,J,K,m) + q_4d(I-il1,J-jl1,K-kl1,m) + q_4d(I-il3,J-jl3,K-kl3,m) + q_4d(I-il1-il3,J-jl1-jl3,K-kl1-kl3,m) );
 
-			
-				parallel_for(blocked_range<int>(1, nk + 1),
-					[=](const blocked_range<int>& r) {
-						for (int m = mst; m <= med; ++m)
-						{
-						for (int k = r.begin(); k != r.end(); k++) {
-							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il3, J - jl3, k - kl3, m) + q_4d(I - il1 - il3, J - jl1 - jl3, k - kl1 - kl3, m));
+				dqdx_4d(I,J,K,m) -= worksx(I,J,K) * workqm(I,J,K);
+				dqdy_4d(I,J,K,m) -= worksy(I,J,K) * workqm(I,J,K);
+				dqdz_4d(I,J,K,m) -= worksz(I,J,K) * workqm(I,J,K);
 
-							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
-
-							dqdx_4d(I - il3, J - jl3, k - kl3, m) += worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I - il3, J - jl3, k - kl3, m) += worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I - il3, J - jl3, k - kl3, m) += worksz(I, J, k) * workqm(I, J, k);
-						}
-						}
-
-					}
-				);
+				dqdx_4d(I-il3,J-jl3,K-kl3,m) += worksx(I,J,K) * workqm(I,J,K);
+				dqdy_4d(I-il3,J-jl3,K-kl3,m) += worksy(I,J,K) * workqm(I,J,K);
+				dqdz_4d(I-il3,J-jl3,K-kl3,m) += worksz(I,J,K) * workqm(I,J,K);
+			}
 		}
 
 		Range I0(1,ni);
@@ -349,40 +243,25 @@ int main()
 
 		workqm(I0,J0,K0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
 
-		parallel_for(blocked_range<int>(1, nk),
-			[=](const blocked_range<int>& r) {
-				for (int m = mst; m <= med; ++m)
-				{
-					for (int k = r.begin(); k != r.end(); k++) {
-						dqdx_4d(I0, J0, k, m) *= workqm(I0, J0, k);
-						dqdy_4d(I0, J0, k, m) *= workqm(I0, J0, k);
-						dqdz_4d(I0, J0, k, m) *= workqm(I0, J0, k);
-					}
-				}
-			}
-		);
+		for ( int m = mst; m <= med; ++ m )
+		{
+			dqdx_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
+			dqdy_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
+			dqdz_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
+		}
 
-	// è¯¥æ–¹å‘ç•Œé¢æ¢¯åº¦å€¼è¢«è®¡ç®—å‡ºæ¥åŽï¼Œä¼šç”¨äºŽç²˜æ€§é€šé‡è®¡ç®—ï¼Œè¯¥å€¼ä½¿ç”¨åŽä¸‹ä¸€æ–¹å‘ä¼šé‡æ–°èµ‹0è®¡ç®—
-
+	// ¸Ã·½Ïò½çÃæÌÝ¶ÈÖµ±»¼ÆËã³öÀ´ºó£¬»áÓÃÓÚÕ³ÐÔÍ¨Á¿¼ÆËã£¬¸ÃÖµÊ¹ÓÃºóÏÂÒ»·½Ïò»áÖØÐÂ¸³0¼ÆËã
+	
 	}
-
 	//----------------------------------------------------
-	//ä»¥ä¸‹ä¸ºæ­£ç¡®æ€§å¯¹æ¯”éƒ¨åˆ†ï¼Œä¸å¯ä¿®æ”¹ï¼
+	//ÒÔÏÂÎªÕýÈ·ÐÔ¶Ô±È²¿·Ö£¬²»¿ÉÐÞ¸Ä£¡
 	//----------------------------------------------------
 	end=rdtsc();
 	elapsed= (end - start)/(F*Time);
 	cout<<"The programe elapsed "<<elapsed<<setprecision(8)<<" s"<<endl;
-#ifdef _WIN32
-	if (!preccheck_small(dqdx_4d, dqdy_4d, dqdz_4d))
-		cout << "Result check passed!" << endl;
-	return 0;
-
-#else
-
 	if(!preccheck(dqdx_4d,dqdy_4d,dqdz_4d))
 		cout<<"Result check passed!"<<endl;
 	return 0;
-#endif
 }
 
 int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d)
@@ -435,67 +314,6 @@ int preccheck(RDouble4D dqdx_4d,RDouble4D dqdy_4d,RDouble4D dqdz_4d)
 						cout<<"The Standard result is "<<setprecision(15)<<tmp<<endl;
 						cout<<"The wrong position is "<<endl;
 						cout<<"i="<<i<<",j="<<j<<",k="<<k<<",m="<<m<<endl;
-						exit(1);
-					}
-				}
-			}
-		}
-	}
-	file.close();
-	return 0;
-}
-
-
-int preccheck_small(RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d)
-{
-	double tmp, real;
-	ifstream file("check_small.txt", std::ofstream::binary);
-	if (!file)
-	{
-		cout << "Error opening check file! ";
-		exit(1);
-	}
-	for (int i = 0; i < ni; ++i)
-	{
-		for (int j = 0; j < nj; ++j)
-		{
-			for (int k = 0; k < nk; ++k)
-			{
-				for (int m = 0; m < 3; ++m)
-				{
-					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
-					if (fabs(dqdx_4d(i, j, k, m) - tmp) > 1e-6)
-					{
-						real = dqdx_4d(i, j, k, m);
-						cout << "Precision check failed !" << endl;
-						cout << "Your result is " << setprecision(15) << real << endl;
-						cout << "The Standard result is " << setprecision(15) << tmp << endl;
-						cout << "The wrong position is " << endl;
-						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
-						exit(1);
-					}
-
-					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
-					if (fabs(dqdy_4d(i, j, k, m) - tmp) > 1e-6)
-					{
-						real = dqdy_4d(i, j, k, m);
-						cout << "Precision check failed !" << endl;
-						cout << "Your result is " << setprecision(15) << real << endl;
-						cout << "The Standard result is " << setprecision(15) << tmp << endl;
-						cout << "The wrong position is " << endl;
-						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
-						exit(1);
-					}
-
-					file.read(reinterpret_cast<char*>(&tmp), sizeof(double));
-					if (fabs(dqdz_4d(i, j, k, m) - tmp) > 1e-6)
-					{
-						real = dqdz_4d(i, j, k, m);
-						cout << "Precision check failed !" << endl;
-						cout << "Your result is " << setprecision(15) << real << endl;
-						cout << "The Standard result is " << setprecision(15) << tmp << endl;
-						cout << "The wrong position is " << endl;
-						cout << "i=" << i << ",j=" << j << ",k=" << k << ",m=" << m << endl;
 						exit(1);
 					}
 				}
