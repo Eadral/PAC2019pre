@@ -11,17 +11,17 @@ Begin optimization report for: main()
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at main.cpp(76,2)
+LOOP BEGIN at main.cpp(77,2)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at main.cpp(78,3)
+   LOOP BEGIN at main.cpp(79,3)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at main.cpp(80,4)
+      LOOP BEGIN at main.cpp(81,4)
       <Multiversioned v1>
-         remark #15329: vectorization support: non-unit strided store was emulated for the variable <x.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(82,6) ]
-         remark #15329: vectorization support: non-unit strided store was emulated for the variable <y.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(83,6) ]
-         remark #15329: vectorization support: non-unit strided store was emulated for the variable <z.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(84,6) ]
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <x.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(83,6) ]
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <y.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(84,6) ]
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <z.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(85,6) ]
          remark #15305: vectorization support: vector length 2
          remark #15399: vectorization support: unroll factor set to 4
          remark #15309: vectorization support: normalized vectorization overhead 0.057
@@ -35,84 +35,84 @@ LOOP BEGIN at main.cpp(76,2)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at main.cpp(80,4)
+      LOOP BEGIN at main.cpp(81,4)
       <Remainder loop for vectorization, Multiversioned v1>
          remark #15305: vectorization support: vector length 2
          remark #15309: vectorization support: normalized vectorization overhead 0.682
          remark #15301: REMAINDER LOOP WAS VECTORIZED
       LOOP END
 
-      LOOP BEGIN at main.cpp(80,4)
+      LOOP BEGIN at main.cpp(81,4)
       <Multiversioned v2>
          remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
       LOOP END
 
-      LOOP BEGIN at main.cpp(80,4)
+      LOOP BEGIN at main.cpp(81,4)
       <Remainder, Multiversioned v2>
       LOOP END
 
-      LOOP BEGIN at main.cpp(80,4)
+      LOOP BEGIN at main.cpp(81,4)
       <Remainder loop for vectorization, Multiversioned v1>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at main.cpp(110,2)
+LOOP BEGIN at main.cpp(111,2)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (116:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (128:8)
+   remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (117:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (129:8)
 
-   LOOP BEGIN at main.cpp(112,3)
+   LOOP BEGIN at main.cpp(113,3)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (116:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (128:8)
+      remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (117:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (129:8)
 
-      LOOP BEGIN at main.cpp(114,4)
+      LOOP BEGIN at main.cpp(115,4)
          remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-         remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (116:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (128:8)
+         remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (117:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (129:8)
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at main.cpp(132,2)
+LOOP BEGIN at main.cpp(133,2)
    remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (138:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (141:9)
+   remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (139:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (142:9)
 
-   LOOP BEGIN at main.cpp(134,3)
+   LOOP BEGIN at main.cpp(135,3)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (138:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (141:9)
+      remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (139:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (142:9)
 
-      LOOP BEGIN at main.cpp(136,4)
+      LOOP BEGIN at main.cpp(137,4)
          remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-         remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (138:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (141:9)
+         remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (139:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (142:9)
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at main.cpp(223,17)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(225,11) ]
+LOOP BEGIN at main.cpp(226,17)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(228,11) ]
 LOOP END
 
-LOOP BEGIN at main.cpp(230,17)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(232,11) ]
+LOOP BEGIN at main.cpp(233,17)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(235,11) ]
 LOOP END
 
-LOOP BEGIN at ../include/DataStruct_Range.h(110,48) inlined into main.cpp(245,130)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(245,11) ]
+LOOP BEGIN at ../include/DataStruct_Range.h(110,48) inlined into main.cpp(248,130)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(248,11) ]
 LOOP END
 
-LOOP BEGIN at ../include/DataStruct_Range.h(110,48) inlined into main.cpp(265,130)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(265,11) ]
+LOOP BEGIN at ../include/DataStruct_Range.h(110,48) inlined into main.cpp(268,130)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(268,11) ]
 LOOP END
 
-LOOP BEGIN at main.cpp(296,17)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(298,11) ]
+LOOP BEGIN at main.cpp(299,17)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(301,11) ]
 LOOP END
 
 
 Non-optimizable loops:
 
 
-LOOP BEGIN at main.cpp(171,2)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(215,10) ]
+LOOP BEGIN at main.cpp(174,2)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(218,10) ]
 LOOP END
 ===========================================================================
 
@@ -573,8 +573,8 @@ LOOP END
 
 LOOP BEGIN at ../include/FYOps.hxx(470,11) inlined into ../include/FYOps.hxx(744,2)
    remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V.U7a_V.U7a_V.U7a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V.U7a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V.U3a_V.U3a_V.U3a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V.U3a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -624,8 +624,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    LOOP BEGIN at ../include/FYOps.hxx(608,5) inlined into ../include/FYOps.hxx(744,2)
    <Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
-      remark #15389: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V.U7a_V.U7a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
-      remark #15388: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V.U3a_V.U3a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15388: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 2
       remark #15399: vectorization support: unroll factor set to 4
@@ -669,8 +669,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
 
    LOOP BEGIN at ../include/FYOps.hxx(685,9) inlined into ../include/FYOps.hxx(744,2)
       remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V.U7a_V.U7a_V.U7a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U7a_V.U7a_V.U7a_V.U7a_V.U7a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V.U3a_V.U3a_V.U3a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U3a_V.U3a_V.U3a_V.U3a_V.U3a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
       remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
       remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
       remark #15381: vectorization support: unaligned access used inside loop body
@@ -728,8 +728,8 @@ LOOP END
 
 LOOP BEGIN at ../include/FYOps.hxx(470,11) inlined into ../include/FYOps.hxx(281,1)
    remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U82_V.U82_V.U82_V.U82_V.U82_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U82_V.U82_V.U82_V.U82_V.U82_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U42_V.U42_V.U42_V.U42_V.U42_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U42_V.U42_V.U42_V.U42_V.U42_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -780,8 +780,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    <Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(43,1) ]
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(43,1) ]
-      remark #15389: vectorization support: reference U82_V.U82_V.U82_V.U82_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
-      remark #15388: vectorization support: reference U82_V.U82_V.U82_V.U82_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U42_V.U42_V.U42_V.U42_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15388: vectorization support: reference U42_V.U42_V.U42_V.U42_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 2
       remark #15399: vectorization support: unroll factor set to 4
@@ -825,8 +825,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
 
    LOOP BEGIN at ../include/FYOps.hxx(685,9) inlined into ../include/FYOps.hxx(281,1)
       remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U82_V.U82_V.U82_V.U82_V.U82_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U82_V.U82_V.U82_V.U82_V.U82_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U42_V.U42_V.U42_V.U42_V.U42_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U42_V.U42_V.U42_V.U42_V.U42_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
       remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
       remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
       remark #15381: vectorization support: unaligned access used inside loop body
@@ -884,8 +884,8 @@ LOOP END
 
 LOOP BEGIN at ../include/FYOps.hxx(470,11) inlined into ../include/FYOps.hxx(282,1)
    remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U92_V.U92_V.U92_V.U92_V.U92_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference U92_V.U92_V.U92_V.U92_V.U92_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U52_V.U52_V.U52_V.U52_V.U52_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U52_V.U52_V.U52_V.U52_V.U52_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -936,8 +936,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    <Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(44,1) ]
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(44,1) ]
-      remark #15389: vectorization support: reference U92_V.U92_V.U92_V.U92_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
-      remark #15388: vectorization support: reference U92_V.U92_V.U92_V.U92_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U52_V.U52_V.U52_V.U52_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15388: vectorization support: reference U52_V.U52_V.U52_V.U52_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 2
       remark #15399: vectorization support: unroll factor set to 4
@@ -981,8 +981,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
 
    LOOP BEGIN at ../include/FYOps.hxx(685,9) inlined into ../include/FYOps.hxx(282,1)
       remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U92_V.U92_V.U92_V.U92_V.U92_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U92_V.U92_V.U92_V.U92_V.U92_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U52_V.U52_V.U52_V.U52_V.U52_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U52_V.U52_V.U52_V.U52_V.U52_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
       remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
       remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
       remark #15381: vectorization support: unaligned access used inside loop body
@@ -1234,7 +1234,7 @@ LOOP END
 
 LOOP BEGIN at ../include/FYOps.hxx(470,11) inlined into ../include/FYOps.hxx(283,1)
    remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15389: vectorization support: reference Ua0_V.Ua0_V.Ua0_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15389: vectorization support: reference U60_V.U60_V.U60_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -1285,7 +1285,7 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    <Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(45,1) ]
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(45,1) ]
-      remark #15388: vectorization support: reference Ua0_V.Ua0_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15388: vectorization support: reference U60_V.U60_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15305: vectorization support: vector length 2
       remark #15399: vectorization support: unroll factor set to 4
       remark #15309: vectorization support: normalized vectorization overhead 0.583
@@ -1327,7 +1327,7 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
 
    LOOP BEGIN at ../include/FYOps.hxx(685,9) inlined into ../include/FYOps.hxx(283,1)
       remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference Ua0_V.Ua0_V.Ua0_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U60_V.U60_V.U60_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
       remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
       remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
       remark #15381: vectorization support: unaligned access used inside loop body
@@ -1463,8 +1463,8 @@ LOOP END
 
 LOOP BEGIN at ../include/FYOps.hxx(470,11) inlined into ../include/FYOps.hxx(744,2)
    remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15388: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-   remark #15388: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15388: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15388: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -1515,8 +1515,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    LOOP BEGIN at ../include/FYOps.hxx(608,5) inlined into ../include/FYOps.hxx(744,2)
    <Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
-      remark #15389: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
-      remark #15388: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15388: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has aligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 2
       remark #15399: vectorization support: unroll factor set to 4
@@ -1541,8 +1541,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
    LOOP BEGIN at ../include/FYOps.hxx(608,5) inlined into ../include/FYOps.hxx(744,2)
    <Remainder loop for vectorization, Multiversioned v1>
       remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
-      remark #15389: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
-      remark #15389: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 2
       remark #15309: vectorization support: normalized vectorization overhead 0.400
@@ -1572,8 +1572,8 @@ LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FY
 
    LOOP BEGIN at ../include/FYOps.hxx(685,9) inlined into ../include/FYOps.hxx(744,2)
       remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
-      remark #15389: vectorization support: reference U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V.U9a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V.U5a_V[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
       remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
       remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
       remark #15381: vectorization support: unaligned access used inside loop body
@@ -1773,7 +1773,7 @@ Begin optimization report for: FYSPACE::fortranTag::operator void(FYSPACE::Gener
 
 
 LOOP BEGIN at ../include/FYStorage.h(183,9) inlined into ../include/FYStorage.h(210,7)
-   remark #15389: vectorization support: reference U46_V.U46_V.U46_V.U46_V[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15389: vectorization support: reference U6_V.U6_V.U6_V.U6_V[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -1821,7 +1821,7 @@ Begin optimization report for: FYSPACE::fortranTag::operator void(FYSPACE::Gener
 
 
 LOOP BEGIN at ../include/FYStorage.h(183,9) inlined into ../include/FYStorage.h(213,7)
-   remark #15388: vectorization support: reference U47_V.U47_V.U47_V.U47_V[i] has aligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15388: vectorization support: reference U7_V.U7_V.U7_V.U7_V[i] has aligned access   [ ../include/FYSimpleArray.h(62,16) ]
    remark #15305: vectorization support: vector length 4
    remark #15427: loop was completely unrolled
    remark #15309: vectorization support: normalized vectorization overhead 0.333
@@ -1868,9 +1868,9 @@ LOOP END
 
 LOOP BEGIN at ../include/FYStorage.h(49,37) inlined into ../include/FYStorage.h(213,14)
    remark #15389: vectorization support: reference __p1->elems[_2] has unaligned access   [ ../include/FYStorage.h(48,5) ]
-   remark #15388: vectorization support: reference U47_V.U47_V.U47_V.U47_V[_2] has aligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15388: vectorization support: reference U7_V.U7_V.U7_V.U7_V[_2] has aligned access   [ ../include/FYStorage.h(212,14) ]
    remark #15389: vectorization support: reference __p1->elems[_2] has unaligned access   [ ../include/FYStorage.h(48,5) ]
-   remark #15389: vectorization support: reference U47_V.U47_V.U47_V.U47_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15389: vectorization support: reference U7_V.U7_V.U7_V.U7_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15305: vectorization support: vector length 4
    remark #15427: loop was completely unrolled
@@ -1895,7 +1895,7 @@ LOOP END
 LOOP BEGIN at ../include/FYStorage.h(49,37) inlined into ../include/FYStorage.h(213,14)
 <Distributed chunk2>
    remark #15389: vectorization support: reference __p1->elems[_2] has unaligned access   [ ../include/FYStorage.h(48,5) ]
-   remark #15389: vectorization support: reference U47_V.U47_V.U47_V.U47_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15389: vectorization support: reference U7_V.U7_V.U7_V.U7_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
    remark #15381: vectorization support: unaligned access used inside loop body
    remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
    remark #15305: vectorization support: vector length 2
@@ -1917,22 +1917,22 @@ Begin optimization report for: preccheck(RDouble4D *, RDouble4D *, RDouble4D *)
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at main.cpp(341,5)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(343,11) ]
+LOOP BEGIN at main.cpp(344,5)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(346,11) ]
 LOOP END
 
 
 Non-optimizable loops:
 
 
-LOOP BEGIN at main.cpp(335,6)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(343,11) ]
+LOOP BEGIN at main.cpp(338,6)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(346,11) ]
 
-   LOOP BEGIN at main.cpp(337,7)
-      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(343,11) ]
+   LOOP BEGIN at main.cpp(340,7)
+      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(346,11) ]
 
-      LOOP BEGIN at main.cpp(339,4)
-         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(343,11) ]
+      LOOP BEGIN at main.cpp(342,4)
+         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(346,11) ]
       LOOP END
    LOOP END
 LOOP END
@@ -1943,280 +1943,89 @@ Begin optimization report for: preccheck_small(RDouble4D *, RDouble4D *, RDouble
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at main.cpp(402,5)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(404,11) ]
+LOOP BEGIN at main.cpp(405,5)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(407,11) ]
 LOOP END
 
 
 Non-optimizable loops:
 
 
-LOOP BEGIN at main.cpp(396,2)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(404,11) ]
+LOOP BEGIN at main.cpp(399,2)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(407,11) ]
 
-   LOOP BEGIN at main.cpp(398,3)
-      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(404,11) ]
+   LOOP BEGIN at main.cpp(401,3)
+      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(407,11) ]
 
-      LOOP BEGIN at main.cpp(400,4)
-         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(404,11) ]
+      LOOP BEGIN at main.cpp(403,4)
+         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(407,11) ]
       LOOP END
    LOOP END
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::thread::_Impl<std::_Bind_simple_helper<struct lambda [] type at line 96159, col. 6>::__type>::_M_run(std::thread::_Impl<std::_Bind_simple_helper<struct lambda [] type at line 96159, col. 6>::__type> *)
+Begin optimization report for: tbb::flow::interface10::graph::~graph(tbb::flow::interface10::graph *)
 
     Report from: Vector optimizations [vec]
 
 
-LOOP BEGIN at ../include/ThreadPool.hxx(44,7) inlined into /usr/include/c++/4.8.5/thread(116,20)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(771,1)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
 
-   LOOP BEGIN at /usr/include/c++/4.8.5/condition_variable(92,2) inlined into /usr/include/c++/4.8.5/thread(116,20)
-      remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+Begin optimization report for: std::list<tbb::task *, std::allocator<tbb::task *>>::~list(std::list<tbb::task *, std::allocator<tbb::task *>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /usr/include/c++/4.8.5/bits/stl_list.h(439,11)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph::~graph(tbb::flow::interface10::graph *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(765,15)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph_node::~graph_node(tbb::flow::interface10::graph_node *)
+
+    Report from: Vector optimizations [vec]
+
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/tbb_machine.h(925,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(856,14)
+   remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
+
+   LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(48,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(856,14)
+      remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
    LOOP END
 LOOP END
 ===========================================================================
 
-Begin optimization report for: std::_Deque_base<std::threadpool::Task, std::allocator<std::threadpool::Task>>::_M_destroy_nodes(std::_Deque_base<std::threadpool::Task, std::allocator<std::threadpool::Task>> *, std::threadpool::Task **, std::threadpool::Task **)
+Begin optimization report for: tbb::flow::interface10::graph_node::~graph_node(tbb::flow::interface10::graph_node *const)
 
     Report from: Vector optimizations [vec]
 
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::threadpool::~threadpool(std::threadpool *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at ../include/ThreadPool.hxx(71,31)
-   remark #15523: loop was not vectorized: loop control variable U35_V.U35_V was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
 
 
 Non-optimizable loops:
 
 
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/deque.tcc(804,8) inlined into ../include/ThreadPool.hxx(77,3)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ /usr/include/c++/4.8.5/functional(2030,2) ]
-LOOP END
-===========================================================================
+LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/tbb_machine.h(925,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(855,20)
+   remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
 
-Begin optimization report for: std::_Deque_base<std::threadpool::Task, std::allocator<std::threadpool::Task>>::~_Deque_base(std::_Deque_base<std::threadpool::Task, std::allocator<std::threadpool::Task>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(566,4)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::queue<std::threadpool::Task, std::deque<std::threadpool::Task, std::allocator<std::threadpool::Task>>>::~queue(std::queue<std::threadpool::Task, std::deque<std::threadpool::Task, std::allocator<std::threadpool::Task>>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-
-
-Non-optimizable loops:
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/deque.tcc(804,8) inlined into /usr/include/c++/4.8.5/bits/stl_queue.h(94,11)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ /usr/include/c++/4.8.5/functional(2030,2) ]
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::vector<std::thread, std::allocator<std::thread>>::~vector(std::vector<std::thread, std::allocator<std::thread>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_vector.h(416,9)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::threadpool::threadpool(std::threadpool *, unsigned short)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(626,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15423: loop was not vectorized: has only one iteration
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(132,7) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15389: vectorization support: reference this[_2] has unaligned access
-   remark #15381: vectorization support: unaligned access used inside loop body
-   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-   remark #15305: vectorization support: vector length 2
-   remark #15427: loop was completely unrolled
-   remark #15399: vectorization support: unroll factor set to 2
-   remark #15309: vectorization support: normalized vectorization overhead 0.250
-   remark #15451: unmasked unaligned unit stride stores: 1 
-   remark #15475: --- begin vector cost summary ---
-   remark #15476: scalar cost: 3 
-   remark #15477: vector cost: 3.000 
-   remark #15478: estimated potential speedup: 0.800 
-   remark #15488: --- end vector cost summary ---
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(132,7) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15389: vectorization support: reference this[_2] has unaligned access
-   remark #15381: vectorization support: unaligned access used inside loop body
-   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-   remark #15305: vectorization support: vector length 2
-   remark #15427: loop was completely unrolled
-   remark #15399: vectorization support: unroll factor set to 2
-   remark #15309: vectorization support: normalized vectorization overhead 0.250
-   remark #15451: unmasked unaligned unit stride stores: 1 
-   remark #15475: --- begin vector cost summary ---
-   remark #15476: scalar cost: 3 
-   remark #15477: vector cost: 3.000 
-   remark #15478: estimated potential speedup: 0.800 
-   remark #15488: --- end vector cost summary ---
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(626,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15423: loop was not vectorized: has only one iteration
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-
-LOOP BEGIN at ../include/ThreadPool.hxx(39,26)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
-
-   LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_uninitialized.h(74,23) inlined into ../include/ThreadPool.hxx(42,10)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between __cur->_M_id->_M_thread (73:7) and __b->_M_thread (177:13)
+   LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(48,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(855,20)
+      remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
    LOOP END
-
-   LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into ../include/ThreadPool.hxx(42,10)
-      remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-   LOOP END
-LOOP END
-
-
-Non-optimizable loops:
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/deque.tcc(804,8) inlined into ../include/ThreadPool.hxx(37,10)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ /usr/include/c++/4.8.5/functional(2030,2) ]
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::_Destroy_aux<false>::__destroy<std::_Vector_base<std::thread, std::allocator<std::thread>>::pointer>(std::_Vector_base<std::thread, std::allocator<std::thread>>::pointer, std::_Vector_base<std::thread, std::allocator<std::thread>>::pointer)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-===========================================================================
-
-Begin optimization report for: std::deque<std::threadpool::Task, std::allocator<std::threadpool::Task>>::~deque(std::deque<std::threadpool::Task, std::allocator<std::threadpool::Task>> *)
-
-    Report from: Vector optimizations [vec]
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,9)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,9)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,9)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_construct.h(102,4) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,9)
-   remark #15523: loop was not vectorized: loop control variable __first was found, but loop iteration count cannot be computed before executing the loop
-LOOP END
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_deque.h(641,7) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,65)
-   remark #15382: vectorization support: call to function operator delete(void *) cannot be vectorized   [ /usr/include/c++/4.8.5/ext/new_allocator.h(110,9) ]
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-LOOP END
-
-
-Non-optimizable loops:
-
-
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/deque.tcc(804,8) inlined into /usr/include/c++/4.8.5/bits/stl_deque.h(919,9)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ /usr/include/c++/4.8.5/functional(2030,2) ]
 LOOP END
 ===========================================================================
