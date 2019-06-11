@@ -217,10 +217,15 @@ int main()
 
 		Range M(mst,med);
 
-		dqdx_4d(I,J,K,M) = 0.0;
-		dqdy_4d(I,J,K,M) = 0.0;
-		dqdz_4d(I,J,K,M) = 0.0;
-
+		parallel_for(blocked_range<int>(1, nk + 1),
+			[=](const blocked_range<int>& r) {
+				for (int k = r.begin(); k != r.end(); k++) {
+					dqdx_4d(I, J, k, M) = 0.0;
+					dqdy_4d(I, J, k, M) = 0.0;
+					dqdz_4d(I, J, k, M) = 0.0;
+				}
+			}
+		);
 
 		parallel_for(blocked_range<int>(1, nk + 1),
 			[=](const blocked_range<int>& r) {
@@ -237,19 +242,10 @@ int main()
 				for (int k = r.begin(); k != r.end(); k++) {
 					for (int m = mst; m <= med; ++m)
 					{
-						dqdx_4d(I, J, k, m) = -worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I, J, k, m) = -worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I, J, k, m) = -worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-					}
-				}
-			}
-		);
-		
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-				for (int k = r.begin(); k != r.end(); k++) {
-					for (int m = mst; m <= med; ++m)
-					{
+						dqdx_4d(I, J, k, m) -= worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+						dqdy_4d(I, J, k, m) -= worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+						dqdz_4d(I, J, k, m) -= worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+
 						dqdx_4d(I - il1, J - jl1, k - kl1, m) += worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
 						dqdy_4d(I - il1, J - jl1, k - kl1, m) += worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
 						dqdz_4d(I - il1, J - jl1, k - kl1, m) += worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
@@ -257,6 +253,17 @@ int main()
 				}
 			}
 		);
+		
+		// parallel_for(blocked_range<int>(1, nk + 1),
+		// 	[=](const blocked_range<int>& r) {
+		// 		for (int k = r.begin(); k != r.end(); k++) {
+		// 			for (int m = mst; m <= med; ++m)
+		// 			{
+		// 				
+		// 			}
+		// 		}
+		// 	}
+		// );
 		
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
@@ -342,12 +349,18 @@ int main()
 
 		workqm(I0,J0,K0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
 
-		for ( int m = mst; m <= med; ++ m )
-		{
-			dqdx_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdy_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-			dqdz_4d(I0,J0,K0,m) *= workqm(I0,J0,K0);
-		}
+		parallel_for(blocked_range<int>(1, nk),
+			[=](const blocked_range<int>& r) {
+				for (int m = mst; m <= med; ++m)
+				{
+					for (int k = r.begin(); k != r.end(); k++) {
+						dqdx_4d(I0, J0, k, m) *= workqm(I0, J0, k);
+						dqdy_4d(I0, J0, k, m) *= workqm(I0, J0, k);
+						dqdz_4d(I0, J0, k, m) *= workqm(I0, J0, k);
+					}
+				}
+			}
+		);
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 
