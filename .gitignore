@@ -10,3 +10,5 @@ packages.config
 config/
 x64/
 *.optrpt
+*.o
+*.exe
