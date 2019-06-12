@@ -217,29 +217,32 @@ int main()
 
 		Range M(mst,med);
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-				for (int k = r.begin(); k != r.end(); k++) {
+		// parallel_for(blocked_range<int>(1, nk + 1),
+		// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+				for (int k = 1; k <= nk+1; k++) {
 					dqdx_4d(I, J, k, M) = 0.0;
 					dqdy_4d(I, J, k, M) = 0.0;
 					dqdz_4d(I, J, k, M) = 0.0;
 				}
-			}
-		);
+			// }
+		// );
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-			for (int k = r.begin(); k != r.end(); k++) {
+		// parallel_for(blocked_range<int>(1, nk + 1),
+		// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+				for (int k = 1; k <= nk + 1; k++) {
 				worksx(I, J, k) = xfn(I, J, k, ns1) * area(I, J, k, ns1) + xfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
 				worksy(I, J, k) = yfn(I, J, k, ns1) * area(I, J, k, ns1) + yfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
 				worksz(I, J, k) = zfn(I, J, k, ns1) * area(I, J, k, ns1) + zfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
 			}
-		}
-		);
+		// }
+		// );
 
-		parallel_for(blocked_range<int>(1, nk + 1),
-			[=](const blocked_range<int>& r) {
-				for (int k = r.begin(); k != r.end(); k++) {
+		// parallel_for(blocked_range<int>(1, nk + 1),
+		// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+				for (int k = 1; k <= nk + 1; k++) {
 					for (int m = mst; m <= med; ++m)
 					{
 						dqdx_4d(I, J, k, m) -= worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
@@ -251,8 +254,8 @@ int main()
 						dqdz_4d(I - il1, J - jl1, k - kl1, m) += worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
 					}
 				}
-			}
-		);
+		// 	}
+		// );
 		
 		// parallel_for(blocked_range<int>(1, nk + 1),
 		// 	[=](const blocked_range<int>& r) {
@@ -268,15 +271,16 @@ int main()
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
 		{
-			parallel_for(blocked_range<int>(1, nk + 1),
-				[=](const blocked_range<int>& r) {
-					for (int k = r.begin(); k != r.end(); k++) {
+			// parallel_for(blocked_range<int>(1, nk + 1),
+			// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+					for (int k = 1; k <= nk + 1; k++) {
 						worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
 						worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
 						worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
 					}
-				}
-			);
+			// 	}
+			// );
 
 			// parallel_for(blocked_range<int>(mst, med),
 			// 	[=](const blocked_range<int>& r) {
@@ -286,11 +290,12 @@ int main()
 			// 	}
 			// );
 			
-				parallel_for(blocked_range<int>(1, nk + 1),
-					[=](const blocked_range<int>& r) {
+				// parallel_for(blocked_range<int>(1, nk + 1),
+				// 	[=](const blocked_range<int>& r) {
 						for (int m = mst; m <= med; ++m)
 						{
-						for (int k = r.begin(); k != r.end(); k++) {
+# pragma omp parallel for
+				for (int k = 1; k <= nk+1; k++) {
 							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il2, J - jl2, k - kl2, m) + q_4d(I - il1 - il2, J - jl1 - jl2, k - kl1 - kl2, m));
 
 							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
@@ -303,30 +308,32 @@ int main()
 						}
 						}
 
-					}
-				);
+				// 	}
+				// );
 				
 		}
 
 		if ( ( nsurf != 1 ) || ( nDim != TWO_D ) )
 		{
-			parallel_for(blocked_range<int>(1, nk + 1),
-				[=](const blocked_range<int>& r) {
-					for (int k = r.begin(); k != r.end(); k++) {
+			// parallel_for(blocked_range<int>(1, nk + 1),
+			// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+					for (int k = 1; k <= nk + 1; k++) {
 						worksx(I, J, k) = xfn(I, J, k, ns3) * area(I, J, k, ns3) + xfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
 						worksy(I, J, k) = yfn(I, J, k, ns3) * area(I, J, k, ns3) + yfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
 						worksz(I, J, k) = zfn(I, J, k, ns3) * area(I, J, k, ns3) + zfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
 					}
-				}
-			);
+			// 	}
+			// );
 
 
 			
-				parallel_for(blocked_range<int>(1, nk + 1),
-					[=](const blocked_range<int>& r) {
+				// parallel_for(blocked_range<int>(1, nk + 1),
+				// 	[=](const blocked_range<int>& r) {
 						for (int m = mst; m <= med; ++m)
 						{
-						for (int k = r.begin(); k != r.end(); k++) {
+# pragma omp parallel for
+							for (int k = 1; k <= nk + 1; k++) {
 							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il3, J - jl3, k - kl3, m) + q_4d(I - il1 - il3, J - jl1 - jl3, k - kl1 - kl3, m));
 
 							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
@@ -339,8 +346,8 @@ int main()
 						}
 						}
 
-					}
-				);
+				// 	}
+				// );
 		}
 
 		Range I0(1,ni);
@@ -349,18 +356,19 @@ int main()
 
 		workqm(I0,J0,K0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
 
-		parallel_for(blocked_range<int>(1, nk),
-			[=](const blocked_range<int>& r) {
+		// parallel_for(blocked_range<int>(1, nk),
+		// 	[=](const blocked_range<int>& r) {
 				for (int m = mst; m <= med; ++m)
 				{
-					for (int k = r.begin(); k != r.end(); k++) {
+# pragma omp parallel for
+					for (int k = 1; k <= nk; k++) {
 						dqdx_4d(I0, J0, k, m) *= workqm(I0, J0, k);
 						dqdy_4d(I0, J0, k, m) *= workqm(I0, J0, k);
 						dqdz_4d(I0, J0, k, m) *= workqm(I0, J0, k);
 					}
 				}
-			}
-		);
+		// 	}
+		// );
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 
