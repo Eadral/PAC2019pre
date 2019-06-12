@@ -198,3 +198,12 @@ Average CPU Utilization:  0.992
 TITLE: line_divide
 STAMP: 1560251763
 Tue Jun 11 19:16:03 CST 2019
+ 
+TITLE: omp_line
+STAMP: 1560326698
+Wed Jun 12 16:04:58 CST 2019
+ 
+TITLE: omp_divide
+STAMP: 1560328213
+Wed Jun 12 16:30:13 CST 2019
+The programe elapsed 7.15762 s
