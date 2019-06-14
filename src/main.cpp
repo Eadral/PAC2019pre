@@ -354,14 +354,16 @@ int main()
 		Range J0(1,nj);
 		Range K0(1,nk);
 
-		workqm(I0,J0,K0) = 1.0 / (  vol(I0, J0, K0) + vol(I0-il1, J0-jl1, K0-kl1) );
 
 		// parallel_for(blocked_range<int>(1, nk),
 		// 	[=](const blocked_range<int>& r) {
+# pragma omp parallel for
+		for (int k = 1; k <= nk; k++) {
+			workqm(I0, J0, k) = 1.0 / (vol(I0, J0, k) + vol(I0 - il1, J0 - jl1, k - kl1));
+
 				for (int m = mst; m <= med; ++m)
 				{
-# pragma omp parallel for
-					for (int k = 1; k <= nk; k++) {
+
 						dqdx_4d(I0, J0, k, m) *= workqm(I0, J0, k);
 						dqdy_4d(I0, J0, k, m) *= workqm(I0, J0, k);
 						dqdz_4d(I0, J0, k, m) *= workqm(I0, J0, k);
