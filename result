@@ -207,3 +207,8 @@ TITLE: omp_divide
 STAMP: 1560328213
 Wed Jun 12 16:30:13 CST 2019
 The programe elapsed 7.15762 s
+ 
+TITLE: omp_all
+STAMP: 1560516507
+Fri Jun 14 20:48:27 CST 2019
+The programe elapsed 6.39092 s
