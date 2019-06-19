@@ -246,12 +246,12 @@ int main()
 					for (int m = mst; m <= med; ++m)
 					{
 						dqdx_4d(I, J, k, m) -= worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I, J, k, m) -= worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I, J, k, m) -= worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-
 						dqdx_4d(I - il1, J - jl1, k - kl1, m) += worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+						dqdy_4d(I, J, k, m) -= worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
 						dqdy_4d(I - il1, J - jl1, k - kl1, m) += worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+						dqdz_4d(I, J, k, m) -= worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
 						dqdz_4d(I - il1, J - jl1, k - kl1, m) += worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+
 					}
 				}
 		// 	}
@@ -299,12 +299,12 @@ int main()
 							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il2, J - jl2, k - kl2, m) + q_4d(I - il1 - il2, J - jl1 - jl2, k - kl1 - kl2, m));
 
 							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
-
 							dqdx_4d(I - il2, J - jl2, k - kl2, m) += worksx(I, J, k) * workqm(I, J, k);
+							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
 							dqdy_4d(I - il2, J - jl2, k - kl2, m) += worksy(I, J, k) * workqm(I, J, k);
+							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
 							dqdz_4d(I - il2, J - jl2, k - kl2, m) += worksz(I, J, k) * workqm(I, J, k);
+
 						}
 						}
 
@@ -337,12 +337,12 @@ int main()
 							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il3, J - jl3, k - kl3, m) + q_4d(I - il1 - il3, J - jl1 - jl3, k - kl1 - kl3, m));
 
 							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
-
 							dqdx_4d(I - il3, J - jl3, k - kl3, m) += worksx(I, J, k) * workqm(I, J, k);
+							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
 							dqdy_4d(I - il3, J - jl3, k - kl3, m) += worksy(I, J, k) * workqm(I, J, k);
+							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
 							dqdz_4d(I - il3, J - jl3, k - kl3, m) += worksz(I, J, k) * workqm(I, J, k);
+
 						}
 						}
 
