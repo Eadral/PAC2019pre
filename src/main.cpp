@@ -168,6 +168,10 @@ int main()
 	J = Range(1, nj + 1);
 	K = Range(1, nk + 1);
 
+	// FIXME: Is only 1..n right?
+	Range Ic(1, ni);
+	Range Jc(1, nj);
+
 	// RDouble3D work_temp1(I,J,K,fortranArray);
 	// RDouble3D work_temp2(I,J,K,fortranArray);
 	// RDouble3D work_temp3(I,J,K,fortranArray);
@@ -242,15 +246,17 @@ int main()
 		// parallel_for(blocked_range<int>(1, nk + 1),
 		// 	[=](const blocked_range<int>& r) {
 # pragma omp parallel for
-				for (int k = 1; k <= nk + 1; k++) {
+				for (int k = 1; k <= nk; k++) {
 					for (int m = mst; m <= med; ++m)
 					{
-						dqdx_4d(I, J, k, m) -= worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdx_4d(I - il1, J - jl1, k - kl1, m) += worksx(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I, J, k, m) -= worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdy_4d(I - il1, J - jl1, k - kl1, m) += worksy(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I, J, k, m) -= worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
-						dqdz_4d(I - il1, J - jl1, k - kl1, m) += worksz(I, J, k) * q_4d(I - il1, J - jl1, k - kl1, m);
+						dqdx_4d(Ic, Jc, k, m) = - worksx(Ic, Jc, k) * q_4d(Ic - il1, Jc - jl1, k - kl1, m)
+							+ worksx(Ic + il1, Jc + jl1, k + kl1) * q_4d(Ic, Jc, k, m);
+						dqdy_4d(Ic, Jc, k, m) = - worksy(Ic, Jc, k) * q_4d(Ic - il1, Jc - jl1, k - kl1, m)
+							+ worksy(Ic + il1, Jc + jl1, k + kl1) * q_4d(Ic, Jc, k, m);
+						dqdz_4d(Ic, Jc, k, m) = - worksz(Ic, Jc, k) * q_4d(Ic - il1, Jc - jl1, k - kl1, m)
+							+ worksz(Ic + il1, Jc + jl1, k + kl1) * q_4d(Ic, Jc, k, m);
+
+
 
 					}
 				}
@@ -269,47 +275,43 @@ int main()
 		// );
 
 
-		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
-		{
+		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) ) {
 			// parallel_for(blocked_range<int>(1, nk + 1),
 			// 	[=](const blocked_range<int>& r) {
 # pragma omp parallel for
-					for (int k = 1; k <= nk + 1; k++) {
-						worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-						worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-						worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-					}
-			// 	}
-			// );
+			for (int k = 1; k <= nk + 1; k++) {
+				worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(
+					I - il1, J - jl1, k - kl1, ns2);
+				worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(
+					I - il1, J - jl1, k - kl1, ns2);
+				worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(
+					I - il1, J - jl1, k - kl1, ns2);
+			}
 
-			// parallel_for(blocked_range<int>(mst, med),
-			// 	[=](const blocked_range<int>& r) {
-			// 		for (int m = r.begin(); m != r.end(); m++) {
-			//
-			// 		}
-			// 	}
-			// );
 
-				// parallel_for(blocked_range<int>(1, nk + 1),
-				// 	[=](const blocked_range<int>& r) {
-						for (int m = mst; m <= med; ++m)
-						{
+			for (int m = mst; m <= med; ++m) {
 # pragma omp parallel for
-				for (int k = 1; k <= nk+1; k++) {
-							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il2, J - jl2, k - kl2, m) + q_4d(I - il1 - il2, J - jl1 - jl2, k - kl1 - kl2, m));
+				for (int k = 1; k <= nk + 1; k++) {
+					workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) +
+						q_4d(I - il2, J - jl2, k - kl2, m) + q_4d(I - il1 - il2, J - jl1 - jl2, k - kl1 - kl2, m));
+				}
 
-							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdx_4d(I - il2, J - jl2, k - kl2, m) += worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I - il2, J - jl2, k - kl2, m) += worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I - il2, J - jl2, k - kl2, m) += worksz(I, J, k) * workqm(I, J, k);
+# pragma omp parallel for
+				for (int k = 1; k <= nk; k++) {
+					dqdx_4d(Ic, Jc, k, m) = dqdx_4d(Ic, Jc, k, m) - worksx(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksx(Ic + il2, Jc + jl2, k + kl2) * workqm(Ic + il2, Jc + jl2, k + kl2);
 
-						}
-						}
+					dqdy_4d(Ic, Jc, k, m) = dqdy_4d(Ic, Jc, k, m) - worksy(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksy(Ic + il2, Jc + jl2, k + kl2) * workqm(Ic + il2, Jc + jl2, k + kl2);
 
-				// 	}
-				// );
+					dqdz_4d(Ic, Jc, k, m) = dqdz_4d(Ic, Jc, k, m) - worksz(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksz(Ic + il2, Jc + jl2, k + kl2) * workqm(Ic + il2, Jc + jl2, k + kl2);
+
+				}
+			}
+
+			// 	}
+			// );
 
 		}
 
@@ -327,27 +329,30 @@ int main()
 			// );
 
 
-
-				// parallel_for(blocked_range<int>(1, nk + 1),
-				// 	[=](const blocked_range<int>& r) {
-						for (int m = mst; m <= med; ++m)
-						{
+			// parallel_for(blocked_range<int>(1, nk + 1),
+			// 	[=](const blocked_range<int>& r) {
+			for (int m = mst; m <= med; ++m) {
 # pragma omp parallel for
-							for (int k = 1; k <= nk + 1; k++) {
-							workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) + q_4d(I - il3, J - jl3, k - kl3, m) + q_4d(I - il1 - il3, J - jl1 - jl3, k - kl1 - kl3, m));
+				for (int k = 1; k <= nk + 1; k++) {
+					workqm(I, J, k) = fourth * (q_4d(I, J, k, m) + q_4d(I - il1, J - jl1, k - kl1, m) +
+						q_4d(I - il3, J - jl3, k - kl3, m) + q_4d(I - il1 - il3, J - jl1 - jl3, k - kl1 - kl3, m));
+				}
 
-							dqdx_4d(I, J, k, m) -= worksx(I, J, k) * workqm(I, J, k);
-							dqdx_4d(I - il3, J - jl3, k - kl3, m) += worksx(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I, J, k, m) -= worksy(I, J, k) * workqm(I, J, k);
-							dqdy_4d(I - il3, J - jl3, k - kl3, m) += worksy(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I, J, k, m) -= worksz(I, J, k) * workqm(I, J, k);
-							dqdz_4d(I - il3, J - jl3, k - kl3, m) += worksz(I, J, k) * workqm(I, J, k);
+# pragma omp parallel for
+					for (int k = 1; k <= nk; k++) {
+					dqdx_4d(Ic, Jc, k, m) = dqdx_4d(Ic, Jc, k, m) - worksx(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksx(Ic + il3, Jc + jl3, k + kl3) * workqm(Ic + il3, Jc + jl3, k + kl3);
 
-						}
-						}
+					dqdy_4d(Ic, Jc, k, m) = dqdy_4d(Ic ,Jc, k, m) - worksy(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksy(Ic + il3, Jc + jl3, k + kl3) * workqm(Ic + il3, Jc + jl3, k + kl3);
 
-				// 	}
-				// );
+					dqdz_4d(Ic, Jc, k, m) = dqdz_4d(Ic, Jc, k, m) - worksz(Ic, Jc, k) * workqm(Ic, Jc, k)
+						+ worksz(Ic + il3, Jc + jl3, k + kl3) * workqm(Ic + il3, Jc + jl3, k + kl3);
+
+				}
+			}
+			// 	}
+			// );
 		}
 
 		Range I0(1,ni);
