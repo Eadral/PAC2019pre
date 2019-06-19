@@ -175,7 +175,7 @@ int main()
 
 	for ( int nsurf = 1; nsurf <= THREE_D; ++ nsurf )
 	{
-		
+
 		// Range I(1, ni + 1);
 		// Range J(1, nj + 1);
 		// Range K(1, nk + 1);
@@ -256,18 +256,18 @@ int main()
 				}
 		// 	}
 		// );
-		
+
 		// parallel_for(blocked_range<int>(1, nk + 1),
 		// 	[=](const blocked_range<int>& r) {
 		// 		for (int k = r.begin(); k != r.end(); k++) {
 		// 			for (int m = mst; m <= med; ++m)
 		// 			{
-		// 				
+		//
 		// 			}
 		// 		}
 		// 	}
 		// );
-		
+
 
 		if ( ( nsurf != 2 ) || ( nDim != TWO_D ) )
 		{
@@ -285,11 +285,11 @@ int main()
 			// parallel_for(blocked_range<int>(mst, med),
 			// 	[=](const blocked_range<int>& r) {
 			// 		for (int m = r.begin(); m != r.end(); m++) {
-			// 			
+			//
 			// 		}
 			// 	}
 			// );
-			
+
 				// parallel_for(blocked_range<int>(1, nk + 1),
 				// 	[=](const blocked_range<int>& r) {
 						for (int m = mst; m <= med; ++m)
@@ -310,7 +310,7 @@ int main()
 
 				// 	}
 				// );
-				
+
 		}
 
 		if ( ( nsurf != 1 ) || ( nDim != TWO_D ) )
@@ -327,7 +327,7 @@ int main()
 			// );
 
 
-			
+
 				// parallel_for(blocked_range<int>(1, nk + 1),
 				// 	[=](const blocked_range<int>& r) {
 						for (int m = mst; m <= med; ++m)

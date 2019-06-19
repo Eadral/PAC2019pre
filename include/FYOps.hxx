@@ -33,7 +33,7 @@ namespace FYSPACE
 //! Operator() functions:
 template<typename T, int N>
 const T&  FYArray<T, N>::operator()(int i0) const
-{ 
+{
 	//assertInRange(i0);
 #ifdef USE_SMARTARRAY
 	return datap1[i0];
@@ -43,7 +43,7 @@ const T&  FYArray<T, N>::operator()(int i0) const
 }
 
 template<typename T, int N>
-T&  FYArray<T, N>::operator()(int i0) 
+T&  FYArray<T, N>::operator()(int i0)
 {
 	//assertInRange(i0);
 #ifdef USE_SMARTARRAY
@@ -55,7 +55,7 @@ T&  FYArray<T, N>::operator()(int i0)
 
 template<typename T, int N>
 const T&  FYArray<T, N>::operator()(int i0, int i1) const
-{ 
+{
 	//assertInRange(i0, i1);
 #ifdef USE_SMARTARRAY
 	return datap2[i1][i0];
@@ -88,7 +88,7 @@ const T&  FYArray<T, N>::operator()(int i0, int i1, int i2) const
 }
 
 template<typename T, int N>
-T&  FYArray<T, N>::operator()(int i0, int i1, int i2) 
+T&  FYArray<T, N>::operator()(int i0, int i1, int i2)
 {
 	//assertInRange(i0, i1, i2);
 #ifdef USE_SMARTARRAY
@@ -112,7 +112,7 @@ const T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3) const
 }
 
 template<typename T, int N>
-T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3) 
+T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3)
 {
 	//assertInRange(i0, i1, i2);
 #ifdef USE_SMARTARRAY
@@ -135,7 +135,7 @@ const T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3, int i4) cons
 }
 
 template<typename T, int N>
-T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3, int i4) 
+T&  FYArray<T, N>::operator()(int i0, int i1, int i2, int i3, int i4)
 {
 #ifdef USE_SMARTARRAY
 	return datap5[i4][i3][i2][i1][i0];
@@ -166,7 +166,7 @@ const T& FYArray<T, N>::operator()(const SimpleArray<int,N_rank2>& index) const
 
 template<typename T, int N>
 template<int N_rank2>
-T& FYArray<T, N>::operator()(const SimpleArray<int,N_rank2>& index) 
+T& FYArray<T, N>::operator()(const SimpleArray<int,N_rank2>& index)
 {
 	return data_[dot(index, stride_)];
 }
@@ -202,7 +202,7 @@ FYArray<T, N> FYArray<T, N>::operator()(Range r0, Range r1, Range r2, Range r3, 
 }
 
 template<typename T, int N>
-FYArray<T, N> FYArray<T, N>::operator()(Range r0, Range r1, Range r2, Range r3, Range r4, Range r5) const        
+FYArray<T, N> FYArray<T, N>::operator()(Range r0, Range r1, Range r2, Range r3, Range r4, Range r5) const
 {
 	return FYArray<T, N>(noConst(), r0, r1, r2, r3, r4, r5);
 }
@@ -226,7 +226,7 @@ typename FYSliceInfo<T,T1,T2>::T_slice
 
 template<typename T, int N>
 template < typename T1, typename T2, typename T3 >
-typename FYSliceInfo<T,T1,T2,T3>::T_slice 
+typename FYSliceInfo<T,T1,T2,T3>::T_slice
 	FYArray<T, N>::operator()(T1 r1, T2 r2, T3 r3) const
 {
 	typedef typename FYSliceInfo<T,T1,T2,T3>::T_slice slice;
@@ -325,11 +325,11 @@ FYArray<T_numtype, N_rank>::evaluateWithIndexTraversal1(T_expr expr, T_update)
 template < typename T_numtype, int N_rank > template < typename T_expr, typename T_update >
 FYArray<T_numtype, N_rank>&
 FYArray<T_numtype, N_rank>::evaluateWithIndexTraversalN(T_expr expr, T_update)
-    
+
 {
     // Do a stack-type traversal for the destination array and use
     // index traversal for the source expression
-   
+
     const int maxRank = ordering(0);
 
     FYFastArrayIterator<T_numtype, N_rank> iter(*this);
@@ -389,7 +389,7 @@ FYArray<T_numtype, N_rank>::evaluateWithIndexTraversalN(T_expr expr, T_update)
         iter.loadStride(maxRank);
     }
 
-    return *this; 
+    return *this;
 }
 
 template < typename T_numtype, int N_rank > template < typename T_expr, typename T_update >
@@ -477,7 +477,7 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
     iter.loadStride(maxRank);
     expr.loadStride(maxRank);
 
-    /* 
+    /*
      * Is the stride in the innermost loop equal to 1?  If so,
      * we might take advantage of this and generate more
      * efficient code.
@@ -604,14 +604,14 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
 				// 		}
 				// 	}
 				// );
-
+                #pragma omp simd
 				for (int i = 0; i < ubound; ++i)
 				{
 					T_update::update(*data++, expr.fastRead(i));
 				}
-                
+
             }
-            else 
+            else
 			{
                 for ( int i = 0; i != ubound; i += commonStride )
 				{
@@ -635,7 +635,7 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
              * the time, we hit the cases above.
              */
             T_numtype * end = const_cast<T_numtype*>(iter.data()) + lastLength * stride(maxRank);
-                
+
 
             while ( iter.data() != end )
             {
@@ -649,7 +649,7 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
         /*
          * We just finished the innermost loop.  Now we pop our way down
          * the stack, until we hit a loop that hasn't completed yet.
-         */ 
+         */
         int j = firstNoncollapsedLoop;
         for ( ; j < N_rank; ++ j )
         {
@@ -700,7 +700,7 @@ FYArray<T_numtype, N_rank>::evaluateWithStackTraversalN(T_expr expr, T_update)
 
 
 template < typename T_numtype, int N_rank > template < typename T_expr, typename T_update >
-FYArray<T_numtype, N_rank>& 
+FYArray<T_numtype, N_rank>&
 FYArray<T_numtype, N_rank>::evaluate(T_expr expr, T_update)
 {
     // Check that all arrays have the same shape
@@ -733,7 +733,7 @@ FYArray<T, N>& FYArray<T, N>::operator=(T x)
 }
 
 template < typename T, int N > template < typename T_expr >
-FYArray<T, N>& 
+FYArray<T, N>&
 FYArray<T, N>::operator = (const FYETBase<T_expr> &expr)
 {
 	// auto p = g_pool.commit([&]() {
@@ -754,7 +754,7 @@ FYArray<T, N>::operator = (const FYArray<T, N>& x)
 }
 
 template < typename T, int N >
-FYArray<T, N>& 
+FYArray<T, N>&
 FYArray<T,N>::initialize(T x)
 {
 	(*this) = FYArrayExpr< FYArrayExprConstant<T > >(x);

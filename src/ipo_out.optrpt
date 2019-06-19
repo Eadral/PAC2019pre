@@ -1,0 +1,1663 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.5.274 Build 20180823
+
+Compiler options: -g -xHost -O3 -ipo -no-prec-div -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec -o FYArray.exe
+
+Begin optimization report for: main()
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at main.cpp(78,2)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at main.cpp(80,3)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at main.cpp(82,4)
+      <Multiversioned v1>
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <x.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(84,6) ]
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <y.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(85,6) ]
+         remark #15329: vectorization support: non-unit strided store was emulated for the variable <z.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20MemoryB>, stride is unknown to compiler   [ main.cpp(86,6) ]
+         remark #15305: vectorization support: vector length 2
+         remark #15399: vectorization support: unroll factor set to 4
+         remark #15309: vectorization support: normalized vectorization overhead 0.036
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15453: unmasked strided stores: 3 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 20 
+         remark #15477: vector cost: 10.500 
+         remark #15478: estimated potential speedup: 1.880 
+         remark #15487: type converts: 1 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+
+      LOOP BEGIN at main.cpp(82,4)
+      <Remainder loop for vectorization, Multiversioned v1>
+         remark #15305: vectorization support: vector length 2
+         remark #15309: vectorization support: normalized vectorization overhead 0.619
+         remark #15301: REMAINDER LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at main.cpp(82,4)
+      <Multiversioned v2>
+         remark #15304: loop was not vectorized: non-vectorizable loop instance from multiversioning
+      LOOP END
+
+      LOOP BEGIN at main.cpp(82,4)
+      <Remainder, Multiversioned v2>
+      LOOP END
+
+      LOOP BEGIN at main.cpp(82,4)
+      <Remainder loop for vectorization, Multiversioned v1>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at main.cpp(112,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (118:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (130:8)
+
+   LOOP BEGIN at main.cpp(114,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (118:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (130:8)
+
+      LOOP BEGIN at main.cpp(116,4)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed OUTPUT dependence between xfn.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (118:8) and vol.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memor (130:8)
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at main.cpp(134,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (140:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (143:9)
+
+   LOOP BEGIN at main.cpp(136,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (140:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (143:9)
+
+      LOOP BEGIN at main.cpp(138,4)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed OUTPUT dependence between q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (140:9) and q_4d.__b_N7FYSPACE20MemoryBlockReferenceIdEE.__b_N7FYSPACE20Memo (143:9)
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at main.cpp(294,7)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+
+LOOP BEGIN at main.cpp(332,7)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+
+LOOP BEGIN at main.cpp(222,1)
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 4>::operator()<FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::Range *) const cannot be vectorized   [ main.cpp(224,13) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::operator=(FYSPACE::FYArray<RDouble, 3> *, RDouble) cannot be vectorized   [ main.cpp(224,26) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::~FYArray(FYSPACE::FYArray<RDouble, 3> *) cannot be vectorized   [ main.cpp(224,26) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 4>::operator()<FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::Range *) const cannot be vectorized   [ main.cpp(225,13) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::operator=(FYSPACE::FYArray<RDouble, 3> *, RDouble) cannot be vectorized   [ main.cpp(225,26) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::~FYArray(FYSPACE::FYArray<RDouble, 3> *) cannot be vectorized   [ main.cpp(225,26) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 4>::operator()<FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::Range *) const cannot be vectorized   [ main.cpp(226,13) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::operator=(FYSPACE::FYArray<RDouble, 3> *, RDouble) cannot be vectorized   [ main.cpp(226,26) ]
+   remark #15382: vectorization support: call to function FYSPACE::FYArray<RDouble, 3>::~FYArray(FYSPACE::FYArray<RDouble, 3> *) cannot be vectorized   [ main.cpp(226,26) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between Ud3_V.Ud3_V (58:4) and Ud3_V (226:13)
+LOOP END
+
+LOOP BEGIN at main.cpp(233,1)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(235,26) ]
+LOOP END
+
+LOOP BEGIN at main.cpp(296,1)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(298,40) ]
+LOOP END
+
+LOOP BEGIN at main.cpp(319,1)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(321,28) ]
+LOOP END
+
+LOOP BEGIN at main.cpp(334,1)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(336,40) ]
+LOOP END
+
+LOOP BEGIN at main.cpp(359,1)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+   LOOP BEGIN at main.cpp(363,5)
+      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(366,38) ]
+   LOOP END
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at main.cpp(176,2)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(247,14) ]
+
+   LOOP BEGIN at main.cpp(244,5)
+      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(247,14) ]
+
+      LOOP BEGIN at main.cpp(245,6)
+         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(247,14) ]
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at main.cpp(276,6)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(277,28) ]
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 4>::operator()<FYSPACE::Range, FYSPACE::Range, int, int>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, int, int) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(40,9) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference this->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.880 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.440 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.440 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::constructSlice<4, FYSPACE::Range, FYSPACE::Range, int, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYArray<RDouble, 4> &, FYSPACE::Range *, FYSPACE::Range *, int, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSlice.hxx(100,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between j (104:34) and j (104:34)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(655,5) inlined into ../include/FYSlice.hxx(109,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between this->zeroOffset_ (659:13) and this->zeroOffset_ (663:13)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::operator*<FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>(FYSPACE::FYBinaryExprResult<FYSPACE::Multiply, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result *, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(114,1)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 4 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 11 
+   remark #15477: vector cost: 7.000 
+   remark #15478: estimated potential speedup: 0.420 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(114,1)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 3>::operator()<FYSPACE::Range, FYSPACE::Range, int>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 3> *, FYSPACE::Range *, FYSPACE::Range *, int) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(40,9) inlined into ../include/FYOps.hxx(236,24)
+   remark #15389: vectorization support: reference this->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.880 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(236,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.440 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(236,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.440 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::constructSlice<3, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYArray<RDouble, 3> &, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSlice.hxx(100,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between j (104:34) and j (104:34)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(655,5) inlined into ../include/FYSlice.hxx(109,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between this->zeroOffset_ (659:13) and this->zeroOffset_ (663:13)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator=<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYETBase<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(744,2)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>> *, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.423
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 4 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 13 
+      remark #15477: vector cost: 3.250 
+      remark #15478: estimated potential speedup: 3.500 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.667
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between this (161:15) and this (161:15)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 4>::operator()<FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range>(FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice *, const FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::Range *) const
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(40,9) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference this->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.920 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.540 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYOps.hxx(247,24)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.540 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 3>::constructSlice<4, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::Range, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>(FYSPACE::FYArray<RDouble, 3> *, FYSPACE::FYArray<RDouble, 4> &, FYSPACE::Range *, FYSPACE::Range *, int, FYSPACE::Range *, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSlice.hxx(100,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between j (104:34) and j (104:34)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(655,5) inlined into ../include/FYSlice.hxx(109,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between this->zeroOffset_ (659:13) and this->zeroOffset_ (663:13)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 3>::operator=(FYSPACE::FYArray<RDouble, 3> *, RDouble)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(733,9)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.370 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator*=<FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYSliceInfo<double, FYSPACE::Range, FYSPACE::Range, int, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection, FYSPACE::FYnilArraySection>::T_slice &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(283,1)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(283,1)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::fy_multiply_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr *, FYSPACE::fy_multiply_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(45,1) ]
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(45,1) ]
+      remark #15389: vectorization support: reference expr->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.542
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 6 
+      remark #15477: vector cost: 1.500 
+      remark #15478: estimated potential speedup: 3.480 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(45,1) ]
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(45,1) ]
+      remark #15389: vectorization support: reference expr->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 2.111
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference expr->stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference maxRank->elems[j-1] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[maxRank->elems[j-1]]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[maxRank->elems[j-1]]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15305: vectorization support: vector length 2
+      remark #15309: vectorization support: normalized vectorization overhead 0.278
+      remark #15315: loop was not vectorized: estimated number of iterations (2) is insufficient for vectorization
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15451: unmasked unaligned unit stride stores: 3 
+      remark #15462: unmasked indexed (or gather) loads: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 17 
+      remark #15477: vector cost: 27.000 
+      remark #15478: estimated potential speedup: 0.490 
+      remark #15487: type converts: 1 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::operator+<FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>(FYSPACE::FYBinaryExprResult<FYSPACE::Add, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result *, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(112,1)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 4 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 11 
+   remark #15477: vector cost: 7.000 
+   remark #15478: estimated potential speedup: 0.420 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(112,1)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator-=<FYSPACE::FYBinaryExprResult<FYSPACE::Multiply, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYBinaryExprResult<FYSPACE::Multiply, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(282,1)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::fy_minus_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr *, FYSPACE::fy_minus_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(44,1) ]
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(44,1) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.444
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 9 
+      remark #15477: vector cost: 2.250 
+      remark #15478: estimated potential speedup: 3.490 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(44,1) ]
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(44,1) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.833
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between this (161:15) and this (161:15)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator+=<FYSPACE::FYBinaryExprResult<FYSPACE::Multiply, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYBinaryExprResult<FYSPACE::Multiply, FYSPACE::FYArray<double, 2>, FYSPACE::FYArray<double, 2>>::T_result &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(281,1)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr, FYSPACE::fy_plus_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>::T_expr *, FYSPACE::fy_plus_update<FYSPACE::FYArray<double, 2>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(43,1) ]
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(43,1) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.444
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15448: unmasked aligned unit stride loads: 1 
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 9 
+      remark #15477: vector cost: 2.250 
+      remark #15478: estimated potential speedup: 3.490 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(43,1) ]
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(43,1) ]
+      remark #15389: vectorization support: reference expr->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 1.833
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between this (161:15) and this (161:15)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator=<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYETBase<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(744,2)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>> *, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter1_->iter_->iter1_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter1_->iter_->iter2_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter2_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.400
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 4 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 93 
+      remark #15477: vector cost: 3.750 
+      remark #15478: estimated potential speedup: 12.560 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter1_->iter_->iter1_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter1_->iter_->iter2_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference *(expr->iter_->iter2_->iter_->iter1_->iter_->iter2_->data_+i*8) has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 2
+      remark #15309: vectorization support: normalized vectorization overhead 1.182
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between this (161:15) and this (161:15)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::operator+<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>, FYSPACE::FYArray<double, 2>>(FYSPACE::FYBinaryExprResult<FYSPACE::Add, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>, FYSPACE::FYArray<double, 2>>::T_result *, const FYSPACE::FYETBase<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>> &, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(112,1)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::operator+<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>, FYSPACE::FYArray<double, 2>>(FYSPACE::FYBinaryExprResult<FYSPACE::Add, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>, FYSPACE::FYArray<double, 2>>::T_result *, const FYSPACE::FYETBase<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>> &, const FYSPACE::FYETBase<FYSPACE::FYArray<double, 2>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYET.h(112,1)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::operator=<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Divide<FYSPACE::FYArrayExprConstant<double>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>::T_numtype>>>>(FYSPACE::FYArray<double, 2> *, const FYSPACE::FYETBase<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Divide<FYSPACE::FYArrayExprConstant<double>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>::T_numtype>>>> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYOps.hxx(744,2)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.280 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<double, 2>::evaluateWithStackTraversalN<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Divide<FYSPACE::FYArrayExprConstant<double>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>::T_numtype>>>, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>>(FYSPACE::FYArray<double, 2> *, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<double>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>>::T_expr, FYSPACE::Divide<FYSPACE::FYArrayExprConstant<double>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Add<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprBinaryOp<FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::FYExprWrap<FYSPACE::FYArray<double, 2>>::T_expr, FYSPACE::Multiply<FYSPACE::FYFastArrayIterator<double, 2>::T_numtype, FYSPACE::FYFastArrayIterator<double, 2>::T_numtype>>>::T_numtype>>>::T_numtype>>> *, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.460 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(696,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.104
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15450: unmasked unaligned unit stride loads: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 41 
+      remark #15477: vector cost: 10.250 
+      remark #15478: estimated potential speedup: 3.550 
+      remark #15486: divides: 1 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(28,3) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter1_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15389: vectorization support: reference expr->iter_->iter2_->iter_->iter2_->data_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(146,10) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.465
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(640,13)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between this (161:15) and this (161:15)
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 4>::FYArray(FYSPACE::FYArray<RDouble, 4> *, const FYSPACE::FYArray<RDouble, 4> &)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(40,9) inlined into ../include/FYArray.hxx(7,16)
+   remark #15389: vectorization support: reference this->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15305: vectorization support: vector length 4
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 1.250 
+   remark #15478: estimated potential speedup: 1.770 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYArray.hxx(7,16)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.250
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.530 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYArray.hxx(7,16)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.250
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.530 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(65,30) inlined into ../include/FYArray.hxx(14,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between this->elems[_2] (65:30) and at (65:30)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(66,30) inlined into ../include/FYArray.hxx(14,2)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between this->elems[_2] (66:30) and at (66:30)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(67,30) inlined into ../include/FYArray.hxx(14,2)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(515,19) inlined into ../include/FYArray.hxx(14,2)
+   remark #15389: vectorization support: reference this->elems[_2] has unaligned access   [ ../include/FYArray.hxx(515,5) ]
+   remark #15389: vectorization support: reference array->elems[_2] has unaligned access
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15305: vectorization support: vector length 4
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 1.000
+   remark #15301: MATERIALIZED LOOP WAS VECTORIZED
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 1.500 
+   remark #15478: estimated potential speedup: 1.330 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::fortranTag::operator void(FYSPACE::GeneralArrayStorage<3> *, FYSPACE::fortranTag *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(183,9) inlined into ../include/FYStorage.h(210,7)
+   remark #15389: vectorization support: reference U7_V.U7_V.U7_V.U7_V[i] has unaligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.540 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYStorage.h(210,7)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.500
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.540 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYStorage.h(210,7)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.600
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.600 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 3>::setupStorage(FYSPACE::FYArray<RDouble, 3> *, int)
+
+    Report from: Code generation optimizations [cg]
+
+../include/FYArray.hxx(640:20)::_ZN7FYSPACE7FYArrayIdLi3EE12setupStorageEi:  Assume directive not useful: removing
+
+../include/FYArray.hxx(636:20)::_ZN7FYSPACE7FYArrayIdLi3EE12setupStorageEi:  Assume directive not useful: removing
+
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(86,9) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between result (88:13) and result (88:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(607,9) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between stride (623:20) and stride (625:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(655,5) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between this->zeroOffset_ (659:13) and this->zeroOffset_ (663:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYArray.hxx(544,19)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 3.200
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.370 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::fortranTag::operator void(FYSPACE::GeneralArrayStorage<4> *, FYSPACE::fortranTag *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(183,9) inlined into ../include/FYStorage.h(213,7)
+   remark #15388: vectorization support: reference U8_V.U8_V.U8_V.U8_V[i] has aligned access   [ ../include/FYSimpleArray.h(62,16) ]
+   remark #15305: vectorization support: vector length 4
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.333
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 0.750 
+   remark #15478: estimated potential speedup: 2.000 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYStorage.h(213,7)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.250
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 3.000 
+   remark #15478: estimated potential speedup: 0.530 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into ../include/FYStorage.h(213,7)
+   remark #15389: vectorization support: reference *__first has unaligned access   [ /usr/include/c++/4.8.5/bits/stl_algobase.h(751,3) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.300
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.610 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,37) inlined into ../include/FYStorage.h(213,14)
+   remark #15389: vectorization support: reference __p1->elems[_2] has unaligned access   [ ../include/FYStorage.h(48,5) ]
+   remark #15388: vectorization support: reference U8_V.U8_V.U8_V.U8_V[_2] has aligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15389: vectorization support: reference __p1->elems[_2] has unaligned access   [ ../include/FYStorage.h(48,5) ]
+   remark #15389: vectorization support: reference U8_V.U8_V.U8_V.U8_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15305: vectorization support: vector length 4
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.545
+   remark #15301: MATERIALIZED LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15451: unmasked unaligned unit stride stores: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 7 
+   remark #15477: vector cost: 2.750 
+   remark #15478: estimated potential speedup: 1.640 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,68) inlined into ../include/FYStorage.h(213,14)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,94) inlined into ../include/FYStorage.h(213,14)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,37) inlined into ../include/FYStorage.h(213,14)
+<Distributed chunk2>
+   remark #15388: vectorization support: reference __p1->elems[_2] has aligned access   [ ../include/FYStorage.h(48,5) ]
+   remark #15389: vectorization support: reference U8_V.U8_V.U8_V.U8_V[_2] has unaligned access   [ ../include/FYStorage.h(212,14) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.429
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 4 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.800 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 4>::FYArray(FYSPACE::FYArray<RDouble, 4> *, FYSPACE::Range *, FYSPACE::Range *, FYSPACE::Range *, FYSPACE::Range *, FYSPACE::GeneralArrayStorage<4> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(49,37) inlined into ../include/FYArray.hxx(175,14)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between this->elems[_2] (49:37) and rhs[_2] (49:37)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,68) inlined into ../include/FYArray.hxx(175,14)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between this->elems[_2] (49:68) and rhs[_2] (49:68)
+LOOP END
+
+LOOP BEGIN at ../include/FYStorage.h(49,94) inlined into ../include/FYArray.hxx(175,14)
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 4>::setupStorage(FYSPACE::FYArray<RDouble, 4> *, int)
+
+    Report from: Code generation optimizations [cg]
+
+../include/FYArray.hxx(640:20)::_ZN7FYSPACE7FYArrayIdLi4EE12setupStorageEi:  Assume directive not useful: removing
+
+../include/FYArray.hxx(636:20)::_ZN7FYSPACE7FYArrayIdLi4EE12setupStorageEi:  Assume directive not useful: removing
+
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYStorage.h(86,9) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between result (88:13) and result (88:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(607,9) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between stride (623:20) and stride (625:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYArray.hxx(655,5) inlined into ../include/FYArray.hxx(541,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between this->zeroOffset_ (659:13) and this->zeroOffset_ (663:13)
+LOOP END
+
+LOOP BEGIN at ../include/FYProduct.h(34,5) inlined into ../include/FYArray.hxx(544,19)
+   remark #15389: vectorization support: reference length->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 4
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 3.667
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 3 
+   remark #15477: vector cost: 1.500 
+   remark #15478: estimated potential speedup: 0.420 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+===========================================================================
+
+Begin optimization report for: preccheck(RDouble4D *, RDouble4D *, RDouble4D *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at main.cpp(412,5)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(414,11) ]
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at main.cpp(406,6)
+   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(414,11) ]
+
+   LOOP BEGIN at main.cpp(408,7)
+      remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(414,11) ]
+
+      LOOP BEGIN at main.cpp(410,4)
+         remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ main.cpp(414,11) ]
+      LOOP END
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph::~graph(tbb::flow::interface10::graph *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(771,1)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::list<tbb::task *, std::allocator<tbb::task *>>::~list(std::list<tbb::task *, std::allocator<tbb::task *>> *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /usr/include/c++/4.8.5/bits/stl_list.h(439,11)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph::~graph(tbb::flow::interface10::graph *const)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at /usr/include/c++/4.8.5/bits/list.tcc(70,7) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(765,15)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph_node::~graph_node(tbb::flow::interface10::graph_node *)
+
+    Report from: Vector optimizations [vec]
+
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/tbb_machine.h(925,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(856,14)
+   remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
+
+   LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(48,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(856,14)
+      remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: tbb::flow::interface10::graph_node::~graph_node(tbb::flow::interface10::graph_node *const)
+
+    Report from: Vector optimizations [vec]
+
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/tbb_machine.h(925,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(855,20)
+   remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
+
+   LOOP BEGIN at /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(48,5) inlined into /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/flow_graph.h(855,20)
+      remark #15526: loop was not vectorized: ASM code cannot be vectorized   [ /opt/intel/compilers_and_libraries_2018.5.274/linux/tbb/include/tbb/machine/gcc_ia32_common.h(49,0) ]
+   LOOP END
+LOOP END
+===========================================================================
+
+Begin optimization report for: FYSPACE::FYArray<RDouble, 3>::evaluateWithStackTraversalN<FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>>(FYSPACE::FYArray<RDouble, 3> *, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>> *, FYSPACE::FYUpdate<FYSPACE::FYArray<RDouble, 3>::T_numtype, FYSPACE::FYArrayExpr<FYSPACE::FYArrayExprConstant<double>>::T_numtype>)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at ../include/FYSimpleArray.h(224,5) inlined into ../include/FYOps.hxx(465,50)
+   remark #15389: vectorization support: reference x->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference y->elems[i] has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 2.714
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 6 
+   remark #15477: vector cost: 3.500 
+   remark #15478: estimated potential speedup: 0.560 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYOps.hxx(470,11)
+   remark #15389: vectorization support: reference iter.stack_.stack_[i] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.200
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 2 
+   remark #15477: vector cost: 2.500 
+   remark #15478: estimated potential speedup: 0.660 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYOps.hxx(511,5)
+   remark #15389: vectorization support: reference last[i] has unaligned access   [ ../include/FYOps.hxx(513,9) ]
+   remark #15389: vectorization support: reference this has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15389: vectorization support: reference this has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15381: vectorization support: unaligned access used inside loop body
+   remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[this]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[this]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15427: loop was completely unrolled
+   remark #15309: vectorization support: normalized vectorization overhead 0.163
+   remark #15450: unmasked unaligned unit stride loads: 2 
+   remark #15451: unmasked unaligned unit stride stores: 1 
+   remark #15462: unmasked indexed (or gather) loads: 2 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 14 
+   remark #15477: vector cost: 21.500 
+   remark #15478: estimated potential speedup: 0.560 
+   remark #15487: type converts: 1 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at ../include/FYOps.hxx(531,11)
+   remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(547,13) ]
+LOOP END
+
+LOOP BEGIN at ../include/FYFastArrayIterator.h(181,9) inlined into ../include/FYOps.hxx(695,14)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Peeled loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+      remark #15388: vectorization support: reference *data has aligned access   [ ../include/FYET.h(28,3) ]
+      remark #15305: vectorization support: vector length 4
+      remark #15399: vectorization support: unroll factor set to 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.917
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15442: entire loop may be executed in remainder
+      remark #15449: unmasked aligned unit stride stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 0.750 
+      remark #15478: estimated potential speedup: 3.420 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(608,5)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference *data has unaligned access   [ ../include/FYET.h(28,3) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+      remark #15305: vectorization support: vector length 2
+      remark #15309: vectorization support: normalized vectorization overhead 2.333
+   LOOP END
+
+   LOOP BEGIN at ../include/FYExpr.h(53,10) inlined into ../include/FYOps.hxx(643,72)
+      remark #15523: loop was not vectorized: loop control variable iter.data_ was found, but loop iteration count cannot be computed before executing the loop
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(654,9)
+      remark #15520: loop was not vectorized: loop with multiple exits cannot be vectorized unless it meets search loop idiom criteria   [ ../include/FYOps.hxx(654,32) ]
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+      remark #15389: vectorization support: reference iter.stack_.stack_[j] has unaligned access   [ ../include/FYFastArrayIterator.h(38,16) ]
+      remark #15389: vectorization support: reference this has unaligned access   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15389: vectorization support: reference last[j-1] has unaligned access   [ ../include/FYOps.hxx(690,13) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[this]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15328: vectorization support: irregularly indexed load was emulated for the variable <this->elems[this]>, part of index is read from memory   [ ../include/FYSimpleArray.h(67,16) ]
+      remark #15305: vectorization support: vector length 2
+      remark #15309: vectorization support: normalized vectorization overhead 0.229
+      remark #15315: loop was not vectorized: estimated number of iterations (3) is insufficient for vectorization
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15451: unmasked unaligned unit stride stores: 2 
+      remark #15462: unmasked indexed (or gather) loads: 2 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 15 
+      remark #15477: vector cost: 24.000 
+      remark #15478: estimated potential speedup: 0.600 
+      remark #15487: type converts: 1 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at ../include/FYOps.hxx(685,9)
+   <Remainder>
+   LOOP END
+LOOP END
+===========================================================================
