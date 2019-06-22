@@ -1,6 +1,7 @@
 TARGET=FYArray.exe
 
-CXX=icpc -g -xHost -O3 -ipo -no-prec-div -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec
+CXX=icpc -g -xHost -O3 -ipo -par-num-threads=14 -par-affinity=verbose,granularity=fine,proclist=[0,2,4,6,8,10,12,14,16,18,20,22,24,26],explict \
+	-no-prec-div -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec
 
 INCLUDE=../include
 
@@ -9,7 +10,7 @@ OBJ=FYStorage.o main.o
 $(TARGET):$(OBJ)
 	$(CXX) $^ -o $@ 
 	cp $(TARGET) ../
-	
+	#../env.sh
 	#cd ..
 	#./FYArray.exe 
 	#profmerge -prof_dir profdata

@@ -1,7 +1,0 @@
-Intel(R) Advisor can now assist with vectorization and show optimization
-  report messages with your source code.
-See "https://software.intel.com/en-us/intel-advisor-xe" for details.
-
-Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.5.274 Build 20180823
-
-Compiler options: -I../include -g -xHost -O3 -ipo -no-prec-div -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec -c -o FYStorage.o
