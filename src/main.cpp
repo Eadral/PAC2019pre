@@ -108,6 +108,7 @@ void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, 
 			xfn1_j += i_start - il1;
 			area_j += i_start;
 			area1_j += i_start - il1;
+#pragma simd
 			for (int i = i_start; i < i_end; i++) {
 				// int corr_worksx = worksx.getindex(i, j, k, 0);
 				// int now_worksx = worksx_j - worksx.data();
@@ -314,7 +315,7 @@ int main()
 		DoWork(dqdx_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
 		DoWork(dqdy_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
 		DoWork(dqdz_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
-	
+
 
 
 
