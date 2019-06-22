@@ -60,6 +60,27 @@ inline unsigned long long rdtsc(void)
 #endif
 }
 
+inline void DoWork(RDouble4D dqdx_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start, int m_end) {
+	double *dqdx_4d_d = dqdx_4d.data();
+	dqdx_4d_d += m_start * k_length * j_length * i_length;
+	for (int m = m_start; m < m_end; m++) {
+# pragma omp parallel for
+		for (int k = k_start; k < k_end; k++) {
+			double *dqdx_4d_d_k = dqdx_4d_d + k * j_length * i_length;
+			dqdx_4d_d_k += j_start * i_length;
+			for (int j = j_start; j < j_end; j++) {
+				dqdx_4d_d_k += i_start;
+				for (int i = i_start; i < i_end; i++) {
+					int corr = dqdx_4d.getindex(i, j, k, m);
+					int now = dqdx_4d_d_k - dqdx_4d.data();
+					*dqdx_4d_d_k++ = 0;
+				}
+			}
+		}
+		dqdx_4d_d += k_length * j_length * i_length;
+	}
+}
+
 int main()
 {
 	double start,end,elapsed;
@@ -240,51 +261,23 @@ int main()
 // 			dqdy_4d(I, J, k, M) = 0.0;
 // 			dqdz_4d(I, J, k, M) = 0.0;
 // 		}
-		double *dqdx_4d_d = dqdx_4d.data();
+		// double *dqdx_4d_d = dqdx_4d.data();
 		// cout << dqdx_4d_d[dqdz_4d.getindex(3, 3, 3, 0)] << endl;
 		// cout << dqdx_4d_d[dqdz_4d.getindex(1, 1, 1, 0)] << endl;
 
 // # pragma omp parallel for
-		int i_start = I.first() + 1;  int i_end = I.last() + 2;
-		int j_start = J.first() + 1;  int j_end = J.last() + 2;
-		int k_start = I.first() + 1;  int k_end = K.last() + 2;
-		int m_start = M.first() + 0;  int m_end = M.last() + 0;
+		int i_start = I.first() - IW.first();  int i_end = I.last() - IW.first() + 1; int i_length = I.length() - IW.first() + 1;
+		int j_start = J.first() - JW.first();  int j_end = J.last() - JW.first() + 1; int j_length = J.length() - JW.first() + 1;
+		int k_start = I.first() - KW.first();  int k_end = K.last() - KW.first() + 1; int k_length = K.length() - KW.first() + 1;
+		int m_start = M.first();  int m_end = M.last(); int m_length = M.length();
 
-		// double *dqdx_4d_d = dqdx_4d.data();
-		for (int m = m_start; m < m_end; m++) {
-			for (int k = k_start; k < k_end; k++) {
-				for (int j = j_start; j < j_end; j++) {
-					for (int i = i_start; i < i_end; i++) {
-						dqdx_4d_d[dqdx_4d.getindex(i, j, k, m)] = 0;
-					}
-				}
-			}
-		}
-
-		double *dqdy_4d_d = dqdy_4d.data();
-		for (int m = m_start; m < m_end; m++) {
-			for (int k = k_start; k < k_end; k++) {
-				for (int j = j_start; j < j_end; j++) {
-					for (int i = i_start; i < i_end; i++) {
-						dqdy_4d_d[dqdy_4d.getindex(i, j, k, m)] = 0;
-					}
-				}
-			}
-		}
-
-		double *dqdz_4d_d = dqdz_4d.data();
-		for (int m = m_start; m < m_end; m++) {
-			for (int k = k_start; k < k_end; k++) {
-				for (int j = j_start; j < j_end; j++) {
-					for (int i = i_start; i < i_end; i++) {
-						dqdz_4d_d[dqdz_4d.getindex(i, j, k, m)] = 0;
-					}
-				}
-			}
-		}
-
-		cout << dqdx_4d_d[dqdz_4d.getindex(3, 3, 3, 0)] << endl;
-		cout << dqdx_4d_d[dqdz_4d.getindex(1, 1, 1, 0)] << endl;
+		DoWork(dqdx_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
+		DoWork(dqdy_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
+		DoWork(dqdz_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end);
+	
+		//
+		// cout << dqdx_4d_d[dqdz_4d.getindex(3, 3, 3, 0)] << endl;
+		// cout << dqdx_4d_d[dqdz_4d.getindex(1, 1, 1, 0)] << endl;
 		// }
 		// );
 
