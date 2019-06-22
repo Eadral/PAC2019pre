@@ -71,8 +71,8 @@ inline void DoWork(RDouble4D dqdx_4d, int i_start, int i_end, int i_length, int 
 				double *data_j = data_k + j * i_length;
 				data_j += i_start;
 				for (int i = i_start; i < i_end; i++) {
-					// int corr = dqdx_4d.getindex(i, j, k, m);
-					// int now = data_j - dqdx_4d.data();
+					int corr = dqdx_4d.getindex(i, j, k, m);
+					int now = data_j - dqdx_4d.data();
 					*data_j++ = 0;
 				}
 			}
@@ -109,12 +109,12 @@ void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, 
 			area_j += i_start;
 			area1_j += i_start - il1;
 			for (int i = i_start; i < i_end; i++) {
-				// int corr_worksx = worksx.getindex(i, j, k, 0);
-				// int now_worksx = worksx_j - worksx.data();
-				// int corr_xfn = xfn.getindex(i, j, k, ns1 - 1);
-				// int now_xfn = xfn_j - xfn.data();
-				// int corr_area = area.getindex(i, j, k, ns1 - 1);
-				// int now_area = area_j - area.data();
+				int corr_worksx = worksx.getindex(i, j, k, 0);
+				int now_worksx = worksx_j - worksx.data();
+				int corr_xfn = xfn.getindex(i, j, k, ns1 - 1);
+				int now_xfn = xfn_j - xfn.data();
+				int corr_area = area.getindex(i, j, k, ns1 - 1);
+				int now_area = area_j - area.data();
 				*worksx_j++ = (*xfn_j++) * (*area_j++) + (*xfn1_j++) * (*area1_j++);
 			}
 		}
@@ -410,22 +410,14 @@ int main()
 		{
 			// parallel_for(blocked_range<int>(1, nk + 1),
 			// 	[=](const blocked_range<int>& r) {
-// # pragma omp parallel for
-// 					for (int k = 1; k <= nk + 1; k++) {
-// 						worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-// 						worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-// 						worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
-// 					}
+# pragma omp parallel for
+					for (int k = 1; k <= nk + 1; k++) {
+						worksx(I, J, k) = xfn(I, J, k, ns2) * area(I, J, k, ns2) + xfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
+						worksy(I, J, k) = yfn(I, J, k, ns2) * area(I, J, k, ns2) + yfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
+						worksz(I, J, k) = zfn(I, J, k, ns2) * area(I, J, k, ns2) + zfn(I - il1, J - jl1, k - kl1, ns2) * area(I - il1, J - jl1, k - kl1, ns2);
+					}
 			// 	}
 			// );
-
-			DoWork1(xfn, area, worksx, ns2, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-			DoWork1(yfn, area, worksy, ns2, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-			DoWork1(zfn, area, worksz, ns2, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-
 
 			// parallel_for(blocked_range<int>(mst, med),
 			// 	[=](const blocked_range<int>& r) {
@@ -462,21 +454,14 @@ int main()
 		{
 			// parallel_for(blocked_range<int>(1, nk + 1),
 			// 	[=](const blocked_range<int>& r) {
-// # pragma omp parallel for
-// 					for (int k = 1; k <= nk + 1; k++) {
-// 						worksx(I, J, k) = xfn(I, J, k, ns3) * area(I, J, k, ns3) + xfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-// 						worksy(I, J, k) = yfn(I, J, k, ns3) * area(I, J, k, ns3) + yfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-// 						worksz(I, J, k) = zfn(I, J, k, ns3) * area(I, J, k, ns3) + zfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
-// 					}
+# pragma omp parallel for
+					for (int k = 1; k <= nk + 1; k++) {
+						worksx(I, J, k) = xfn(I, J, k, ns3) * area(I, J, k, ns3) + xfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
+						worksy(I, J, k) = yfn(I, J, k, ns3) * area(I, J, k, ns3) + yfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
+						worksz(I, J, k) = zfn(I, J, k, ns3) * area(I, J, k, ns3) + zfn(I - il1, J - jl1, k - kl1, ns3) * area(I - il1, J - jl1, k - kl1, ns3);
+					}
 			// 	}
 			// );
-			DoWork1(xfn, area, worksx, ns3, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-			DoWork1(yfn, area, worksy, ns3, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-			DoWork1(zfn, area, worksz, ns3, il1, jl1, kl1, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end,
-				k_length);
-
 
 
 
