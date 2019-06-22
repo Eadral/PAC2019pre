@@ -185,7 +185,7 @@ class MemoryBlockReference
 {
 public:
     typedef P_type T_type;
-protected:
+public:
     T_type *  data_;
 
 private:

@@ -217,25 +217,88 @@ int main()
 
 		Range M(mst,med);
 
+		// cout << dqdx_4d.length(0) << endl;
+		// cout << dqdx_4d.length(1) << endl;
+		// cout << dqdx_4d.length(2) << endl;
+		// cout << dqdx_4d.length(3) << endl;
+		// cout << dqdx_4d.getindex(0, 0, 0, 0) << endl;
+		// cout << dqdx_4d.getindex(0, 1, 0, 0) << endl;
+		// cout << dqdx_4d.getindex(0, 0, 1, 0) << endl;
+		// cout << dqdx_4d.getindex(0, 0, 0, 1) << endl;
+		// cout << dqdx_4d.getindex(0, 0, 0, 2) << endl;
+		// cout << dqdx_4d.getindex(0, 0, 0, 3) << endl;
+		// cout << dqdx_4d.getindex(53, 43, 303, 4) << endl;
+		// cout << dqdx_4d.numElements() << endl;
+
+		// return 0;
+
 		// parallel_for(blocked_range<int>(1, nk + 1),
 		// 	[=](const blocked_range<int>& r) {
-# pragma omp parallel for
-				for (int k = 1; k <= nk+1; k++) {
-					dqdx_4d(I, J, k, M) = 0.0;
-					dqdy_4d(I, J, k, M) = 0.0;
-					dqdz_4d(I, J, k, M) = 0.0;
+// # pragma omp parallel for
+// 		for (int k = 1; k <= nk + 1; k++) {
+// 			dqdx_4d(I, J, k, M) = 0.0;
+// 			dqdy_4d(I, J, k, M) = 0.0;
+// 			dqdz_4d(I, J, k, M) = 0.0;
+// 		}
+		double *dqdx_4d_d = dqdx_4d.data();
+		// cout << dqdx_4d_d[dqdz_4d.getindex(3, 3, 3, 0)] << endl;
+		// cout << dqdx_4d_d[dqdz_4d.getindex(1, 1, 1, 0)] << endl;
+
+// # pragma omp parallel for
+		int i_start = I.first() + 1;  int i_end = I.last() + 2;
+		int j_start = J.first() + 1;  int j_end = J.last() + 2;
+		int k_start = I.first() + 1;  int k_end = K.last() + 2;
+		int m_start = M.first() + 0;  int m_end = M.last() + 0;
+
+		// double *dqdx_4d_d = dqdx_4d.data();
+		for (int m = m_start; m < m_end; m++) {
+			for (int k = k_start; k < k_end; k++) {
+				for (int j = j_start; j < j_end; j++) {
+					for (int i = i_start; i < i_end; i++) {
+						dqdx_4d_d[dqdx_4d.getindex(i, j, k, m)] = 0;
+					}
 				}
-			// }
+			}
+		}
+
+		double *dqdy_4d_d = dqdy_4d.data();
+		for (int m = m_start; m < m_end; m++) {
+			for (int k = k_start; k < k_end; k++) {
+				for (int j = j_start; j < j_end; j++) {
+					for (int i = i_start; i < i_end; i++) {
+						dqdy_4d_d[dqdy_4d.getindex(i, j, k, m)] = 0;
+					}
+				}
+			}
+		}
+
+		double *dqdz_4d_d = dqdz_4d.data();
+		for (int m = m_start; m < m_end; m++) {
+			for (int k = k_start; k < k_end; k++) {
+				for (int j = j_start; j < j_end; j++) {
+					for (int i = i_start; i < i_end; i++) {
+						dqdz_4d_d[dqdz_4d.getindex(i, j, k, m)] = 0;
+					}
+				}
+			}
+		}
+
+		cout << dqdx_4d_d[dqdz_4d.getindex(3, 3, 3, 0)] << endl;
+		cout << dqdx_4d_d[dqdz_4d.getindex(1, 1, 1, 0)] << endl;
+		// }
 		// );
 
 		// parallel_for(blocked_range<int>(1, nk + 1),
 		// 	[=](const blocked_range<int>& r) {
 # pragma omp parallel for
-				for (int k = 1; k <= nk + 1; k++) {
-				worksx(I, J, k) = xfn(I, J, k, ns1) * area(I, J, k, ns1) + xfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-				worksy(I, J, k) = yfn(I, J, k, ns1) * area(I, J, k, ns1) + yfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-				worksz(I, J, k) = zfn(I, J, k, ns1) * area(I, J, k, ns1) + zfn(I - il1, J - jl1, k - kl1, ns1) * area(I - il1, J - jl1, k - kl1, ns1);
-			}
+		for (int k = 1; k <= nk + 1; k++) {
+			worksx(I, J, k) = xfn(I, J, k, ns1) * area(I, J, k, ns1) + xfn(I - il1, J - jl1, k - kl1, ns1) * area(
+				I - il1, J - jl1, k - kl1, ns1);
+			worksy(I, J, k) = yfn(I, J, k, ns1) * area(I, J, k, ns1) + yfn(I - il1, J - jl1, k - kl1, ns1) * area(
+				I - il1, J - jl1, k - kl1, ns1);
+			worksz(I, J, k) = zfn(I, J, k, ns1) * area(I, J, k, ns1) + zfn(I - il1, J - jl1, k - kl1, ns1) * area(
+				I - il1, J - jl1, k - kl1, ns1);
+		}
 		// }
 		// );
 
