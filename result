@@ -212,3 +212,8 @@ TITLE: omp_all
 STAMP: 1560516507
 Fri Jun 14 20:48:27 CST 2019
 The programe elapsed 6.39092 s
+ 
+TITLE: pure_c
+STAMP: 1561277178
+Sun Jun 23 16:06:18 CST 2019
+The programe elapsed 4.48987 s
