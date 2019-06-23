@@ -177,59 +177,71 @@ void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int
 	}
 
 	if (il2 == 1) {
-		// dqdx_4d(0, Jc, Kc, m) += worksx(0 + il2, Jc, Kc) * workqm(0 + il2, Jc, Kc);
-		// dqdx_4d(ni, Jc, Kc, m) += worksx(ni + il2, Jc, Kc) * workqm(ni + il2, Jc, Kc);
 
-		double* dqdx_4d_d = dqdx_4d.data();
-		double* worksx_d = worksx.data();
-		double* workqm_d = workqm.data();
-		// for (int m = m_start; m < m_end; m++) {
-		double* dqdx_4d_m = dqdx_4d_d + m * k_length * j_length * i_length;
-		double* worksx_m = worksx_d;
-		// double* xfn1_m = worksx_d + m * k_length * j_length * i_length;
-		double* workqm_m = workqm_d;
-		// double* area1_m = workqm_d + m * k_length * j_length * i_length;
 # pragma omp parallel for
-		for (int k = k_start; k < k_end; k++) {
-			double* dqdx_4d_k = dqdx_4d_m + k * j_length * i_length;
-			double* worksx_k = worksx_m + k * j_length * i_length;
-			double* workqm_k = workqm_m + k * j_length * i_length;
-			for (int j = j_start; j < j_end; j++) {
-				double* dqdx_4d_j = dqdx_4d_k + j * i_length;
-				double* worksx_j = worksx_k + j * i_length;
-				double* workqm_j = workqm_k + j * i_length;
-// #pragma omp simd
-				// for (int i = i_start; i < i_end; i++) {
-				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
-				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
-				// assert(corr_dqdx_4d == now_dqdx_4d);
-				// int corr_worksx = worksx.getindex(i, j, k, 0);
-				// int now_worksx = worksx_j - worksx.data();
-				// assert(corr_worksx == now_worksx);
-				// int corr_workqm = workqm.getindex(i, j, k, 0);
-				// int now_workqm = workqm_j - workqm.data();
-				// assert(corr_workqm == now_workqm);
-				// int corr_worksx1 = worksx.getindex(i+il2, j+jl2, k+kl2, 0);
-				// int now_worksx1 = worksx1_j - worksx.data();
-				// assert(corr_worksx1 == now_worksx1);
-				// int corr_workqm1 = workqm.getindex(i+il2, j+jl2, k+kl2, 0);
-				// int now_workqm1 = workqm1_j - workqm.data();
-				// assert(corr_workqm1 == now_workqm1);
-				dqdx_4d_j[0] += worksx_j[il2] * workqm_j[il2];
-				dqdx_4d_j[ni] += worksx_j[ni+il2] * workqm_j[ni+il2];
-
-				// }
-			}
+		for (int k = 1; k <= nk; k++) {
+			dqdx_4d(0, Jc, k, m) += worksx(0 + il2, Jc, k) * workqm(0 + il2, Jc, k);
+			dqdx_4d(ni, Jc, k, m) += worksx(ni + il2, Jc, k) * workqm(ni + il2, Jc, k);
 		}
+
+		
+//
+// 		double* dqdx_4d_d = dqdx_4d.data();
+// 		double* worksx_d = worksx.data();
+// 		double* workqm_d = workqm.data();
+// 		// for (int m = m_start; m < m_end; m++) {
+// 		double* dqdx_4d_m = dqdx_4d_d + m * k_length * j_length * i_length;
+// 		double* worksx_m = worksx_d;
+// 		// double* xfn1_m = worksx_d + m * k_length * j_length * i_length;
+// 		double* workqm_m = workqm_d;
+// 		// double* area1_m = workqm_d + m * k_length * j_length * i_length;
+// # pragma omp parallel for
+// 		for (int k = k_start; k < k_end; k++) {
+// 			double* dqdx_4d_k = dqdx_4d_m + k * j_length * i_length;
+// 			double* worksx_k = worksx_m + k * j_length * i_length;
+// 			double* workqm_k = workqm_m + k * j_length * i_length;
+// 			for (int j = j_start; j < j_end; j++) {
+// 				double* dqdx_4d_j = dqdx_4d_k + j * i_length;
+// 				double* worksx_j = worksx_k + j * i_length;
+// 				double* workqm_j = workqm_k + j * i_length;
+// // #pragma omp simd
+// 				// for (int i = i_start; i < i_end; i++) {
+// 				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
+// 				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
+// 				// assert(corr_dqdx_4d == now_dqdx_4d);
+// 				// int corr_worksx = worksx.getindex(i, j, k, 0);
+// 				// int now_worksx = worksx_j - worksx.data();
+// 				// assert(corr_worksx == now_worksx);
+// 				// int corr_workqm = workqm.getindex(i, j, k, 0);
+// 				// int now_workqm = workqm_j - workqm.data();
+// 				// assert(corr_workqm == now_workqm);
+// 				// int corr_worksx1 = worksx.getindex(i+il2, j+jl2, k+kl2, 0);
+// 				// int now_worksx1 = worksx1_j - worksx.data();
+// 				// assert(corr_worksx1 == now_worksx1);
+// 				// int corr_workqm1 = workqm.getindex(i+il2, j+jl2, k+kl2, 0);
+// 				// int now_workqm1 = workqm1_j - workqm.data();
+// 				// assert(corr_workqm1 == now_workqm1);
+// 				dqdx_4d_j[0] += worksx_j[il2] * workqm_j[il2];
+// 				dqdx_4d_j[ni] += worksx_j[ni+il2] * workqm_j[ni+il2];
+//
+// 				// }
+// 			}
+// 		}
 	}
 	if (jl2 == 1) {
-		dqdx_4d(Ic, 0, Kc, m) += worksx(Ic, 0 + jl2, Kc) * workqm(Ic, 0 + jl2, Kc);
-		dqdx_4d(Ic, nj, Kc, m) += worksx(Ic, nj + jl2, Kc) * workqm(Ic, nj + jl2, Kc);
+# pragma omp parallel for
+		for (int k = 1; k <= nk; k++) {
+			dqdx_4d(Ic, 0, k, m) += worksx(Ic, 0 + jl2, k) * workqm(Ic, 0 + jl2, k);
+			dqdx_4d(Ic, nj, k, m) += worksx(Ic, nj + jl2, k) * workqm(Ic, nj + jl2, k);
+		}
 	}
 	if (kl2 == 1) {
-		dqdx_4d(Ic, Jc, 0, m) += worksx(Ic, Jc, 0 + kl2) * workqm(Ic, Jc, 0 + kl2);
-		// dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk + kl2) * workqm(Ic, Jc, nk + kl2);
-		dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk+kl2) * workqm(Ic, Jc, nk+kl2);
+# pragma omp parallel for
+		for (int j = 1; j <= nj; j++) {
+			dqdx_4d(Ic, j, 0, m) += worksx(Ic, j, 0 + kl2) * workqm(Ic, j, 0 + kl2);
+			// dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk + kl2) * workqm(Ic, Jc, nk + kl2);
+			dqdx_4d(Ic, j, nk, m) += worksx(Ic, j, nk + kl2) * workqm(Ic, j, nk + kl2);
+		}
 	}
 }
 
@@ -341,17 +353,26 @@ void DoWork4(RDouble4D q_4d, RDouble4D dqdx_4d, RDouble3D worksx, int il1, int i
 	}
 
 	if (il1 == 1) {
-		dqdx_4d(0, Jc, Kc, m) += worksx(0 + il1, Jc, Kc) * q_4d(0, Jc, Kc, m);
-		dqdx_4d(ni, Jc, Kc, m) += worksx(ni + il1, Jc, Kc) * q_4d(ni, Jc, Kc, m);
+# pragma omp parallel for
+		for (int k = 1; k <= nk; k++) {
+			dqdx_4d(0, Jc, k, m) += worksx(0 + il1, Jc, k) * q_4d(0, Jc, k, m);
+			dqdx_4d(ni, Jc, k, m) += worksx(ni + il1, Jc, k) * q_4d(ni, Jc, k, m);
+		}
 	}
 	if (jl1 == 1) {
-		dqdx_4d(Ic, 0, Kc, m) += worksx(Ic, 0 + jl1, Kc) * q_4d(Ic, 0, Kc, m);
-		dqdx_4d(Ic, nj, Kc, m) += worksx(Ic, nj + jl1, Kc) * q_4d(Ic, nj, Kc, m);
+# pragma omp parallel for
+		for (int k = 1; k <= nk; k++) {
+			dqdx_4d(Ic, 0, k, m) += worksx(Ic, 0 + jl1, k) * q_4d(Ic, 0, k, m);
+			dqdx_4d(Ic, nj, k, m) += worksx(Ic, nj + jl1, k) * q_4d(Ic, nj, k, m);
+		}
 	}
 	if (kl1 == 1) {
-		dqdx_4d(Ic, Jc, 0, m) += worksx(Ic, Jc, 0 + kl1) * q_4d(Ic, Jc, 0, m);
-		// dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk + kl2) * workqm(Ic, Jc, nk + kl2);
-		dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk + kl1) * q_4d(Ic, Jc, nk, m);
+# pragma omp parallel for
+		for (int j = 1; j <= nj; j++) {
+			dqdx_4d(Ic, j, 0, m) += worksx(Ic, j, 0 + kl1) * q_4d(Ic, j, 0, m);
+			// dqdx_4d(Ic, Jc, nk, m) += worksx(Ic, Jc, nk + kl2) * workqm(Ic, Jc, nk + kl2);
+			dqdx_4d(Ic, j, nk, m) += worksx(Ic, j, nk + kl1) * q_4d(Ic, j, nk, m);
+		}
 	}
 }
 
