@@ -82,7 +82,7 @@ inline void DoWork(RDouble4D dqdx_4d, int i_start, int i_end, int i_length, int 
 	}
 }
 
-void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, int jl1, int kl1, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length) {
+inline void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, int jl1, int kl1, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length) {
 	double* worksx_d = worksx.data();
 	double* xfn_d = xfn.data();
 	double* area_d = area.data();
@@ -111,6 +111,7 @@ void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, 
 			area_j += i_start;
 			area1_j += i_start - il1;
 #pragma omp simd
+#pragma unroll
 			for (int i = i_start; i < i_end; i++) {
 				// int corr_worksx = worksx.getindex(i, j, k, 0);
 				// int now_worksx = worksx_j - worksx.data();
@@ -124,7 +125,7 @@ void DoWork1(RDouble4D xfn, RDouble4D area, RDouble3D worksx, int ns1, int il1, 
 	}
 }
 
-void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int jl2, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, Range Ic, Range Jc, Range Kc, int m) {
+inline void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int jl2, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, Range Ic, Range Jc, Range Kc, int m) {
 	double* dqdx_4d_d = dqdx_4d.data();
 	double* worksx_d = worksx.data();
 	double* workqm_d = workqm.data();
@@ -153,6 +154,7 @@ void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int
 			workqm_j += i_start;
 			workqm1_j += i_start + il2;
 #pragma omp simd
+#pragma unroll
 			for (int i = i_start; i < i_end; i++) {
 				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
 				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
@@ -184,7 +186,7 @@ void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int
 			dqdx_4d(ni, Jc, k, m) += worksx(ni + il2, Jc, k) * workqm(ni + il2, Jc, k);
 		}
 
-		
+
 //
 // 		double* dqdx_4d_d = dqdx_4d.data();
 // 		double* worksx_d = worksx.data();
@@ -245,7 +247,7 @@ void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int il2, int
 	}
 }
 
-void DoWork3(const double fourth, RDouble4D q_4d, RDouble3D workqm, int il1, int il2, int jl1, int jl2, int kl1, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m) {
+inline void DoWork3(const double fourth, RDouble4D q_4d, RDouble3D workqm, int il1, int il2, int jl1, int jl2, int kl1, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m) {
 	double* workqm_d = workqm.data();
 	double* q_4d_d = q_4d.data();
 	// for (int m = m_start; m < m_end; m++) {
@@ -273,6 +275,7 @@ void DoWork3(const double fourth, RDouble4D q_4d, RDouble3D workqm, int il1, int
 			q_4d2_j += i_start - il2;
 			q_4d3_j += i_start - il1-il2;
 #pragma omp simd
+#pragma unroll
 			for (int i = i_start; i < i_end; i++) {
 				// int corr_workqm = workqm.getindex(i, j, k, 0);
 				// int now_workqm = workqm_j - workqm.data();
@@ -298,7 +301,7 @@ void DoWork3(const double fourth, RDouble4D q_4d, RDouble3D workqm, int il1, int
 	}
 }
 
-void DoWork4(RDouble4D q_4d, RDouble4D dqdx_4d, RDouble3D worksx, int il1, int il2, int jl1, int jl2, int kl1, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m, Range Ic, Range Jc,
+inline void DoWork4(RDouble4D q_4d, RDouble4D dqdx_4d, RDouble3D worksx, int il1, int il2, int jl1, int jl2, int kl1, int kl2, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m, Range Ic, Range Jc,
 	Range Kc) {
 	double* dqdx_4d_d = dqdx_4d.data();
 	double* worksx_d = worksx.data();
@@ -328,6 +331,7 @@ void DoWork4(RDouble4D q_4d, RDouble4D dqdx_4d, RDouble3D worksx, int il1, int i
 			q_4d_j += i_start;
 			q_4d1_j += i_start - il1;
 #pragma omp simd
+#pragma unroll
 			for (int i = i_start; i < i_end - 1; i++) {
 				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
 				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
