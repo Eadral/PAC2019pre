@@ -1,7 +1,7 @@
 TARGET=FYArray.exe
 
 CXX=icpc -g -xHost -O3 -ipo -par-num-threads=14 -par-affinity=granularity=fine,proclist=[0,2,4,6,8,10,12,14,16,18,20,22,24,26],explicit \
-	-no-prec-div -funroll-all-loops -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=4 -qopt-report-phase=vec
+	-no-prec-div -funroll-all-loops -unroll-aggressive -fp-model fast=2 -qopenmp -ltbb -std=c++11 -qopt-report=5 -qopt-report-phase=vec
 
 INCLUDE=../include
 
