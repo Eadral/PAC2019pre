@@ -155,7 +155,49 @@ inline void DoWork2(RDouble4D dqdx_4d, RDouble3D worksx, RDouble3D workqm, int i
 			workqm1_j += i_start + il2;
 #pragma omp simd
 #pragma unroll
-			for (int i = i_start; i < i_end; i++) {
+			for (int i = i_start; i < 250; i++) {
+				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
+				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
+				// assert(corr_dqdx_4d == now_dqdx_4d);
+				// int corr_worksx = worksx.getindex(i, j, k, 0);
+				// int now_worksx = worksx_j - worksx.data();
+				// assert(corr_worksx == now_worksx);
+				// int corr_workqm = workqm.getindex(i, j, k, 0);
+				// int now_workqm = workqm_j - workqm.data();
+				// assert(corr_workqm == now_workqm);
+				// int corr_worksx1 = worksx.getindex(i+il2, j+jl2, k+kl2, 0);
+				// int now_worksx1 = worksx1_j - worksx.data();
+				// assert(corr_worksx1 == now_worksx1);
+				// int corr_workqm1 = workqm.getindex(i+il2, j+jl2, k+kl2, 0);
+				// int now_workqm1 = workqm1_j - workqm.data();
+				// assert(corr_workqm1 == now_workqm1);
+				*dqdx_4d_j = (*dqdx_4d_j) - (*worksx_j++) * (*workqm_j++)
+					+ (*worksx1_j++) * (*workqm1_j++);
+				dqdx_4d_j++;
+			}
+		}
+	}
+
+	for (int k = k_start; k < k_end; k++) {
+		double* dqdx_4d_k = dqdx_4d_m + k * j_length * i_length;
+		double* worksx_k = worksx_m + k * j_length * i_length;
+		double* worksx1_k = worksx_m + (k + kl2) * j_length * i_length;
+		double* workqm_k = workqm_m + k * j_length * i_length;
+		double* workqm1_k = workqm_m + (k + kl2) * j_length * i_length;
+		for (int j = j_start; j < j_end; j++) {
+			double* dqdx_4d_j = dqdx_4d_k + j * i_length;
+			double* worksx_j = worksx_k + j * i_length;
+			double* worksx1_j = worksx1_k + (j + jl2) * i_length;
+			double* workqm_j = workqm_k + j * i_length;
+			double* workqm1_j = workqm1_k + (j + jl2) * i_length;
+			dqdx_4d_j += i_start;
+			worksx_j += i_start;
+			worksx1_j += i_start + il2;
+			workqm_j += i_start;
+			workqm1_j += i_start + il2;
+#pragma omp simd
+#pragma unroll
+			for (int i = 250; i < i_end; i++) {
 				// int corr_dqdx_4d = dqdx_4d.getindex(i, j, k, m);
 				// int now_dqdx_4d = dqdx_4d_j - dqdx_4d.data();
 				// assert(corr_dqdx_4d == now_dqdx_4d);
