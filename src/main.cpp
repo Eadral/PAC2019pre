@@ -35,10 +35,453 @@ inline void Clear(RDouble4D dqdx_4d, int i_start, int i_end, int i_length, int j
 inline void DoWork2(const double fourth, RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end,
 	int k_length, int m_start, int m_end, int ns2, int il1, int il2, int jl1, int jl2, int kl1, int kl2);
 
+
+inline void DoWork3(const double fourth, RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end,
+                    int k_length, int m_start, int m_end, int ns3, int il1, int il3, int jl1, int jl3, int kl1, int kl3) {
+	const int i_unit = 256;
+	const int j_unit = 2;
+	const int k_unit = 2;
+# pragma omp parallel for
+	for (int k_div = k_start; k_div < k_end; k_div += k_unit) {
+		int k_div_p = k_div + k_unit < k_end ? k_div + k_unit : k_end;
+# pragma omp parallel for
+		for (int j_div = j_start; j_div < j_end; j_div += j_unit) {
+			int j_div_p = j_div + j_unit < j_end ? j_div + j_unit : j_end;
+
+			for (int i_div = i_start; i_div < i_end; i_div += i_unit) {
+				int i_div_p = i_div + i_unit < i_end ? i_div + i_unit : i_end;
+
+				double* xfn_d = xfn.data();
+				double* yfn_d = yfn.data();
+				double* zfn_d = zfn.data();
+				double* area_d = area.data();
+
+				double* q_4d_d = q_4d.data();
+
+				double* dqdx_4d_d = dqdx_4d.data();
+				double* dqdy_4d_d = dqdy_4d.data();
+				double* dqdz_4d_d = dqdz_4d.data();
+				for (int m = m_start; m < m_end; m++) {
+
+					double* xfn_m = xfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* yfn_m = yfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* zfn_m = zfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* xfn1_m = xfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* yfn1_m = yfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* zfn1_m = zfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* area_m = area_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* area1_m = area_d + (ns3 - 1) * k_length * j_length * i_length;
+
+					double* q_4d_m = q_4d_d + m * k_length * j_length * i_length;
+					double* dqdx_4d_m = dqdx_4d_d + m * k_length * j_length * i_length;
+					double* dqdy_4d_m = dqdy_4d_d + m * k_length * j_length * i_length;
+					double* dqdz_4d_m = dqdz_4d_d + m * k_length * j_length * i_length;
+					double* dqdx_4d1_m = dqdx_4d_d + m * k_length * j_length * i_length;
+					double* dqdy_4d1_m = dqdy_4d_d + m * k_length * j_length * i_length;
+					double* dqdz_4d1_m = dqdz_4d_d + m * k_length * j_length * i_length;
+
+
+					//# pragma omp parallel for
+					for (int k = k_div; k < k_div_p; k++) {
+
+						double* xfn_k = xfn_m + k * j_length * i_length;
+						double* yfn_k = yfn_m + k * j_length * i_length;
+						double* zfn_k = zfn_m + k * j_length * i_length;
+						double* xfn1_k = xfn1_m + (k - kl1) * j_length * i_length;
+						double* yfn1_k = yfn1_m + (k - kl1) * j_length * i_length;
+						double* zfn1_k = zfn1_m + (k - kl1) * j_length * i_length;
+						double* area_k = area_m + k * j_length * i_length;
+						double* area1_k = area1_m + (k - kl1) * j_length * i_length;
+
+						double* q_4d_k = q_4d_m + k * j_length * i_length;
+						double* q_4d1_k = q_4d_m + (k - kl1) * j_length * i_length;
+						double* q_4d2_k = q_4d_m + (k - kl3) * j_length * i_length;
+						double* q_4d3_k = q_4d_m + (k - kl1 - kl3) * j_length * i_length;
+
+						double* dqdx_4d_k = dqdx_4d_m + k * j_length * i_length;
+						double* dqdy_4d_k = dqdy_4d_m + k * j_length * i_length;
+						double* dqdz_4d_k = dqdz_4d_m + k * j_length * i_length;
+						double* dqdx_4d1_k = dqdx_4d1_m + (k - kl3) * j_length * i_length;
+						double* dqdy_4d1_k = dqdy_4d1_m + (k - kl3) * j_length * i_length;
+						double* dqdz_4d1_k = dqdz_4d1_m + (k - kl3) * j_length * i_length;
+						for (int j = j_div; j < j_div_p; j++) {
+							double* xfn_j = xfn_k + j * i_length;
+							double* yfn_j = yfn_k + j * i_length;
+							double* zfn_j = zfn_k + j * i_length;
+							double* xfn1_j = xfn1_k + (j - jl1) * i_length;
+							double* yfn1_j = yfn1_k + (j - jl1) * i_length;
+							double* zfn1_j = zfn1_k + (j - jl1) * i_length;
+							double* area_j = area_k + j * i_length;
+							double* area1_j = area1_k + (j - jl1) * i_length;
+
+							xfn_j += i_div;
+							yfn_j += i_div;
+							zfn_j += i_div;
+							xfn1_j += i_div - il1;
+							yfn1_j += i_div - il1;
+							zfn1_j += i_div - il1;
+							area_j += i_div;
+							area1_j += i_div - il1;
+
+							double* q_4d_j = q_4d_k + j * i_length;
+							double* q_4d1_j = q_4d1_k + (j - jl1) * i_length;
+							double* q_4d2_j = q_4d2_k + (j - jl3) * i_length;
+							double* q_4d3_j = q_4d3_k + (j - jl1 - jl3) * i_length;
+
+							q_4d_j += i_div;
+							q_4d1_j += i_div - il1;
+							q_4d2_j += i_div - il3;
+							q_4d3_j += i_div - il1 - il3;
+
+							double* dqdx_4d_j = dqdx_4d_k + j * i_length;
+							double* dqdy_4d_j = dqdy_4d_k + j * i_length;
+							double* dqdz_4d_j = dqdz_4d_k + j * i_length;
+							double* dqdx_4d1_j = dqdx_4d1_k + (j - jl3) * i_length;
+							double* dqdy_4d1_j = dqdy_4d1_k + (j - jl3) * i_length;
+							double* dqdz_4d1_j = dqdz_4d1_k + (j - jl3) * i_length;
+							dqdx_4d_j += i_div;
+							dqdy_4d_j += i_div;
+							dqdz_4d_j += i_div;
+							dqdx_4d1_j += i_div - il3;
+							dqdy_4d1_j += i_div - il3;
+							dqdz_4d1_j += i_div - il3;
+#pragma omp simd
+#pragma unroll
+							for (int i = i_div; i < i_div_p; i++) {
+								// int corr_worksx = worksx.getindex(i, j, k, 0);
+								// int now_worksx = worksx_j - worksx.data();
+								// int corr_xfn = xfn.getindex(i, j, k, ns2 - 1);
+								// int now_xfn = xfn_j - xfn.data();
+								// int corr_area = area.getindex(i, j, k, ns2 - 1);
+								// int now_area = area_j - area.data();
+
+								double t = fourth * (
+									(*q_4d_j++) + (*q_4d1_j++) + (*q_4d2_j++) + (*q_4d3_j++)
+									);
+
+								double tx = ((*xfn_j++) * (*area_j) + (*xfn1_j++) * (*area1_j)) * t;
+								double ty = ((*yfn_j++) * (*area_j) + (*yfn1_j++) * (*area1_j)) * t;
+								double tz = ((*zfn_j++) * (*area_j) + (*zfn1_j++) * (*area1_j)) * t;
+								*dqdx_4d_j++ -= tx;
+								*dqdy_4d_j++ -= ty;
+								*dqdz_4d_j++ -= tz;
+								*dqdx_4d1_j++ += tx;
+								*dqdy_4d1_j++ += ty;
+								*dqdz_4d1_j++ += tz;
+
+								area_j++;
+								area1_j++;
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 inline void Final(RDouble3D vol, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start, int m_end, int il1, int jl1, int kl1);
 
 inline void DoWork1(RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start,
 	int m_end, int ns1, int il1, int jl1, int kl1);
+
+void DoWorkAll(const double fourth, RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start, int m_end, int ns1,
+	int ns2, int ns3, int il1, int il2, int il3, int jl1, int jl2, int jl3, int kl1, int kl2, int kl3) {
+	const int i_unit = 256;
+	const int j_unit = 2;
+	const int k_unit = 2;
+# pragma omp parallel for
+	for (int k_div = k_start; k_div < k_end; k_div += k_unit) {
+		int k_div_p = k_div + k_unit < k_end ? k_div + k_unit : k_end;
+# pragma omp parallel for
+		for (int j_div = j_start; j_div < j_end; j_div += j_unit) {
+			int j_div_p = j_div + j_unit < j_end ? j_div + j_unit : j_end;
+
+			for (int i_div = i_start; i_div < i_end; i_div += i_unit) {
+				int i_div_p = i_div + i_unit < i_end ? i_div + i_unit : i_end;
+
+
+				double* xfn_d = xfn.data();
+				double* yfn_d = yfn.data();
+				double* zfn_d = zfn.data();
+				double* area_d = area.data();
+
+				double* dqdx_4d_d = dqdx_4d.data();
+				double* dqdy_4d_d = dqdy_4d.data();
+				double* dqdz_4d_d = dqdz_4d.data();
+				double* q_4d_d = q_4d.data();
+
+				for (int m = m_start; m < m_end; m++) {
+
+					double* xfn_m = xfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* yfn_m = yfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* zfn_m = zfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* xfn1_m = xfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* yfn1_m = yfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* zfn1_m = zfn_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* area_m = area_d + (ns1 - 1) * k_length * j_length * i_length;
+					double* area1_m = area_d + (ns1 - 1) * k_length * j_length * i_length;
+					//# pragma omp parallel for
+
+					double* dqdx_4d_m = dqdx_4d_d + m * k_length * j_length * i_length;
+					double* dqdy_4d_m = dqdy_4d_d + m * k_length * j_length * i_length;
+					double* dqdz_4d_m = dqdz_4d_d + m * k_length * j_length * i_length;
+					double* q_4d_m = q_4d_d + m * k_length * j_length * i_length;
+
+					double* xfn_m_2 = xfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* yfn_m_2 = yfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* zfn_m_2 = zfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* xfn1_m_2 = xfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* yfn1_m_2 = yfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* zfn1_m_2 = zfn_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* area_m_2 = area_d + (ns2 - 1) * k_length * j_length * i_length;
+					double* area1_m_2 = area_d + (ns2 - 1) * k_length * j_length * i_length;
+
+
+					double* xfn_m_3 = xfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* yfn_m_3 = yfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* zfn_m_3 = zfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* xfn1_m_3 = xfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* yfn1_m_3 = yfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* zfn1_m_3 = zfn_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* area_m_3 = area_d + (ns3 - 1) * k_length * j_length * i_length;
+					double* area1_m_3 = area_d + (ns3 - 1) * k_length * j_length * i_length;
+
+					for (int k = k_div; k < k_div_p; k++) {
+
+						double* xfn_k = xfn_m + k * j_length * i_length;
+						double* yfn_k = yfn_m + k * j_length * i_length;
+						double* zfn_k = zfn_m + k * j_length * i_length;
+						double* xfn1_k = xfn1_m + (k - kl1) * j_length * i_length;
+						double* yfn1_k = yfn1_m + (k - kl1) * j_length * i_length;
+						double* zfn1_k = zfn1_m + (k - kl1) * j_length * i_length;
+						double* area_k = area_m + k * j_length * i_length;
+						double* area1_k = area1_m + (k - kl1) * j_length * i_length;
+
+						double* dqdx_4d_k = dqdx_4d_m + k * j_length * i_length;
+						double* dqdy_4d_k = dqdy_4d_m + k * j_length * i_length;
+						double* dqdz_4d_k = dqdz_4d_m + k * j_length * i_length;
+						double* dqdx_4d1_k = dqdx_4d_m + (k - kl1) * j_length * i_length;
+						double* dqdy_4d1_k = dqdy_4d_m + (k - kl1) * j_length * i_length;
+						double* dqdz_4d1_k = dqdz_4d_m + (k - kl1) * j_length * i_length;
+						double* q_4d1_k = q_4d_m + (k - kl1) * j_length * i_length;
+
+						double* xfn_k_2 = xfn_m_2 + k * j_length * i_length;
+						double* yfn_k_2 = yfn_m_2 + k * j_length * i_length;
+						double* zfn_k_2 = zfn_m_2 + k * j_length * i_length;
+						double* xfn1_k_2 = xfn1_m_2 + (k - kl1) * j_length * i_length;
+						double* yfn1_k_2 = yfn1_m_2 + (k - kl1) * j_length * i_length;
+						double* zfn1_k_2 = zfn1_m_2 + (k - kl1) * j_length * i_length;
+						double* area_k_2 = area_m_2 + k * j_length * i_length;
+						double* area1_k_2 = area1_m_2 + (k - kl1) * j_length * i_length;
+
+						double* q_4d_k = q_4d_m + k * j_length * i_length;
+						double* q_4d2_k = q_4d_m + (k - kl2) * j_length * i_length;
+						double* q_4d3_k = q_4d_m + (k - kl1 - kl2) * j_length * i_length;
+
+						double* dqdx_4d1_k_2 = dqdx_4d_m + (k - kl2) * j_length * i_length;
+						double* dqdy_4d1_k_2 = dqdy_4d_m + (k - kl2) * j_length * i_length;
+						double* dqdz_4d1_k_2 = dqdz_4d_m + (k - kl2) * j_length * i_length;
+
+						double* xfn_k_3 = xfn_m_3 + k * j_length * i_length;
+						double* yfn_k_3 = yfn_m_3 + k * j_length * i_length;
+						double* zfn_k_3 = zfn_m_3 + k * j_length * i_length;
+						double* xfn1_k_3 = xfn1_m_3 + (k - kl1) * j_length * i_length;
+						double* yfn1_k_3 = yfn1_m_3 + (k - kl1) * j_length * i_length;
+						double* zfn1_k_3 = zfn1_m_3 + (k - kl1) * j_length * i_length;
+						double* area_k_3 = area_m_3 + k * j_length * i_length;
+						double* area1_k_3 = area1_m_3 + (k - kl1) * j_length * i_length;
+
+						double* q_4d2_k_3 = q_4d_m + (k - kl3) * j_length * i_length;
+						double* q_4d3_k_3 = q_4d_m + (k - kl1 - kl3) * j_length * i_length;
+
+						double* dqdx_4d1_k_3 = dqdx_4d_m + (k - kl3) * j_length * i_length;
+						double* dqdy_4d1_k_3 = dqdy_4d_m + (k - kl3) * j_length * i_length;
+						double* dqdz_4d1_k_3 = dqdz_4d_m + (k - kl3) * j_length * i_length;
+						for (int j = j_div; j < j_div_p; j++) {
+
+							double* xfn_j = xfn_k + j * i_length;
+							double* yfn_j = yfn_k + j * i_length;
+							double* zfn_j = zfn_k + j * i_length;
+							double* xfn1_j = xfn1_k + (j - jl1) * i_length;
+							double* yfn1_j = yfn1_k + (j - jl1) * i_length;
+							double* zfn1_j = zfn1_k + (j - jl1) * i_length;
+							double* area_j = area_k + j * i_length;
+							double* area1_j = area1_k + (j - jl1) * i_length;
+
+							xfn_j += i_div;
+							yfn_j += i_div;
+							zfn_j += i_div;
+							xfn1_j += i_div - il1;
+							yfn1_j += i_div - il1;
+							zfn1_j += i_div - il1;
+							area_j += i_div;
+							area1_j += i_div - il1;
+
+							double* dqdx_4d_j = dqdx_4d_k + j * i_length;
+							double* dqdy_4d_j = dqdy_4d_k + j * i_length;
+							double* dqdz_4d_j = dqdz_4d_k + j * i_length;
+							double* dqdx_4d1_j = dqdx_4d1_k + (j - jl1) * i_length;
+							double* dqdy_4d1_j = dqdy_4d1_k + (j - jl1) * i_length;
+							double* dqdz_4d1_j = dqdz_4d1_k + (j - jl1) * i_length;
+							double* q_4d1_j = q_4d1_k + (j - jl1) * i_length;
+							dqdx_4d_j += i_div;
+							dqdy_4d_j += i_div;
+							dqdz_4d_j += i_div;
+							dqdx_4d1_j += i_div - il1;
+							dqdy_4d1_j += i_div - il1;
+							dqdz_4d1_j += i_div - il1;
+							q_4d1_j += i_div - il1;
+
+							//
+
+							double* xfn_j_2 = xfn_k_2 + j * i_length;
+							double* yfn_j_2 = yfn_k_2 + j * i_length;
+							double* zfn_j_2 = zfn_k_2 + j * i_length;
+							double* xfn1_j_2 = xfn1_k_2 + (j - jl1) * i_length;
+							double* yfn1_j_2 = yfn1_k_2 + (j - jl1) * i_length;
+							double* zfn1_j_2 = zfn1_k_2 + (j - jl1) * i_length;
+							double* area_j_2 = area_k_2 + j * i_length;
+							double* area1_j_2 = area1_k_2 + (j - jl1) * i_length;
+
+							xfn_j_2 += i_div;
+							yfn_j_2 += i_div;
+							zfn_j_2 += i_div;
+							xfn1_j_2 += i_div - il1;
+							yfn1_j_2 += i_div - il1;
+							zfn1_j_2 += i_div - il1;
+							area_j_2 += i_div;
+							area1_j_2 += i_div - il1;
+
+							double* q_4d_j = q_4d_k + j * i_length;
+							double* q_4d2_j = q_4d2_k + (j - jl2) * i_length;
+							double* q_4d3_j = q_4d3_k + (j - jl1 - jl2) * i_length;
+
+							q_4d_j += i_div;
+							q_4d2_j += i_div - il2;
+							q_4d3_j += i_div - il1 - il2;
+
+										
+							double* dqdx_4d1_j_2 = dqdx_4d1_k_2 + (j - jl2) * i_length;
+							double* dqdy_4d1_j_2 = dqdy_4d1_k_2 + (j - jl2) * i_length;
+							double* dqdz_4d1_j_2 = dqdz_4d1_k_2 + (j - jl2) * i_length;
+										
+							dqdx_4d1_j_2 += i_div - il2;
+							dqdy_4d1_j_2 += i_div - il2;
+							dqdz_4d1_j_2 += i_div - il2;
+
+							//
+							double* xfn_j_3 = xfn_k_3 + j * i_length;
+							double* yfn_j_3 = yfn_k_3 + j * i_length;
+							double* zfn_j_3 = zfn_k_3 + j * i_length;
+							double* xfn1_j_3 = xfn1_k_3 + (j - jl1) * i_length;
+							double* yfn1_j_3 = yfn1_k_3 + (j - jl1) * i_length;
+							double* zfn1_j_3 = zfn1_k_3 + (j - jl1) * i_length;
+							double* area_j_3 = area_k_3 + j * i_length;
+							double* area1_j_3 = area1_k_3 + (j - jl1) * i_length;
+
+							xfn_j_3 += i_div;
+							yfn_j_3 += i_div;
+							zfn_j_3 += i_div;
+							xfn1_j_3 += i_div - il1;
+							yfn1_j_3 += i_div - il1;
+							zfn1_j_3 += i_div - il1;
+							area_j_3 += i_div;
+							area1_j_3 += i_div - il1;
+
+							double* q_4d2_j_3 = q_4d2_k_3 + (j - jl3) * i_length;
+							double* q_4d3_j_3 = q_4d3_k_3 + (j - jl1 - jl3) * i_length;
+
+							q_4d2_j_3 += i_div - il3;
+							q_4d3_j_3 += i_div - il1 - il3;
+
+							double* dqdx_4d1_j_3 = dqdx_4d1_k_3 + (j - jl3) * i_length;
+							double* dqdy_4d1_j_3 = dqdy_4d1_k_3 + (j - jl3) * i_length;
+							double* dqdz_4d1_j_3 = dqdz_4d1_k_3 + (j - jl3) * i_length;
+										
+							dqdx_4d1_j_3 += i_div - il3;
+							dqdy_4d1_j_3 += i_div - il3;
+							dqdz_4d1_j_3 += i_div - il3;
+
+#pragma omp simd
+#pragma unroll
+							for (int i = i_div; i < i_div_p; i++) {
+								// int corr_worksx = worksx.getindex(i, j, k, 0);
+								// int now_worksx = worksx_j - worksx.data();
+								// int corr_xfn = xfn.getindex(i, j, k, ns1 - 1);
+								// int now_xfn = xfn_j - xfn.data();
+								// int corr_area = area.getindex(i, j, k, ns1 - 1);
+								// int now_area = area_j - area.data();
+								double ta = (*xfn_j++) * (*area_j) + (*xfn1_j++) * (*area1_j);
+								double tb = (*yfn_j++) * (*area_j) + (*yfn1_j++) * (*area1_j);
+								double tc = (*zfn_j++) * (*area_j) + (*zfn1_j++) * (*area1_j);
+								area_j++;
+								area1_j++;
+
+								double tx = ta * (*q_4d1_j);
+								double ty = tb * (*q_4d1_j);
+								double tz = tc * (*q_4d1_j);
+
+								*dqdx_4d_j -= tx;
+								*dqdy_4d_j -= ty;
+								*dqdz_4d_j -= tz;
+								*dqdx_4d1_j++ += tx;
+								*dqdy_4d1_j++ += ty;
+								*dqdz_4d1_j++ += tz;
+								///
+								double t = fourth * (
+									(*q_4d_j) + (*q_4d1_j) + (*q_4d2_j++) + (*q_4d3_j++)
+								);
+
+								double tx2 = ((*xfn_j_2++) * (*area_j_2) + (*xfn1_j_2++) * (*area1_j_2)) * t;
+								double ty2 = ((*yfn_j_2++) * (*area_j_2) + (*yfn1_j_2++) * (*area1_j_2)) * t;
+								double tz2 = ((*zfn_j_2++) * (*area_j_2) + (*zfn1_j_2++) * (*area1_j_2)) * t;
+								*dqdx_4d_j -= tx2;
+								*dqdy_4d_j -= ty2;
+								*dqdz_4d_j -= tz2;
+								*dqdx_4d1_j_2++ += tx2;
+								*dqdy_4d1_j_2++ += ty2;
+								*dqdz_4d1_j_2++ += tz2;
+
+											
+
+								//
+
+								double t3 = fourth * (
+									(*q_4d_j) + (*q_4d1_j) + (*q_4d2_j_3++) + (*q_4d3_j_3++)
+								);
+											
+								double tx3 = ((*xfn_j_3++) * (*area_j_3) + (*xfn1_j_3++) * (*area1_j_3)) * t3;
+								double ty3 = ((*yfn_j_3++) * (*area_j_3) + (*yfn1_j_3++) * (*area1_j_3)) * t3;
+								double tz3 = ((*zfn_j_3++) * (*area_j_3) + (*zfn1_j_3++) * (*area1_j_3)) * t3;
+								*dqdx_4d_j -= tx3;
+								*dqdy_4d_j -= ty3;
+								*dqdz_4d_j -= tz3;
+								*dqdx_4d1_j_3++ += tx3;
+								*dqdy_4d1_j_3++ += ty3;
+								*dqdz_4d1_j_3++ += tz3;
+
+								//
+								area_j_3++;
+								area1_j_3++;
+
+								q_4d_j++;
+
+								area_j_2++;
+								area1_j_2++;
+
+								q_4d1_j++;
+								dqdx_4d_j++;
+								dqdy_4d_j++;
+								dqdz_4d_j++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 int main()
 {
@@ -188,29 +631,41 @@ int main()
 		Clear(dqdz_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end,
 			m_length);
 
-		DoWork1(xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d, i_start, i_end, i_length,
-			j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns1, il1, jl1, kl1);
+		if (((nsurf != 2) || (nDim != TWO_D)) && ((nsurf != 1) || (nDim != TWO_D))) {
 
+			DoWorkAll(fourth, xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d, i_start, i_end, i_length, j_start,
+			          j_end,
+			          j_length, k_start, k_end, k_length, m_start, m_end, ns1, ns2, ns3, il1, il2, il3, jl1, jl2, jl3,
+			          kl1, kl2,
+			          kl3);
+			
+		} else {
 
-		if ((nsurf != 2) || (nDim != TWO_D)) {
-			DoWork2(fourth, xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d,
-				i_start, i_end,
-				i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns2, il1, il2, jl1,
-				jl2, kl1,
-				kl2);
-		}
+			DoWork1(xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d, i_start, i_end, i_length,
+				j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns1, il1, jl1, kl1);
 
-		if ((nsurf != 1) || (nDim != TWO_D)) {
-			DoWork2(fourth, xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d,
-				i_start, i_end,
-				i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns3, il1, il3, jl1,
-				jl3, kl1,
-				kl3);
-		}
+			if ((nsurf != 2) || (nDim != TWO_D)) {
+				DoWork2(fourth, xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d,
+					i_start, i_end,
+					i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns2, il1, il2, jl1,
+					jl2, kl1,
+					kl2);
+			}
+
+			if ((nsurf != 1) || (nDim != TWO_D)) {
+				DoWork3(fourth, xfn, yfn, zfn, area, q_4d, dqdx_4d, dqdy_4d, dqdz_4d,
+					i_start, i_end,
+					i_length, j_start, j_end, j_length, k_start, k_end, k_length, m_start, m_end, ns3, il1, il3, jl1,
+					jl3, kl1,
+					kl3);
+			}
+
+		}	
 
 		Final(vol, dqdx_4d, dqdy_4d, dqdz_4d, i_start, i_end, i_length, j_start, j_end, j_length, k_start,
 			k_end,
 			k_length, m_start, m_end, il1, jl1, kl1);
+		
 
 	// 该方向界面梯度值被计算出来后，会用于粘性通量计算，该值使用后下一方向会重新赋0计算
 	
@@ -311,7 +766,7 @@ inline void Clear(RDouble4D dqdx_4d, int i_start, int i_end, int i_length, int j
 
 inline void DoWork2(const double fourth, RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end,
 	int k_length, int m_start, int m_end, int ns2, int il1, int il2, int jl1, int jl2, int kl1, int kl2) {
-	const int i_unit = 256 + 128;
+	const int i_unit = 256;
 	const int j_unit = 2;
 	const int k_unit = 2;
 # pragma omp parallel for
@@ -455,6 +910,8 @@ inline void DoWork2(const double fourth, RDouble4D xfn, RDouble4D yfn, RDouble4D
 }
 
 
+
+
 inline void Final(RDouble3D vol, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start, int m_end, int il1, int jl1, int kl1) {
 	const int i_unit = 256;
 	const int j_unit = 2;
@@ -530,7 +987,7 @@ inline void Final(RDouble3D vol, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D
 
 inline void DoWork1(RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area, RDouble4D q_4d, RDouble4D dqdx_4d, RDouble4D dqdy_4d, RDouble4D dqdz_4d, int i_start, int i_end, int i_length, int j_start, int j_end, int j_length, int k_start, int k_end, int k_length, int m_start,
 	int m_end, int ns1, int il1, int jl1, int kl1) {
-	const int i_unit = 256 + 128;
+	const int i_unit = 256;
 	const int j_unit = 2;
 	const int k_unit = 2;
 # pragma omp parallel for
@@ -641,6 +1098,7 @@ inline void DoWork1(RDouble4D xfn, RDouble4D yfn, RDouble4D zfn, RDouble4D area,
 								double tx = ta * (*q_4d1_j);
 								double ty = tb * (*q_4d1_j);
 								double tz = tc * (*q_4d1_j);
+								
 								*dqdx_4d_j++ -= tx;
 								*dqdy_4d_j++ -= ty;
 								*dqdz_4d_j++ -= tz;
